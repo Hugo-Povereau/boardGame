@@ -16,8 +16,8 @@ class BlokusClient {
         this.client.subscribe(state => this.update(state));
     }
 
+    //Creation du plateau
     createBoard() {
-        // Create cells in rows for the Tic-Tac-Toe board.
         const rows = [];
         for (let i = 0; i < 20; i++) {
             const cells = [];
@@ -28,14 +28,13 @@ class BlokusClient {
             rows.push(`<tr>${cells.join('')}</tr>`);
         }
 
-        // Add the HTML to our app <div>.
-        // We’ll use the empty <p> to display the game winner later.
         this.rootElement.innerHTML = `
       <table>${rows.join('')}</table>
       <p class="winner"></p>
     `;
     }
 
+    //Interaction souris-plateau
     attachListeners() {
         // This event handler will read the cell id from a cell’s
         // `data-id` attribute and make the `clickCell` move.
@@ -51,6 +50,7 @@ class BlokusClient {
         });
     }
 
+    //Maj des cases si positionnement valide
     update(state) {
         // Get all the board cells.
         console.log("turn: "+this.turn);
