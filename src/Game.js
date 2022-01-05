@@ -71,6 +71,8 @@ export const Blokus = ({
                     }
                 }
                 diagonale = false;
+                document.getElementById('piece'+(ctx.currentPlayer)).style.display = 'none';
+                document.getElementById('piece'+(Number(ctx.currentPlayer)+1)%4).style.display = 'block';
                 if(ctx.currentPlayer == 3){
                     tour+=1;
                 }
@@ -105,16 +107,12 @@ function initPiece() {
         [0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, 1, 2, 3, 0], [0, 1, 2, 3, 4], [0, 1, 20, 0, 0],
         [0, 1, 2, 20, 0], [0, 1, 2, 21, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 1, 2, 3, 20], [0, 1, 2, 22, 23],
         [0, 1, 2, 20, 21], [0, 1, 21, 22, 42], [0, 1, 21, 41, 42], [0, 1, 20, 40, 41], [0, 1, 2, 20, 40], [0, 1, 2, 3, 21],
-        [1, 20, 21, 22, 41], [0, 1, 21, 22, 41], [0, 1, 2, 21, 41],
+        [1, 20, 21, 22, 41], [0, 1, 21, 22, 41], [0, 1, 2, 21, 41]
 
     ];
 
     return forms;
 }
-
-/*function getCurrentPiece() {
-    return piece
-}*/
 
 function IsVictory(cells) {
     const positions = [
@@ -130,6 +128,7 @@ function IsVictory(cells) {
     return positions.map(isRowComplete).some(i => i === true);
 }
 
+/////// probablement à retirer
 // Return true if all `cells` are occupied.
 function IsDraw(cells) {
     return cells.filter(c => c === null).length === 0;

@@ -52,16 +52,6 @@ class BlokusClient {
 
     //Maj des cases si positionnement valide
     update(state) {
-        // Get all the board cells.
-        console.log("turn: "+this.turn);
-        const cells = this.rootElement.querySelectorAll('.cell');
-        // Update cells to display the values in game state.
-        cells.forEach(cell => {
-            const cellId = parseInt(cell.dataset.id);
-            const cellValue = state.G.cells[cellId];
-            //cell.textContent = cellValue !== null ? cellValue : '';
-            //cell.
-        });
         // Get the gameover message element.
         const messageEl = this.rootElement.querySelector('.winner');
         // Update the element to show a winner if any.
@@ -76,5 +66,34 @@ class BlokusClient {
     }
 }
 
+class pieceBoard {
+    constructor(pieceElements) {
+        for (let i=0; i<pieceElements.length; i++) { // remplacer par (pieceElement in PieceElements)
+            console.log("test");
+            this.pieceElement = pieceElements[i];
+            this.createBoard();
+        }
+    }
+    createBoard() {
+        const rows = [];
+        for (let i = 0; i < 28; i++) {
+            const cells = [];
+            for (let j = 0; j < 14; j++) {
+                const id = 1000 + 14 * i + j;
+                cells.push(`<td class="miniCell" data-id="${id}"></td>`);
+            }
+            rows.push(`<tr>${cells.join('')}</tr>`);
+        }
+
+        this.pieceElement.innerHTML = `
+      <table class="pieceTable">${rows.join('')}</table>
+    `;
+    }
+
+
+}
+
 const appElement = document.getElementById('app');
+const pieceElements = document.getElementsByClassName('pieces');
 const app = new BlokusClient(appElement);
+const piece = new pieceBoard(pieceElements);
