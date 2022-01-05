@@ -59,16 +59,8 @@ export const Blokus = ({
 
                 //Changement de couleur des cases
                 for (let i = 0; i < 5; i++) {
-                    const test = id + initPiece()[idPiece][i];
-                    if (ctx.currentPlayer == 0) {
-                        document.querySelector(`[data-id=${CSS.escape(test)}]`).classList.add('redCell');
-                    } else if (ctx.currentPlayer == 1) {
-                        document.querySelector(`[data-id=${CSS.escape(test)}]`).classList.add('blueCell');
-                    } else if (ctx.currentPlayer == 2) {
-                        document.querySelector(`[data-id=${CSS.escape(test)}]`).classList.add('yellowCell');
-                    } else {
-                        document.querySelector(`[data-id=${CSS.escape(test)}]`).classList.add('greenCell');
-                    }
+                    const bloc = id + initPiece()[idPiece][i];
+                    document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color'+ctx.currentPlayer);
                 }
                 diagonale = false;
                 document.getElementById('piece'+(ctx.currentPlayer)).style.display = 'none';
@@ -102,7 +94,7 @@ export const Blokus = ({
 });
 
 //Liste des pièces
-function initPiece() {
+export function initPiece() {
     const forms = [
         [0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, 1, 2, 3, 0], [0, 1, 2, 3, 4], [0, 1, 20, 0, 0],
         [0, 1, 2, 20, 0], [0, 1, 2, 21, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 1, 2, 3, 20], [0, 1, 2, 22, 23],
