@@ -20,13 +20,13 @@ export const Blokus = ({
             //this.client.piece.test().test = idPiece;
         },
         clickCell: (G, ctx, id, idPiece) => {
+            diagonale = false;
             for (let i = 0; i < 5; i++) {
 
                 //Les cases sont vides
                 if (G.cells[id + initPiece()[idPiece][i]] !== null) {
                     return INVALID_MOVE;
                 }
-
                 //Les cases sont côtes à côtes
                 if (i < 4) {
                     if (((id + initPiece()[idPiece][i]) % 20) === 19 && ((id + initPiece()[idPiece][i + 1]) % 20) === 0) {
@@ -36,7 +36,6 @@ export const Blokus = ({
 
                 //Les mêmes pièces ne se touchent pas
                 if (G.cells[id + initPiece()[idPiece][i] + 1] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 1] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 20] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 20] === ctx.currentPlayer) {
-                    console.log("invalid move");
                     return INVALID_MOVE;
                 }
 
