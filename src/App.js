@@ -87,13 +87,12 @@ class pieceBoard {
         this.pieceElement.innerHTML = `
       <table class="pieceTable">${rows.join('')}</table>
     `;
+
         for (let i = 0; i < 21; i++){
             for (let j = 0; j < 5; j++) {
-                document.querySelector(`[data-id=${CSS.escape(1000 * (initPiece()[i][j]))}]`).classList.add('color' + player);
+                document.querySelector(`[data-id=${CSS.escape((1000 * (player+1)) + (Math.floor(initPiece()[i][j]/20)*14+(initPiece()[i][j]%20)))}]`).classList.add('color' + player);
             }
         }
-
-
     }
 
 
