@@ -1,8 +1,8 @@
 import {INVALID_MOVE} from 'boardgame.io/core';
-import {TURN} from "./const";
+import {PieceId, setPieceId} from "./const";
 import {TurnOrder} from 'boardgame.io/core';
 
-export let pieceId = 18;
+export let pieceId = PieceId;
 export let diagonale = true;
 export let tour = 0;
 
@@ -77,6 +77,7 @@ export const Blokus = ({
                 document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
                 if (ctx.currentPlayer == 3) {
                     tour += 1;
+                    setPieceId(5)
                 }
                 return;
             }

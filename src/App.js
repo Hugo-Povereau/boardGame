@@ -1,5 +1,6 @@
 import {Client} from 'boardgame.io/client';
-import {Blokus,pieceId,initPiece} from './Game';
+import {Blokus, initPiece} from './Game';
+import {PieceId} from "./const";
 class BlokusClient {
 
     constructor(rootElement, {playerID} = {}) {
@@ -40,7 +41,7 @@ class BlokusClient {
         // `data-id` attribute and make the `clickCell` move.
         const handleCellClick = event => {
             const id = parseInt(event.target.dataset.id);
-            const piece = parseInt(pieceId);
+            const piece = parseInt(PieceId);
             this.client.moves.clickCell(id,piece);
         };
         // Attach the event listener to each of the board cells.
@@ -78,7 +79,7 @@ class pieceBoard {
         for (let i = 0; i < 28; i++) {
             const cells = [];
             for (let j = 0; j < 14; j++) {
-                const id = 1000*(player+1) + 14 * i + j;
+                const id = 1000 * (player + 1) + 14 * i + j;
                 cells.push(`<td class="miniCell" data-id="${id}"></td>`);
             }
             rows.push(`<tr>${cells.join('')}</tr>`);
@@ -88,14 +89,15 @@ class pieceBoard {
       <table class="pieceTable">${rows.join('')}</table>
     `;
 
-        for (let i = 0; i < 21; i++){
+        const tab_piece = [0, 28, 70, 72, 126, 128, 131, 134, 137, 196, 198, 201, 204, 207, 280, 283, 287, 290, 350, 354, 358];
+
+        for (let i = 0; i < 21; i++) {
             for (let j = 0; j < 5; j++) {
-                document.querySelector(`[data-id=${CSS.escape((1000 * (player+1)) + (Math.floor(initPiece()[i][j]/20)*14+(initPiece()[i][j]%20)))}]`).classList.add('color' + player);
+                document.querySelector(`[data-id=${CSS.escape((1000 * (player + 1)) + (Math.floor(initPiece()[i][j] / 20) * 14 + (initPiece()[i][j] % 20) + tab_piece[i]))}]`).classList.add('color' + player);
             }
         }
+
     }
-
-
 
 }
 

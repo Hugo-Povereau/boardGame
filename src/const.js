@@ -1,3 +1,8 @@
-export let TURN = 0;
-export let pieceId = 20;
-export let diagonale = true;
+let TURN = 0;
+let PieceId = 7;
+
+function setPieceId(value) {
+    PieceId = value;
+}
+
+export {TURN, PieceId, setPieceId}
