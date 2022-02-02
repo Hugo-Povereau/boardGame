@@ -77,6 +77,7 @@ export const Blokus = ({
                 document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
                 if (ctx.currentPlayer == 3) {
                     tour += 1;
+                    setPieceId(tour);
                 }
                 return;
             }
