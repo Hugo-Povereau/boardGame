@@ -16,7 +16,7 @@ export const Blokus = ({
     },
     moves: {
         selectPiece: (idPiece) => {
-            pieceId = idPiece;
+            setPieceId(idPiece);
         },
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
@@ -77,7 +77,6 @@ export const Blokus = ({
                 document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
                 if (ctx.currentPlayer == 3) {
                     tour += 1;
-                    setPieceId(5)
                 }
                 return;
             }

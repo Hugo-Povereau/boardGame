@@ -8,7 +8,7 @@ class BlokusClient {
             game: Blokus,
             numPlayers:4,
             playerID,
-            //debug: false,
+            debug: false,
         });
         this.client.start();
         this.rootElement = rootElement;
