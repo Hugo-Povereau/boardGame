@@ -1,5 +1,5 @@
 import {INVALID_MOVE,TurnOrder,ActivePlayers} from 'boardgame.io/core';
-import {PieceId, setPieceId, currentPlayers, rmPlayer} from "./const";
+import {PieceId, setPieceId, currentPlayers, rmPlayer, nbPieces} from "./const";
 
 export let pieceId = PieceId;
 export let diagonale = true;
@@ -19,10 +19,9 @@ export const Blokus = ({
         },
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
-            console.log(currentPlayers)
-            console.log(ctx.currentPlayer);
+            console.log(currentPlayers);
             if(id===500) {
-                rmPlayer(ctx.currentPlayer);
+                return rmPlayer(ctx.currentPlayer);
             }
             if(!currentPlayers.includes(parseInt(ctx.currentPlayer))){
                 document.getElementById('piece' + (ctx.currentPlayer)).style.display = 'none';
@@ -64,7 +63,6 @@ export const Blokus = ({
                 let coin = false;
                 for (let i = 0; i < 5; i++) {
                     if ([0, 19, 380, 399].includes(id + initPiece()[idPiece][i])) {
-                        console.log((id + initPiece()[idPiece][i]) + "coin");
                         coin = true;
                     }
                 }
@@ -75,11 +73,15 @@ export const Blokus = ({
             for (let i = 0; i < 5; i++) {
 
                 //Attribution l'id du joueur sur les cases
-                G.cells[id + initPiece()[idPiece][0]] = ctx.currentPlayer;
-                G.cells[id + initPiece()[idPiece][1]] = ctx.currentPlayer;
-                G.cells[id + initPiece()[idPiece][2]] = ctx.currentPlayer;
-                G.cells[id + initPiece()[idPiece][3]] = ctx.currentPlayer;
-                G.cells[id + initPiece()[idPiece][4]] = ctx.currentPlayer;
+                for (let i = 0; i < 5; i++){
+                    G.cells[id + initPiece()[idPiece][i]] = ctx.currentPlayer;
+                }
+
+                let somme = ((Number(ctx.currentPlayer)+1)*1000 + idPiece);
+                let test = document.querySelectorAll(`[data-name=${CSS.escape(somme)}]`);
+                test.forEach(div => div.className='miniCell');
+
+                nbPieces[ctx.currentPlayer] += 1;
 
                 //Changement de couleur des cases
                 for (let i = 0; i < 5; i++) {
@@ -89,6 +91,7 @@ export const Blokus = ({
                 diagonale = false;
                 document.getElementById('piece' + (ctx.currentPlayer)).style.display = 'none';
                 document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
+
                 if (ctx.currentPlayer == 3) {
                     tour += 1;
                     setPieceId(tour);
@@ -98,11 +101,17 @@ export const Blokus = ({
         },
     },
     endIf: (G, ctx) => {
-        if (IsVictory(G.cells)) {
-            return {winner: ctx.currentPlayer};
-        }
-        if (IsDraw(G.cells)) {
-            return {draw: true};
+        if (currentPlayers.length===0) {
+
+            let max = Math.max.apply(null,nbPieces);
+            let GGPlayers = getAllIndexes(nbPieces,max);
+
+            if(GGPlayers.length>1){
+                return {draw: GGPlayers};
+            }
+            else{
+                return {winner: GGPlayers[0]};
+            }
         }
     },
     ai: {
@@ -133,22 +142,10 @@ export function initPiece() {
     return forms;
 }
 
-function IsVictory(cells) {
-    const positions = [
-        //[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
-        //[1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
-    ];
-
-    const isRowComplete = row => {
-        const symbols = row.map(i => cells[i]);
-        return symbols.every(i => i !== null && i === symbols[0]);
-    };
-
-    return positions.map(isRowComplete).some(i => i === true);
-}
-
-/////// probablement à retirer
-// Return true if all `cells` are occupied.
-function IsDraw(cells) {
-    return cells.filter(c => c === null).length === 0;
+function getAllIndexes(arr, val) {
+    var indexes = [], i = -1;
+    while ((i = arr.indexOf(val, i+1)) != -1){
+        indexes.push(i);
+    }
+    return indexes;
 }

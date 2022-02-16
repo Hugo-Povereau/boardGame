@@ -30,7 +30,7 @@ class BlokusClient {
         }
         this.rootElement.innerHTML = `
       <table>${rows.join('')}</table>
-      <table><td class="cell" data-id="500" id="button">giveup</td></table>
+      <table id="buttonTab"><td class="cell" data-id="500" id="button">giveup</td></table>
       <p class="winner"></p>
     `;
     }
@@ -60,7 +60,7 @@ class BlokusClient {
             messageEl.textContent =
                 state.ctx.gameover.winner !== undefined
                     ? 'Winner: Player ' + state.ctx.gameover.winner
-                    : 'Draw!';
+                    : 'Draw between players ' +state.ctx.gameover.draw;
         } else {
             messageEl.textContent = '';
         }
@@ -94,11 +94,8 @@ class pieceBoard {
         for (let i = 0; i < 21; i++) {
             for (let j = 0; j < 5; j++) {
                 document.querySelector(`[data-id=${CSS.escape((1000 * (player + 1)) + (Math.floor(initPiece()[i][j] / 20) * 14 + (initPiece()[i][j] % 20) + tab_piece[i]))}]`).classList.add('color' + player);
+                document.querySelector(`[data-id=${CSS.escape((1000 * (player + 1)) + (Math.floor(initPiece()[i][j] / 20) * 14 + (initPiece()[i][j] % 20) + tab_piece[i]))}]`).setAttribute("data-name",(Number(player)+1)*1000 + i);
             }
-        }
-        //if ne fonctionne pas
-        if (cell === classList.contains('color' + player)) {
-            classList.replace((miniCell + 'color' + player), miniCell)
         }
     }
 
