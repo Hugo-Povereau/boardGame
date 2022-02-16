@@ -28,9 +28,9 @@ class BlokusClient {
             }
             rows.push(`<tr>${cells.join('')}</tr>`);
         }
-
         this.rootElement.innerHTML = `
       <table>${rows.join('')}</table>
+      <table><td class="cell" data-id="500" id="button">giveup</td></table>
       <p class="winner"></p>
     `;
     }
@@ -101,7 +101,20 @@ class pieceBoard {
 
 }
 
+class giveUp {
+    constructor(giveUpElement) {// remplacer par (pieceElement in PieceElements)
+        this.giveUpElement = giveUpElement;
+        this.createButtonDiv();
+    }
+    createButtonDiv(){
+        cells.push(`<td class="cell" data-id="500"></td>`);
+    }
+
+}
+
 const appElement = document.getElementById('app');
 const pieceElements = document.getElementsByClassName('pieces');
+const giveUpElement = document.getElementById('give_up');
 const app = new BlokusClient(appElement);
 const piece = new pieceBoard(pieceElements);
+const button = new giveUp(giveUpElement);

@@ -1,6 +1,5 @@
-import {INVALID_MOVE} from 'boardgame.io/core';
-import {PieceId, setPieceId} from "./const";
-import {TurnOrder} from 'boardgame.io/core';
+import {INVALID_MOVE,TurnOrder,ActivePlayers} from 'boardgame.io/core';
+import {PieceId, setPieceId, currentPlayers, rmPlayer} from "./const";
 
 export let pieceId = PieceId;
 export let diagonale = true;
@@ -20,6 +19,21 @@ export const Blokus = ({
         },
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
+            console.log(currentPlayers)
+            console.log(ctx.currentPlayer);
+            if(id===500) {
+                rmPlayer(ctx.currentPlayer);
+            }
+            if(!currentPlayers.includes(parseInt(ctx.currentPlayer))){
+                document.getElementById('piece' + (ctx.currentPlayer)).style.display = 'none';
+                document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
+                if (ctx.currentPlayer == 3) {
+                    tour += 1;
+                    setPieceId(tour);
+                }
+                return
+            }
+
             for (let i = 0; i < 5; i++) {
 
                 //Les cases sont vides
@@ -81,7 +95,7 @@ export const Blokus = ({
                 }
                 return;
             }
-        }
+        },
     },
     endIf: (G, ctx) => {
         if (IsVictory(G.cells)) {
