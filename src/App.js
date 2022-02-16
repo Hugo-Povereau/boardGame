@@ -96,7 +96,10 @@ class pieceBoard {
                 document.querySelector(`[data-id=${CSS.escape((1000 * (player + 1)) + (Math.floor(initPiece()[i][j] / 20) * 14 + (initPiece()[i][j] % 20) + tab_piece[i]))}]`).classList.add('color' + player);
             }
         }
-
+        //if ne fonctionne pas
+        if (cell === classList.contains('color' + player)) {
+            classList.replace((miniCell + 'color' + player), miniCell)
+        }
     }
 
 }

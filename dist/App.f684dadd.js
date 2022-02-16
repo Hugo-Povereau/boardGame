@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../node_modules/nanoid/non-secure/index.js":[function(require,module,exports) {
+})({"node_modules/nanoid/non-secure/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -153,7 +153,7 @@ let nanoid = (size = 21) => {
 };
 
 exports.nanoid = nanoid;
-},{}],"../../../node_modules/immer/dist/immer.esm.js":[function(require,module,exports) {
+},{}],"node_modules/immer/dist/immer.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -172,72 +172,72 @@ exports.enablePatches = T;
 exports.finishDraft = void 0;
 exports.freeze = d;
 exports.immerable = void 0;
-exports.isDraft = t;
-exports.isDraftable = r;
+exports.isDraft = r;
+exports.isDraftable = t;
 exports.nothing = void 0;
 exports.original = e;
 exports.setUseProxies = exports.setAutoFreeze = exports.produceWithPatches = exports.produce = void 0;
 
 function n(n) {
-  for (var t = arguments.length, r = Array(t > 1 ? t - 1 : 0), e = 1; e < t; e++) r[e - 1] = arguments[e];
+  for (var r = arguments.length, t = Array(r > 1 ? r - 1 : 0), e = 1; e < r; e++) t[e - 1] = arguments[e];
 
   if ("production" !== "development") {
     var i = Y[n],
-        o = i ? "function" == typeof i ? i.apply(null, r) : i : "unknown error nr: " + n;
+        o = i ? "function" == typeof i ? i.apply(null, t) : i : "unknown error nr: " + n;
     throw Error("[Immer] " + o);
   }
 
-  throw Error("[Immer] minified error nr: " + n + (r.length ? " " + r.map(function (n) {
+  throw Error("[Immer] minified error nr: " + n + (t.length ? " " + t.map(function (n) {
     return "'" + n + "'";
   }).join(",") : "") + ". Find the full error at: https://bit.ly/3cXEKWf");
 }
 
-function t(n) {
+function r(n) {
   return !!n && !!n[Q];
 }
 
-function r(n) {
+function t(n) {
   return !!n && (function (n) {
     if (!n || "object" != typeof n) return !1;
-    var t = Object.getPrototypeOf(n);
-    if (null === t) return !0;
-    var r = Object.hasOwnProperty.call(t, "constructor") && t.constructor;
-    return r === Object || "function" == typeof r && Function.toString.call(r) === Z;
+    var r = Object.getPrototypeOf(n);
+    if (null === r) return !0;
+    var t = Object.hasOwnProperty.call(r, "constructor") && r.constructor;
+    return t === Object || "function" == typeof t && Function.toString.call(t) === Z;
   }(n) || Array.isArray(n) || !!n[L] || !!n.constructor[L] || s(n) || v(n));
 }
 
-function e(r) {
-  return t(r) || n(23, r), r[Q].t;
+function e(t) {
+  return r(t) || n(23, t), t[Q].t;
 }
 
-function i(n, t, r) {
-  void 0 === r && (r = !1), 0 === o(n) ? (r ? Object.keys : nn)(n).forEach(function (e) {
-    r && "symbol" == typeof e || t(e, n[e], n);
-  }) : n.forEach(function (r, e) {
-    return t(e, r, n);
+function i(n, r, t) {
+  void 0 === t && (t = !1), 0 === o(n) ? (t ? Object.keys : nn)(n).forEach(function (e) {
+    t && "symbol" == typeof e || r(e, n[e], n);
+  }) : n.forEach(function (t, e) {
+    return r(e, t, n);
   });
 }
 
 function o(n) {
-  var t = n[Q];
-  return t ? t.i > 3 ? t.i - 4 : t.i : Array.isArray(n) ? 1 : s(n) ? 2 : v(n) ? 3 : 0;
+  var r = n[Q];
+  return r ? r.i > 3 ? r.i - 4 : r.i : Array.isArray(n) ? 1 : s(n) ? 2 : v(n) ? 3 : 0;
 }
 
-function u(n, t) {
-  return 2 === o(n) ? n.has(t) : Object.prototype.hasOwnProperty.call(n, t);
+function u(n, r) {
+  return 2 === o(n) ? n.has(r) : Object.prototype.hasOwnProperty.call(n, r);
 }
 
-function a(n, t) {
-  return 2 === o(n) ? n.get(t) : n[t];
+function a(n, r) {
+  return 2 === o(n) ? n.get(r) : n[r];
 }
 
-function f(n, t, r) {
+function f(n, r, t) {
   var e = o(n);
-  2 === e ? n.set(t, r) : 3 === e ? (n.delete(t), n.add(r)) : n[t] = r;
+  2 === e ? n.set(r, t) : 3 === e ? (n.delete(r), n.add(t)) : n[r] = t;
 }
 
-function c(n, t) {
-  return n === t ? 0 !== n || 1 / n == 1 / t : n != n && t != t;
+function c(n, r) {
+  return n === r ? 0 !== n || 1 / n == 1 / r : n != n && r != r;
 }
 
 function s(n) {
@@ -254,13 +254,13 @@ function p(n) {
 
 function l(n) {
   if (Array.isArray(n)) return Array.prototype.slice.call(n);
-  var t = tn(n);
-  delete t[Q];
+  var r = rn(n);
+  delete r[Q];
 
-  for (var r = nn(t), e = 0; e < r.length; e++) {
-    var i = r[e],
-        o = t[i];
-    !1 === o.writable && (o.writable = !0, o.configurable = !0), (o.get || o.set) && (t[i] = {
+  for (var t = nn(r), e = 0; e < t.length; e++) {
+    var i = t[e],
+        o = r[i];
+    !1 === o.writable && (o.writable = !0, o.configurable = !0), (o.get || o.set) && (r[i] = {
       configurable: !0,
       writable: !0,
       enumerable: o.enumerable,
@@ -268,12 +268,12 @@ function l(n) {
     });
   }
 
-  return Object.create(Object.getPrototypeOf(n), t);
+  return Object.create(Object.getPrototypeOf(n), r);
 }
 
 function d(n, e) {
-  return void 0 === e && (e = !1), y(n) || t(n) || !r(n) ? n : (o(n) > 1 && (n.set = n.add = n.clear = n.delete = h), Object.freeze(n), e && i(n, function (n, t) {
-    return d(t, !0);
+  return void 0 === e && (e = !1), y(n) || r(n) || !t(n) ? n : (o(n) > 1 && (n.set = n.add = n.clear = n.delete = h), Object.freeze(n), e && i(n, function (n, r) {
+    return d(r, !0);
   }, !0), n);
 }
 
@@ -285,21 +285,21 @@ function y(n) {
   return null == n || "object" != typeof n || Object.isFrozen(n);
 }
 
-function b(t) {
-  var r = rn[t];
-  return r || n(18, t), r;
+function b(r) {
+  var t = tn[r];
+  return t || n(18, r), t;
 }
 
-function m(n, t) {
-  rn[n] || (rn[n] = t);
+function m(n, r) {
+  tn[n] || (tn[n] = r);
 }
 
 function _() {
   return "production" === "development" || U || n(0), U;
 }
 
-function j(n, t) {
-  t && (b("Patches"), n.u = [], n.s = [], n.v = t);
+function j(n, r) {
+  r && (b("Patches"), n.u = [], n.s = [], n.v = r);
 }
 
 function O(n) {
@@ -321,64 +321,64 @@ function w(n) {
 }
 
 function S(n) {
-  var t = n[Q];
-  0 === t.i || 1 === t.i ? t.j() : t.O = !0;
+  var r = n[Q];
+  0 === r.i || 1 === r.i ? r.j() : r.O = !0;
 }
 
-function P(t, e) {
+function P(r, e) {
   e._ = e.p.length;
   var i = e.p[0],
-      o = void 0 !== t && t !== i;
-  return e.h.g || b("ES5").S(e, t, o), o ? (i[Q].P && (O(e), n(4)), r(t) && (t = M(e, t), e.l || x(e, t)), e.u && b("Patches").M(i[Q], t, e.u, e.s)) : t = M(e, i, []), O(e), e.u && e.v(e.u, e.s), t !== H ? t : void 0;
+      o = void 0 !== r && r !== i;
+  return e.h.g || b("ES5").S(e, r, o), o ? (i[Q].P && (O(e), n(4)), t(r) && (r = M(e, r), e.l || x(e, r)), e.u && b("Patches").M(i[Q].t, r, e.u, e.s)) : r = M(e, i, []), O(e), e.u && e.v(e.u, e.s), r !== H ? r : void 0;
 }
 
-function M(n, t, r) {
-  if (y(t)) return t;
-  var e = t[Q];
-  if (!e) return i(t, function (i, o) {
-    return A(n, e, t, i, o, r);
-  }, !0), t;
-  if (e.A !== n) return t;
+function M(n, r, t) {
+  if (y(r)) return r;
+  var e = r[Q];
+  if (!e) return i(r, function (i, o) {
+    return A(n, e, r, i, o, t);
+  }, !0), r;
+  if (e.A !== n) return r;
   if (!e.P) return x(n, e.t, !0), e.t;
 
   if (!e.I) {
     e.I = !0, e.A._--;
     var o = 4 === e.i || 5 === e.i ? e.o = l(e.k) : e.o;
-    i(3 === e.i ? new Set(o) : o, function (t, i) {
-      return A(n, e, o, t, i, r);
-    }), x(n, o, !1), r && n.u && b("Patches").R(e, r, n.u, n.s);
+    i(3 === e.i ? new Set(o) : o, function (r, i) {
+      return A(n, e, o, r, i, t);
+    }), x(n, o, !1), t && n.u && b("Patches").R(e, t, n.u, n.s);
   }
 
   return e.o;
 }
 
 function A(e, i, o, a, c, s) {
-  if ("production" !== "development" && c === o && n(5), t(c)) {
+  if ("production" !== "development" && c === o && n(5), r(c)) {
     var v = M(e, c, s && i && 3 !== i.i && !u(i.D, a) ? s.concat(a) : void 0);
-    if (f(o, a, v), !t(v)) return;
+    if (f(o, a, v), !r(v)) return;
     e.m = !1;
   }
 
-  if (r(c) && !y(c)) {
+  if (t(c) && !y(c)) {
     if (!e.h.F && e._ < 1) return;
     M(e, c), i && i.A.l || x(e, c);
   }
 }
 
-function x(n, t, r) {
-  void 0 === r && (r = !1), n.h.F && n.m && d(t, r);
+function x(n, r, t) {
+  void 0 === t && (t = !1), n.h.F && n.m && d(r, t);
 }
 
-function z(n, t) {
-  var r = n[Q];
-  return (r ? p(r) : n)[t];
+function z(n, r) {
+  var t = n[Q];
+  return (t ? p(t) : n)[r];
 }
 
-function I(n, t) {
-  if (t in n) for (var r = Object.getPrototypeOf(n); r;) {
-    var e = Object.getOwnPropertyDescriptor(r, t);
+function I(n, r) {
+  if (r in n) for (var t = Object.getPrototypeOf(n); t;) {
+    var e = Object.getOwnPropertyDescriptor(t, r);
     if (e) return e;
-    r = Object.getPrototypeOf(r);
+    t = Object.getPrototypeOf(t);
   }
 }
 
@@ -390,16 +390,16 @@ function E(n) {
   n.o || (n.o = l(n.t));
 }
 
-function R(n, t, r) {
-  var e = s(t) ? b("MapSet").N(t, r) : v(t) ? b("MapSet").T(t, r) : n.g ? function (n, t) {
-    var r = Array.isArray(n),
+function R(n, r, t) {
+  var e = s(r) ? b("MapSet").N(r, t) : v(r) ? b("MapSet").T(r, t) : n.g ? function (n, r) {
+    var t = Array.isArray(n),
         e = {
-      i: r ? 1 : 0,
-      A: t ? t.A : _(),
+      i: t ? 1 : 0,
+      A: r ? r.A : _(),
       P: !1,
       I: !1,
       D: {},
-      l: t,
+      l: r,
       t: n,
       k: null,
       o: null,
@@ -408,35 +408,35 @@ function R(n, t, r) {
     },
         i = e,
         o = en;
-    r && (i = [e], o = on);
+    t && (i = [e], o = on);
     var u = Proxy.revocable(i, o),
         a = u.revoke,
         f = u.proxy;
     return e.k = f, e.j = a, f;
-  }(t, r) : b("ES5").J(t, r);
-  return (r ? r.A : _()).p.push(e), e;
+  }(r, t) : b("ES5").J(r, t);
+  return (t ? t.A : _()).p.push(e), e;
 }
 
 function D(e) {
-  return t(e) || n(22, e), function n(t) {
-    if (!r(t)) return t;
+  return r(e) || n(22, e), function n(r) {
+    if (!t(r)) return r;
     var e,
-        u = t[Q],
-        c = o(t);
+        u = r[Q],
+        c = o(r);
 
     if (u) {
       if (!u.P && (u.i < 4 || !b("ES5").K(u))) return u.t;
-      u.I = !0, e = F(t, c), u.I = !1;
-    } else e = F(t, c);
+      u.I = !0, e = F(r, c), u.I = !1;
+    } else e = F(r, c);
 
-    return i(e, function (t, r) {
-      u && a(u.t, t) === r || f(e, t, n(r));
+    return i(e, function (r, t) {
+      u && a(u.t, r) === t || f(e, r, n(t));
     }), 3 === c ? new Set(e) : e;
   }(e);
 }
 
-function F(n, t) {
-  switch (t) {
+function F(n, r) {
+  switch (r) {
     case 2:
       return new Map(n);
 
@@ -448,92 +448,96 @@ function F(n, t) {
 }
 
 function N() {
-  function r(n, t) {
-    var r = s[n];
-    return r ? r.enumerable = t : s[n] = r = {
+  function t(n, r) {
+    var t = s[n];
+    return t ? t.enumerable = r : s[n] = t = {
       configurable: !0,
-      enumerable: t,
+      enumerable: r,
       get: function () {
-        var t = this[Q];
-        return "production" !== "development" && f(t), en.get(t, n);
-      },
-      set: function (t) {
         var r = this[Q];
-        "production" !== "development" && f(r), en.set(r, n, t);
+        return "production" !== "development" && f(r), en.get(r, n);
+      },
+      set: function (r) {
+        var t = this[Q];
+        "production" !== "development" && f(t), en.set(t, n, r);
       }
-    }, r;
+    }, t;
   }
 
   function e(n) {
-    for (var t = n.length - 1; t >= 0; t--) {
-      var r = n[t][Q];
-      if (!r.P) switch (r.i) {
+    for (var r = n.length - 1; r >= 0; r--) {
+      var t = n[r][Q];
+      if (!t.P) switch (t.i) {
         case 5:
-          a(r) && k(r);
+          a(t) && k(t);
           break;
 
         case 4:
-          o(r) && k(r);
+          o(t) && k(t);
       }
     }
   }
 
   function o(n) {
-    for (var t = n.t, r = n.k, e = nn(r), i = e.length - 1; i >= 0; i--) {
+    for (var r = n.t, t = n.k, e = nn(t), i = e.length - 1; i >= 0; i--) {
       var o = e[i];
 
       if (o !== Q) {
-        var a = t[o];
-        if (void 0 === a && !u(t, o)) return !0;
-        var f = r[o],
+        var a = r[o];
+        if (void 0 === a && !u(r, o)) return !0;
+        var f = t[o],
             s = f && f[Q];
         if (s ? s.t !== a : !c(f, a)) return !0;
       }
     }
 
-    var v = !!t[Q];
-    return e.length !== nn(t).length + (v ? 0 : 1);
+    var v = !!r[Q];
+    return e.length !== nn(r).length + (v ? 0 : 1);
   }
 
   function a(n) {
-    var t = n.k;
-    if (t.length !== n.t.length) return !0;
-    var r = Object.getOwnPropertyDescriptor(t, t.length - 1);
-    return !(!r || r.get);
+    var r = n.k;
+    if (r.length !== n.t.length) return !0;
+    var t = Object.getOwnPropertyDescriptor(r, r.length - 1);
+    if (t && !t.get) return !0;
+
+    for (var e = 0; e < r.length; e++) if (!r.hasOwnProperty(e)) return !0;
+
+    return !1;
   }
 
-  function f(t) {
-    t.O && n(3, JSON.stringify(p(t)));
+  function f(r) {
+    r.O && n(3, JSON.stringify(p(r)));
   }
 
   var s = {};
   m("ES5", {
-    J: function (n, t) {
+    J: function (n, r) {
       var e = Array.isArray(n),
-          i = function (n, t) {
+          i = function (n, r) {
         if (n) {
-          for (var e = Array(t.length), i = 0; i < t.length; i++) Object.defineProperty(e, "" + i, r(i, !0));
+          for (var e = Array(r.length), i = 0; i < r.length; i++) Object.defineProperty(e, "" + i, t(i, !0));
 
           return e;
         }
 
-        var o = tn(t);
+        var o = rn(r);
         delete o[Q];
 
         for (var u = nn(o), a = 0; a < u.length; a++) {
           var f = u[a];
-          o[f] = r(f, n || !!o[f].enumerable);
+          o[f] = t(f, n || !!o[f].enumerable);
         }
 
-        return Object.create(Object.getPrototypeOf(t), o);
+        return Object.create(Object.getPrototypeOf(r), o);
       }(e, n),
           o = {
         i: e ? 5 : 4,
-        A: t ? t.A : _(),
+        A: r ? r.A : _(),
         P: !1,
         I: !1,
         D: {},
-        l: t,
+        l: r,
         t: n,
         k: i,
         o: null,
@@ -546,24 +550,24 @@ function N() {
         writable: !0
       }), i;
     },
-    S: function (n, r, o) {
-      o ? t(r) && r[Q].A === n && e(n.p) : (n.u && function n(t) {
-        if (t && "object" == typeof t) {
-          var r = t[Q];
+    S: function (n, t, o) {
+      o ? r(t) && t[Q].A === n && e(n.p) : (n.u && function n(r) {
+        if (r && "object" == typeof r) {
+          var t = r[Q];
 
-          if (r) {
-            var e = r.t,
-                o = r.k,
-                f = r.D,
-                c = r.i;
-            if (4 === c) i(o, function (t) {
-              t !== Q && (void 0 !== e[t] || u(e, t) ? f[t] || n(o[t]) : (f[t] = !0, k(r)));
+          if (t) {
+            var e = t.t,
+                o = t.k,
+                f = t.D,
+                c = t.i;
+            if (4 === c) i(o, function (r) {
+              r !== Q && (void 0 !== e[r] || u(e, r) ? f[r] || n(o[r]) : (f[r] = !0, k(t)));
             }), i(e, function (n) {
-              void 0 !== o[n] || u(o, n) || (f[n] = !1, k(r));
+              void 0 !== o[n] || u(o, n) || (f[n] = !1, k(t));
             });else if (5 === c) {
-              if (a(r) && (k(r), f.length = !0), o.length < e.length) for (var s = o.length; s < e.length; s++) f[s] = !1;else for (var v = e.length; v < o.length; v++) f[v] = !0;
+              if (a(t) && (k(t), f.length = !0), o.length < e.length) for (var s = o.length; s < e.length; s++) f[s] = !1;else for (var v = e.length; v < o.length; v++) f[v] = !0;
 
-              for (var p = Math.min(o.length, e.length), l = 0; l < p; l++) void 0 === f[l] && n(o[l]);
+              for (var p = Math.min(o.length, e.length), l = 0; l < p; l++) o.hasOwnProperty(l) || (f[l] = !0), void 0 === f[l] && n(o[l]);
             }
           }
         }
@@ -577,35 +581,35 @@ function N() {
 
 function T() {
   function e(n) {
-    if (!r(n)) return n;
+    if (!t(n)) return n;
     if (Array.isArray(n)) return n.map(e);
     if (s(n)) return new Map(Array.from(n.entries()).map(function (n) {
       return [n[0], e(n[1])];
     }));
     if (v(n)) return new Set(Array.from(n).map(e));
-    var t = Object.create(Object.getPrototypeOf(n));
+    var r = Object.create(Object.getPrototypeOf(n));
 
-    for (var i in n) t[i] = e(n[i]);
+    for (var i in n) r[i] = e(n[i]);
 
-    return u(n, L) && (t[L] = n[L]), t;
+    return u(n, L) && (r[L] = n[L]), r;
   }
 
   function f(n) {
-    return t(n) ? e(n) : n;
+    return r(n) ? e(n) : n;
   }
 
   var c = "add";
   m("Patches", {
-    $: function (t, r) {
-      return r.forEach(function (r) {
-        for (var i = r.path, u = r.op, f = t, s = 0; s < i.length - 1; s++) {
+    $: function (r, t) {
+      return t.forEach(function (t) {
+        for (var i = t.path, u = t.op, f = r, s = 0; s < i.length - 1; s++) {
           var v = o(f),
               p = "" + i[s];
           0 !== v && 1 !== v || "__proto__" !== p && "constructor" !== p || n(24), "function" == typeof f && "prototype" === p && n(24), "object" != typeof (f = a(f, p)) && n(15, i.join("/"));
         }
 
         var l = o(f),
-            d = e(r.value),
+            d = e(t.value),
             h = i[i.length - 1];
 
         switch (u) {
@@ -624,7 +628,7 @@ function T() {
           case c:
             switch (l) {
               case 1:
-                return f.splice(h, 0, d);
+                return "-" === h ? f.push(d) : f.splice(h, 0, d);
 
               case 2:
                 return f.set(h, d);
@@ -645,7 +649,7 @@ function T() {
                 return f.delete(h);
 
               case 3:
-                return f.delete(r.value);
+                return f.delete(t.value);
 
               default:
                 return delete f[h];
@@ -654,14 +658,14 @@ function T() {
           default:
             n(17, u);
         }
-      }), t;
+      }), r;
     },
-    R: function (n, t, r, e) {
+    R: function (n, r, t, e) {
       switch (n.i) {
         case 0:
         case 4:
         case 2:
-          return function (n, t, r, e) {
+          return function (n, r, t, e) {
             var o = n.t,
                 s = n.o;
             i(n.D, function (n, i) {
@@ -670,8 +674,8 @@ function T() {
                   l = i ? u(o, n) ? "replace" : c : "remove";
 
               if (v !== p || "replace" !== l) {
-                var d = t.concat(n);
-                r.push("remove" === l ? {
+                var d = r.concat(n);
+                t.push("remove" === l ? {
                   op: l,
                   path: d
                 } : {
@@ -692,11 +696,11 @@ function T() {
                 });
               }
             });
-          }(n, t, r, e);
+          }(n, r, t, e);
 
         case 5:
         case 1:
-          return function (n, t, r, e) {
+          return function (n, r, t, e) {
             var i = n.t,
                 o = n.D,
                 u = n.o;
@@ -704,13 +708,13 @@ function T() {
             if (u.length < i.length) {
               var a = [u, i];
               i = a[0], u = a[1];
-              var s = [e, r];
-              r = s[0], e = s[1];
+              var s = [e, t];
+              t = s[0], e = s[1];
             }
 
             for (var v = 0; v < i.length; v++) if (o[v] && u[v] !== i[v]) {
-              var p = t.concat([v]);
-              r.push({
+              var p = r.concat([v]);
+              t.push({
                 op: "replace",
                 path: p,
                 value: f(u[v])
@@ -722,8 +726,8 @@ function T() {
             }
 
             for (var l = i.length; l < u.length; l++) {
-              var d = t.concat([l]);
-              r.push({
+              var d = r.concat([l]);
+              t.push({
                 op: c,
                 path: d,
                 value: f(u[l])
@@ -732,20 +736,20 @@ function T() {
 
             i.length < u.length && e.push({
               op: "replace",
-              path: t.concat(["length"]),
+              path: r.concat(["length"]),
               value: i.length
             });
-          }(n, t, r, e);
+          }(n, r, t, e);
 
         case 3:
-          return function (n, t, r, e) {
+          return function (n, r, t, e) {
             var i = n.t,
                 o = n.o,
                 u = 0;
             i.forEach(function (n) {
               if (!o.has(n)) {
-                var i = t.concat([u]);
-                r.push({
+                var i = r.concat([u]);
+                t.push({
                   op: "remove",
                   path: i,
                   value: n
@@ -759,8 +763,8 @@ function T() {
               u++;
             }), u = 0, o.forEach(function (n) {
               if (!i.has(n)) {
-                var o = t.concat([u]);
-                r.push({
+                var o = r.concat([u]);
+                t.push({
                   op: c,
                   path: o,
                   value: n
@@ -773,30 +777,30 @@ function T() {
 
               u++;
             });
-          }(n, t, r, e);
+          }(n, r, t, e);
       }
     },
-    M: function (n, t, r, e) {
-      r.push({
+    M: function (n, r, t, e) {
+      t.push({
         op: "replace",
         path: [],
-        value: t === H ? void 0 : t
+        value: r === H ? void 0 : r
       }), e.push({
         op: "replace",
         path: [],
-        value: n.t
+        value: n
       });
     }
   });
 }
 
 function C() {
-  function t(n, t) {
-    function r() {
+  function r(n, r) {
+    function t() {
       this.constructor = n;
     }
 
-    a(n, t), n.prototype = (r.prototype = t.prototype, new r());
+    a(n, r), n.prototype = (t.prototype = r.prototype, new t());
   }
 
   function e(n) {
@@ -804,33 +808,33 @@ function C() {
   }
 
   function o(n) {
-    n.o || (n.o = new Set(), n.t.forEach(function (t) {
-      if (r(t)) {
-        var e = R(n.A.h, t, n);
-        n.p.set(t, e), n.o.add(e);
-      } else n.o.add(t);
+    n.o || (n.o = new Set(), n.t.forEach(function (r) {
+      if (t(r)) {
+        var e = R(n.A.h, r, n);
+        n.p.set(r, e), n.o.add(e);
+      } else n.o.add(r);
     }));
   }
 
-  function u(t) {
-    t.O && n(3, JSON.stringify(p(t)));
+  function u(r) {
+    r.O && n(3, JSON.stringify(p(r)));
   }
 
-  var a = function (n, t) {
+  var a = function (n, r) {
     return (a = Object.setPrototypeOf || {
       __proto__: []
-    } instanceof Array && function (n, t) {
-      n.__proto__ = t;
-    } || function (n, t) {
-      for (var r in t) t.hasOwnProperty(r) && (n[r] = t[r]);
-    })(n, t);
+    } instanceof Array && function (n, r) {
+      n.__proto__ = r;
+    } || function (n, r) {
+      for (var t in r) r.hasOwnProperty(t) && (n[t] = r[t]);
+    })(n, r);
   },
       f = function () {
-    function n(n, t) {
+    function n(n, r) {
       return this[Q] = {
         i: 2,
-        l: t,
-        A: t ? t.A : _(),
+        l: r,
+        A: r ? r.A : _(),
         P: !1,
         I: !1,
         o: void 0,
@@ -842,7 +846,7 @@ function C() {
       }, this;
     }
 
-    t(n, Map);
+    r(n, Map);
     var o = n.prototype;
     return Object.defineProperty(o, "size", {
       get: function () {
@@ -850,56 +854,56 @@ function C() {
       }
     }), o.has = function (n) {
       return p(this[Q]).has(n);
-    }, o.set = function (n, t) {
-      var r = this[Q];
-      return u(r), p(r).has(n) && p(r).get(n) === t || (e(r), k(r), r.D.set(n, !0), r.o.set(n, t), r.D.set(n, !0)), this;
+    }, o.set = function (n, r) {
+      var t = this[Q];
+      return u(t), p(t).has(n) && p(t).get(n) === r || (e(t), k(t), t.D.set(n, !0), t.o.set(n, r), t.D.set(n, !0)), this;
     }, o.delete = function (n) {
       if (!this.has(n)) return !1;
-      var t = this[Q];
-      return u(t), e(t), k(t), t.D.set(n, !1), t.o.delete(n), !0;
+      var r = this[Q];
+      return u(r), e(r), k(r), r.t.has(n) ? r.D.set(n, !1) : r.D.delete(n), r.o.delete(n), !0;
     }, o.clear = function () {
       var n = this[Q];
-      u(n), p(n).size && (e(n), k(n), n.D = new Map(), i(n.t, function (t) {
-        n.D.set(t, !1);
+      u(n), p(n).size && (e(n), k(n), n.D = new Map(), i(n.t, function (r) {
+        n.D.set(r, !1);
       }), n.o.clear());
-    }, o.forEach = function (n, t) {
-      var r = this;
+    }, o.forEach = function (n, r) {
+      var t = this;
       p(this[Q]).forEach(function (e, i) {
-        n.call(t, r.get(i), i, r);
+        n.call(r, t.get(i), i, t);
       });
     }, o.get = function (n) {
-      var t = this[Q];
-      u(t);
-      var i = p(t).get(n);
-      if (t.I || !r(i)) return i;
-      if (i !== t.t.get(n)) return i;
-      var o = R(t.A.h, i, t);
-      return e(t), t.o.set(n, o), o;
+      var r = this[Q];
+      u(r);
+      var i = p(r).get(n);
+      if (r.I || !t(i)) return i;
+      if (i !== r.t.get(n)) return i;
+      var o = R(r.A.h, i, r);
+      return e(r), r.o.set(n, o), o;
     }, o.keys = function () {
       return p(this[Q]).keys();
     }, o.values = function () {
       var n,
-          t = this,
-          r = this.keys();
+          r = this,
+          t = this.keys();
       return (n = {})[V] = function () {
-        return t.values();
+        return r.values();
       }, n.next = function () {
-        var n = r.next();
+        var n = t.next();
         return n.done ? n : {
           done: !1,
-          value: t.get(n.value)
+          value: r.get(n.value)
         };
       }, n;
     }, o.entries = function () {
       var n,
-          t = this,
-          r = this.keys();
+          r = this,
+          t = this.keys();
       return (n = {})[V] = function () {
-        return t.entries();
+        return r.entries();
       }, n.next = function () {
-        var n = r.next();
+        var n = t.next();
         if (n.done) return n;
-        var e = t.get(n.value);
+        var e = r.get(n.value);
         return {
           done: !1,
           value: [n.value, e]
@@ -910,11 +914,11 @@ function C() {
     }, n;
   }(),
       c = function () {
-    function n(n, t) {
+    function n(n, r) {
       return this[Q] = {
         i: 3,
-        l: t,
-        A: t ? t.A : _(),
+        l: r,
+        A: r ? r.A : _(),
         P: !1,
         I: !1,
         o: void 0,
@@ -926,46 +930,46 @@ function C() {
       }, this;
     }
 
-    t(n, Set);
-    var r = n.prototype;
-    return Object.defineProperty(r, "size", {
+    r(n, Set);
+    var t = n.prototype;
+    return Object.defineProperty(t, "size", {
       get: function () {
         return p(this[Q]).size;
       }
-    }), r.has = function (n) {
-      var t = this[Q];
-      return u(t), t.o ? !!t.o.has(n) || !(!t.p.has(n) || !t.o.has(t.p.get(n))) : t.t.has(n);
-    }, r.add = function (n) {
-      var t = this[Q];
-      return u(t), this.has(n) || (o(t), k(t), t.o.add(n)), this;
-    }, r.delete = function (n) {
+    }), t.has = function (n) {
+      var r = this[Q];
+      return u(r), r.o ? !!r.o.has(n) || !(!r.p.has(n) || !r.o.has(r.p.get(n))) : r.t.has(n);
+    }, t.add = function (n) {
+      var r = this[Q];
+      return u(r), this.has(n) || (o(r), k(r), r.o.add(n)), this;
+    }, t.delete = function (n) {
       if (!this.has(n)) return !1;
-      var t = this[Q];
-      return u(t), o(t), k(t), t.o.delete(n) || !!t.p.has(n) && t.o.delete(t.p.get(n));
-    }, r.clear = function () {
+      var r = this[Q];
+      return u(r), o(r), k(r), r.o.delete(n) || !!r.p.has(n) && r.o.delete(r.p.get(n));
+    }, t.clear = function () {
       var n = this[Q];
       u(n), p(n).size && (o(n), k(n), n.o.clear());
-    }, r.values = function () {
+    }, t.values = function () {
       var n = this[Q];
       return u(n), o(n), n.o.values();
-    }, r.entries = function () {
+    }, t.entries = function () {
       var n = this[Q];
       return u(n), o(n), n.o.entries();
-    }, r.keys = function () {
+    }, t.keys = function () {
       return this.values();
-    }, r[V] = function () {
+    }, t[V] = function () {
       return this.values();
-    }, r.forEach = function (n, t) {
-      for (var r = this.values(), e = r.next(); !e.done;) n.call(t, e.value, e.value, this), e = r.next();
+    }, t.forEach = function (n, r) {
+      for (var t = this.values(), e = t.next(); !e.done;) n.call(r, e.value, e.value, this), e = t.next();
     }, n;
   }();
 
   m("MapSet", {
-    N: function (n, t) {
-      return new f(n, t);
+    N: function (n, r) {
+      return new f(n, r);
     },
-    T: function (n, t) {
-      return new c(n, t);
+    T: function (n, r) {
+      return new c(n, r);
     }
   });
 }
@@ -1036,56 +1040,56 @@ var G,
     nn = "undefined" != typeof Reflect && Reflect.ownKeys ? Reflect.ownKeys : void 0 !== Object.getOwnPropertySymbols ? function (n) {
   return Object.getOwnPropertyNames(n).concat(Object.getOwnPropertySymbols(n));
 } : Object.getOwnPropertyNames,
-    tn = Object.getOwnPropertyDescriptors || function (n) {
-  var t = {};
-  return nn(n).forEach(function (r) {
-    t[r] = Object.getOwnPropertyDescriptor(n, r);
-  }), t;
+    rn = Object.getOwnPropertyDescriptors || function (n) {
+  var r = {};
+  return nn(n).forEach(function (t) {
+    r[t] = Object.getOwnPropertyDescriptor(n, t);
+  }), r;
 },
-    rn = {},
+    tn = {},
     en = {
-  get: function (n, t) {
-    if (t === Q) return n;
+  get: function (n, r) {
+    if (r === Q) return n;
     var e = p(n);
-    if (!u(e, t)) return function (n, t, r) {
+    if (!u(e, r)) return function (n, r, t) {
       var e,
-          i = I(t, r);
+          i = I(r, t);
       return i ? "value" in i ? i.value : null === (e = i.get) || void 0 === e ? void 0 : e.call(n.k) : void 0;
-    }(n, e, t);
-    var i = e[t];
-    return n.I || !r(i) ? i : i === z(n.t, t) ? (E(n), n.o[t] = R(n.A.h, i, n)) : i;
+    }(n, e, r);
+    var i = e[r];
+    return n.I || !t(i) ? i : i === z(n.t, r) ? (E(n), n.o[r] = R(n.A.h, i, n)) : i;
   },
-  has: function (n, t) {
-    return t in p(n);
+  has: function (n, r) {
+    return r in p(n);
   },
   ownKeys: function (n) {
     return Reflect.ownKeys(p(n));
   },
-  set: function (n, t, r) {
-    var e = I(p(n), t);
-    if (null == e ? void 0 : e.set) return e.set.call(n.k, r), !0;
+  set: function (n, r, t) {
+    var e = I(p(n), r);
+    if (null == e ? void 0 : e.set) return e.set.call(n.k, t), !0;
 
     if (!n.P) {
-      var i = z(p(n), t),
+      var i = z(p(n), r),
           o = null == i ? void 0 : i[Q];
-      if (o && o.t === r) return n.o[t] = r, n.D[t] = !1, !0;
-      if (c(r, i) && (void 0 !== r || u(n.t, t))) return !0;
+      if (o && o.t === t) return n.o[r] = t, n.D[r] = !1, !0;
+      if (c(t, i) && (void 0 !== t || u(n.t, r))) return !0;
       E(n), k(n);
     }
 
-    return n.o[t] === r && "number" != typeof r && (void 0 !== r || t in n.o) || (n.o[t] = r, n.D[t] = !0, !0);
+    return n.o[r] === t && "number" != typeof t && (void 0 !== t || r in n.o) || (n.o[r] = t, n.D[r] = !0, !0);
   },
-  deleteProperty: function (n, t) {
-    return void 0 !== z(n.t, t) || t in n.t ? (n.D[t] = !1, E(n), k(n)) : delete n.D[t], n.o && delete n.o[t], !0;
+  deleteProperty: function (n, r) {
+    return void 0 !== z(n.t, r) || r in n.t ? (n.D[r] = !1, E(n), k(n)) : delete n.D[r], n.o && delete n.o[r], !0;
   },
-  getOwnPropertyDescriptor: function (n, t) {
-    var r = p(n),
-        e = Reflect.getOwnPropertyDescriptor(r, t);
+  getOwnPropertyDescriptor: function (n, r) {
+    var t = p(n),
+        e = Reflect.getOwnPropertyDescriptor(t, r);
     return e ? {
       writable: !0,
-      configurable: 1 !== n.i || "length" !== t,
+      configurable: 1 !== n.i || "length" !== r,
       enumerable: e.enumerable,
-      value: r[t]
+      value: t[r]
     } : e;
   },
   defineProperty: function () {
@@ -1102,42 +1106,42 @@ var G,
 
 exports.immerable = L;
 exports.nothing = H;
-i(en, function (n, t) {
+i(en, function (n, r) {
   on[n] = function () {
-    return arguments[0] = arguments[0][0], t.apply(this, arguments);
+    return arguments[0] = arguments[0][0], r.apply(this, arguments);
   };
-}), on.deleteProperty = function (t, r) {
-  return "production" !== "development" && isNaN(parseInt(r)) && n(13), en.deleteProperty.call(this, t[0], r);
-}, on.set = function (t, r, e) {
-  return "production" !== "development" && "length" !== r && isNaN(parseInt(r)) && n(14), en.set.call(this, t[0], r, e, t[0]);
+}), on.deleteProperty = function (r, t) {
+  return "production" !== "development" && isNaN(parseInt(t)) && n(13), on.set.call(this, r, t, void 0);
+}, on.set = function (r, t, e) {
+  return "production" !== "development" && "length" !== t && isNaN(parseInt(t)) && n(14), en.set.call(this, r[0], t, e, r[0]);
 };
 
 var un = function () {
-  function e(t) {
+  function e(r) {
     var e = this;
-    this.g = B, this.F = !0, this.produce = function (t, i, o) {
-      if ("function" == typeof t && "function" != typeof i) {
+    this.g = B, this.F = !0, this.produce = function (r, i, o) {
+      if ("function" == typeof r && "function" != typeof i) {
         var u = i;
-        i = t;
+        i = r;
         var a = e;
         return function (n) {
-          var t = this;
+          var r = this;
           void 0 === n && (n = u);
 
-          for (var r = arguments.length, e = Array(r > 1 ? r - 1 : 0), o = 1; o < r; o++) e[o - 1] = arguments[o];
+          for (var t = arguments.length, e = Array(t > 1 ? t - 1 : 0), o = 1; o < t; o++) e[o - 1] = arguments[o];
 
           return a.produce(n, function (n) {
-            var r;
-            return (r = i).call.apply(r, [t, n].concat(e));
+            var t;
+            return (t = i).call.apply(t, [r, n].concat(e));
           });
         };
       }
 
       var f;
 
-      if ("function" != typeof i && n(6), void 0 !== o && "function" != typeof o && n(7), r(t)) {
+      if ("function" != typeof i && n(6), void 0 !== o && "function" != typeof o && n(7), t(r)) {
         var c = w(e),
-            s = R(e, t, void 0),
+            s = R(e, r, void 0),
             v = !0;
 
         try {
@@ -1153,46 +1157,56 @@ var un = function () {
         }) : (j(c, o), P(f, c));
       }
 
-      if (!t || "object" != typeof t) {
-        if ((f = i(t)) === H) return;
-        return void 0 === f && (f = t), e.F && d(f, !0), f;
+      if (!r || "object" != typeof r) {
+        if (void 0 === (f = i(r)) && (f = r), f === H && (f = void 0), e.F && d(f, !0), o) {
+          var p = [],
+              l = [];
+          b("Patches").M(r, f, p, l), o(p, l);
+        }
+
+        return f;
       }
 
-      n(21, t);
-    }, this.produceWithPatches = function (n, t) {
-      return "function" == typeof n ? function (t) {
-        for (var r = arguments.length, i = Array(r > 1 ? r - 1 : 0), o = 1; o < r; o++) i[o - 1] = arguments[o];
+      n(21, r);
+    }, this.produceWithPatches = function (n, r) {
+      if ("function" == typeof n) return function (r) {
+        for (var t = arguments.length, i = Array(t > 1 ? t - 1 : 0), o = 1; o < t; o++) i[o - 1] = arguments[o];
 
-        return e.produceWithPatches(t, function (t) {
-          return n.apply(void 0, [t].concat(i));
+        return e.produceWithPatches(r, function (r) {
+          return n.apply(void 0, [r].concat(i));
         });
-      } : [e.produce(n, t, function (n, t) {
-        r = n, i = t;
-      }), r, i];
-      var r, i;
-    }, "boolean" == typeof (null == t ? void 0 : t.useProxies) && this.setUseProxies(t.useProxies), "boolean" == typeof (null == t ? void 0 : t.autoFreeze) && this.setAutoFreeze(t.autoFreeze);
+      };
+      var t,
+          i,
+          o = e.produce(n, r, function (n, r) {
+        t = n, i = r;
+      });
+      return "undefined" != typeof Promise && o instanceof Promise ? o.then(function (n) {
+        return [n, t, i];
+      }) : [o, t, i];
+    }, "boolean" == typeof (null == r ? void 0 : r.useProxies) && this.setUseProxies(r.useProxies), "boolean" == typeof (null == r ? void 0 : r.autoFreeze) && this.setAutoFreeze(r.autoFreeze);
   }
 
   var i = e.prototype;
   return i.createDraft = function (e) {
-    r(e) || n(8), t(e) && (e = D(e));
+    t(e) || n(8), r(e) && (e = D(e));
     var i = w(this),
         o = R(this, e, void 0);
     return o[Q].C = !0, g(i), o;
-  }, i.finishDraft = function (t, r) {
-    var e = t && t[Q];
+  }, i.finishDraft = function (r, t) {
+    var e = r && r[Q];
     "production" !== "development" && (e && e.C || n(9), e.I && n(10));
     var i = e.A;
-    return j(i, r), P(void 0, i);
+    return j(i, t), P(void 0, i);
   }, i.setAutoFreeze = function (n) {
     this.F = n;
-  }, i.setUseProxies = function (t) {
-    t && !B && n(20), this.g = t;
-  }, i.applyPatches = function (n, r) {
+  }, i.setUseProxies = function (r) {
+    r && !B && n(20), this.g = r;
+  }, i.applyPatches = function (n, t) {
     var e;
 
-    for (e = r.length - 1; e >= 0; e--) {
-      var i = r[e];
+    for (e = t.length - 1; e >= 0; e--) {
+      var i = t[e];
 
       if (0 === i.path.length && "replace" === i.op) {
         n = i.value;
@@ -1200,9 +1214,10 @@ var un = function () {
       }
     }
 
+    e > -1 && (t = t.slice(e + 1));
     var o = b("Patches").$;
-    return t(n) ? o(n, r) : this.produce(n, function (n) {
-      return o(n, r.slice(e + 1));
+    return r(n) ? o(n, t) : this.produce(n, function (n) {
+      return o(n, t);
     });
   }, e;
 }(),
@@ -1225,450 +1240,17 @@ exports.produce = fn;
 exports.Immer = un;
 var _default = fn;
 exports.default = _default;
-},{}],"../../../node_modules/lodash.isplainobject/index.js":[function(require,module,exports) {
-/**
- * lodash (Custom Build) <https://lodash.com/>
- * Build: `lodash modularize exports="npm" -o ./`
- * Copyright jQuery Foundation and other contributors <https://jquery.org/>
- * Released under MIT license <https://lodash.com/license>
- * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- */
-
-/** `Object#toString` result references. */
-var objectTag = '[object Object]';
-
-/**
- * Checks if `value` is a host object in IE < 9.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
- */
-function isHostObject(value) {
-  // Many host objects are `Object` objects that can coerce to strings
-  // despite having improperly defined `toString` methods.
-  var result = false;
-  if (value != null && typeof value.toString != 'function') {
-    try {
-      result = !!(value + '');
-    } catch (e) {}
-  }
-  return result;
-}
-
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
-function overArg(func, transform) {
-  return function(arg) {
-    return func(transform(arg));
-  };
-}
-
-/** Used for built-in method references. */
-var funcProto = Function.prototype,
-    objectProto = Object.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-var funcToString = funcProto.toString;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Used to infer the `Object` constructor. */
-var objectCtorString = funcToString.call(Object);
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var objectToString = objectProto.toString;
-
-/** Built-in value references. */
-var getPrototype = overArg(Object.getPrototypeOf, Object);
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return !!value && typeof value == 'object';
-}
-
-/**
- * Checks if `value` is a plain object, that is, an object created by the
- * `Object` constructor or one with a `[[Prototype]]` of `null`.
- *
- * @static
- * @memberOf _
- * @since 0.8.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- * }
- *
- * _.isPlainObject(new Foo);
- * // => false
- *
- * _.isPlainObject([1, 2, 3]);
- * // => false
- *
- * _.isPlainObject({ 'x': 0, 'y': 0 });
- * // => true
- *
- * _.isPlainObject(Object.create(null));
- * // => true
- */
-function isPlainObject(value) {
-  if (!isObjectLike(value) ||
-      objectToString.call(value) != objectTag || isHostObject(value)) {
-    return false;
-  }
-  var proto = getPrototype(value);
-  if (proto === null) {
-    return true;
-  }
-  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-  return (typeof Ctor == 'function' &&
-    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
-}
-
-module.exports = isPlainObject;
-
-},{}],"../../../node_modules/boardgame.io/dist/esm/turn-order-406c4349.js":[function(require,module,exports) {
+},{}],"node_modules/boardgame.io/dist/esm/plugin-random-087f861e.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.B = exports.A = void 0;
-exports.C = alea;
-exports.G = exports.F = exports.E = exports.D = void 0;
-exports.I = InitTurnOrderState;
-exports.T = exports.S = exports.R = exports.P = exports.N = exports.M = void 0;
-exports.U = UpdateTurnOrderState;
-exports.a = supportDeprecatedMoveLimit;
-exports.b = SetActivePlayers;
-exports.c = UpdateActivePlayersOnceEmpty;
-exports.d = void 0;
-exports.e = error;
-exports.h = exports.g = exports.f = void 0;
-exports.i = info;
-exports.z = exports.y = exports.x = exports.w = exports.v = exports.u = exports.t = exports.s = exports.r = exports.q = exports.p = exports.o = exports.n = exports.m = exports.l = exports.k = exports.j = void 0;
+exports.R = void 0;
+exports.a = alea;
 
-var _immer = _interopRequireDefault(require("immer"));
-
-var _lodash = _interopRequireDefault(require("lodash.isplainobject"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
- * Copyright 2017 The boardgame.io Authors
- *
- * Use of this source code is governed by a MIT-style
- * license that can be found in the LICENSE file or at
- * https://opensource.org/licenses/MIT.
- */
-const MAKE_MOVE = 'MAKE_MOVE';
-exports.M = MAKE_MOVE;
-const GAME_EVENT = 'GAME_EVENT';
-exports.o = GAME_EVENT;
-const REDO = 'REDO';
-exports.R = REDO;
-const RESET = 'RESET';
-exports.l = RESET;
-const SYNC = 'SYNC';
-exports.j = SYNC;
-const UNDO = 'UNDO';
-exports.h = UNDO;
-const UPDATE = 'UPDATE';
-exports.k = UPDATE;
-const PATCH = 'PATCH';
-exports.P = PATCH;
-const PLUGIN = 'PLUGIN';
-exports.d = PLUGIN;
-const STRIP_TRANSIENTS = 'STRIP_TRANSIENTS';
-/*
- * Copyright 2017 The boardgame.io Authors
- *
- * Use of this source code is governed by a MIT-style
- * license that can be found in the LICENSE file or at
- * https://opensource.org/licenses/MIT.
- */
-
-/**
- * Generate a move to be dispatched to the game move reducer.
- *
- * @param {string} type - The move type.
- * @param {Array}  args - Additional arguments.
- * @param {string}  playerID - The ID of the player making this action.
- * @param {string}  credentials - (optional) The credentials for the player making this action.
- */
-
-exports.p = STRIP_TRANSIENTS;
-
-const makeMove = (type, args, playerID, credentials) => ({
-  type: MAKE_MOVE,
-  payload: {
-    type,
-    args,
-    playerID,
-    credentials
-  }
-});
-/**
- * Generate a game event to be dispatched to the flow reducer.
- *
- * @param {string} type - The event type.
- * @param {Array}  args - Additional arguments.
- * @param {string}  playerID - The ID of the player making this action.
- * @param {string}  credentials - (optional) The credentials for the player making this action.
- */
-
-
-exports.B = makeMove;
-
-const gameEvent = (type, args, playerID, credentials) => ({
-  type: GAME_EVENT,
-  payload: {
-    type,
-    args,
-    playerID,
-    credentials
-  }
-});
-/**
- * Generate an automatic game event that is a side-effect of a move.
- * @param {string} type - The event type.
- * @param {Array}  args - Additional arguments.
- * @param {string}  playerID - The ID of the player making this action.
- * @param {string}  credentials - (optional) The credentials for the player making this action.
- */
-
-
-exports.g = gameEvent;
-
-const automaticGameEvent = (type, args, playerID, credentials) => ({
-  type: GAME_EVENT,
-  payload: {
-    type,
-    args,
-    playerID,
-    credentials
-  },
-  automatic: true
-});
-
-const sync = info => ({
-  type: SYNC,
-  state: info.state,
-  log: info.log,
-  initialState: info.initialState,
-  clientOnly: true
-});
-/**
- * Used to update the Redux store's state with patch in response to
- * an action coming from another player.
- * @param prevStateID previous stateID
- * @param stateID stateID after this patch
- * @param {Operation[]} patch - The patch to apply.
- * @param {LogEntry[]} deltalog - A log delta.
- */
-
-
-exports.s = sync;
-
-const patch = (prevStateID, stateID, patch, deltalog) => ({
-  type: PATCH,
-  prevStateID,
-  stateID,
-  patch,
-  deltalog,
-  clientOnly: true
-});
-/**
- * Used to update the Redux store's state in response to
- * an action coming from another player.
- * @param {object} state - The state to restore.
- * @param {Array} deltalog - A log delta.
- */
-
-
-exports.y = patch;
-
-const update = (state, deltalog) => ({
-  type: UPDATE,
-  state,
-  deltalog,
-  clientOnly: true
-});
-/**
- * Used to reset the game state.
- * @param {object} state - The initial state.
- */
-
-
-exports.z = update;
-
-const reset = state => ({
-  type: RESET,
-  state,
-  clientOnly: true
-});
-/**
- * Used to undo the last move.
- * @param {string}  playerID - The ID of the player making this action.
- * @param {string}  credentials - (optional) The credentials for the player making this action.
- */
-
-
-exports.u = reset;
-
-const undo = (playerID, credentials) => ({
-  type: UNDO,
-  payload: {
-    type: null,
-    args: null,
-    playerID,
-    credentials
-  }
-});
-/**
- * Used to redo the last undone move.
- * @param {string}  playerID - The ID of the player making this action.
- * @param {string}  credentials - (optional) The credentials for the player making this action.
- */
-
-
-exports.v = undo;
-
-const redo = (playerID, credentials) => ({
-  type: REDO,
-  payload: {
-    type: null,
-    args: null,
-    playerID,
-    credentials
-  }
-});
-/**
- * Allows plugins to define their own actions and intercept them.
- */
-
-
-exports.w = redo;
-
-const plugin = (type, args, playerID, credentials) => ({
-  type: PLUGIN,
-  payload: {
-    type,
-    args,
-    playerID,
-    credentials
-  }
-});
-/**
- * Private action used to strip transient metadata (e.g. errors) from the game
- * state.
- */
-
-
-const stripTransients = () => ({
-  type: STRIP_TRANSIENTS
-});
-
-exports.r = stripTransients;
-var ActionCreators = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  makeMove: makeMove,
-  gameEvent: gameEvent,
-  automaticGameEvent: automaticGameEvent,
-  sync: sync,
-  patch: patch,
-  update: update,
-  reset: reset,
-  undo: undo,
-  redo: redo,
-  plugin: plugin,
-  stripTransients: stripTransients
-});
-/**
- * Moves can return this when they want to indicate
- * that the combination of arguments is illegal and
- * the move ought to be discarded.
- */
-
-exports.A = ActionCreators;
-const INVALID_MOVE = 'INVALID_MOVE';
-/*
- * Copyright 2018 The boardgame.io Authors
- *
- * Use of this source code is governed by a MIT-style
- * license that can be found in the LICENSE file or at
- * https://opensource.org/licenses/MIT.
- */
-
-/**
- * Plugin that allows using Immer to make immutable changes
- * to G by just mutating it.
- */
-
-exports.n = INVALID_MOVE;
-const ImmerPlugin = {
-  name: 'plugin-immer',
-  fnWrap: move => function (G, ctx) {
-    for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-      args[_key - 2] = arguments[_key];
-    }
-
-    let isInvalid = false;
-    const newG = (0, _immer.default)(G, G => {
-      const result = move(G, ctx, ...args);
-
-      if (result === INVALID_MOVE) {
-        isInvalid = true;
-        return;
-      }
-
-      return result;
-    });
-    if (isInvalid) return INVALID_MOVE;
-    return newG;
-  }
-}; // Inlined version of Alea from https://github.com/davidbau/seedrandom.
+// Inlined version of Alea from https://github.com/davidbau/seedrandom.
 // Converted to Typescript October 2020.
-
 class Alea {
   constructor(seed) {
     const mash = Mash(); // Apply the seeding algorithm from Baagoe.
@@ -1951,6 +1533,449 @@ const RandomPlugin = {
   },
   playerView: () => undefined
 };
+exports.R = RandomPlugin;
+},{}],"node_modules/lodash.isplainobject/index.js":[function(require,module,exports) {
+/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** `Object#toString` result references. */
+var objectTag = '[object Object]';
+
+/**
+ * Checks if `value` is a host object in IE < 9.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+ */
+function isHostObject(value) {
+  // Many host objects are `Object` objects that can coerce to strings
+  // despite having improperly defined `toString` methods.
+  var result = false;
+  if (value != null && typeof value.toString != 'function') {
+    try {
+      result = !!(value + '');
+    } catch (e) {}
+  }
+  return result;
+}
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var objectToString = objectProto.toString;
+
+/** Built-in value references. */
+var getPrototype = overArg(Object.getPrototypeOf, Object);
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return !!value && typeof value == 'object';
+}
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) ||
+      objectToString.call(value) != objectTag || isHostObject(value)) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return (typeof Ctor == 'function' &&
+    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+}
+
+module.exports = isPlainObject;
+
+},{}],"node_modules/boardgame.io/dist/esm/turn-order-0b7dce3d.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.G = exports.F = exports.E = exports.C = exports.B = exports.A = void 0;
+exports.I = InitTurnOrderState;
+exports.T = exports.S = exports.R = exports.P = exports.N = exports.M = void 0;
+exports.U = UpdateTurnOrderState;
+exports.a = supportDeprecatedMoveLimit;
+exports.b = SetActivePlayers;
+exports.c = UpdateActivePlayersOnceEmpty;
+exports.d = void 0;
+exports.e = error;
+exports.h = exports.g = exports.f = void 0;
+exports.i = info;
+exports.z = exports.y = exports.x = exports.w = exports.v = exports.u = exports.t = exports.s = exports.r = exports.q = exports.p = exports.o = exports.n = exports.m = exports.l = exports.k = exports.j = void 0;
+
+var _immer = _interopRequireDefault(require("immer"));
+
+var _pluginRandom087f861e = require("./plugin-random-087f861e.js");
+
+var _lodash = _interopRequireDefault(require("lodash.isplainobject"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+ * Copyright 2017 The boardgame.io Authors
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
+ */
+const MAKE_MOVE = 'MAKE_MOVE';
+exports.M = MAKE_MOVE;
+const GAME_EVENT = 'GAME_EVENT';
+exports.o = GAME_EVENT;
+const REDO = 'REDO';
+exports.R = REDO;
+const RESET = 'RESET';
+exports.l = RESET;
+const SYNC = 'SYNC';
+exports.j = SYNC;
+const UNDO = 'UNDO';
+exports.h = UNDO;
+const UPDATE = 'UPDATE';
+exports.k = UPDATE;
+const PATCH = 'PATCH';
+exports.P = PATCH;
+const PLUGIN = 'PLUGIN';
+exports.d = PLUGIN;
+const STRIP_TRANSIENTS = 'STRIP_TRANSIENTS';
+/*
+ * Copyright 2017 The boardgame.io Authors
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
+ */
+
+/**
+ * Generate a move to be dispatched to the game move reducer.
+ *
+ * @param {string} type - The move type.
+ * @param {Array}  args - Additional arguments.
+ * @param {string}  playerID - The ID of the player making this action.
+ * @param {string}  credentials - (optional) The credentials for the player making this action.
+ */
+
+exports.p = STRIP_TRANSIENTS;
+
+const makeMove = (type, args, playerID, credentials) => ({
+  type: MAKE_MOVE,
+  payload: {
+    type,
+    args,
+    playerID,
+    credentials
+  }
+});
+/**
+ * Generate a game event to be dispatched to the flow reducer.
+ *
+ * @param {string} type - The event type.
+ * @param {Array}  args - Additional arguments.
+ * @param {string}  playerID - The ID of the player making this action.
+ * @param {string}  credentials - (optional) The credentials for the player making this action.
+ */
+
+
+exports.B = makeMove;
+
+const gameEvent = (type, args, playerID, credentials) => ({
+  type: GAME_EVENT,
+  payload: {
+    type,
+    args,
+    playerID,
+    credentials
+  }
+});
+/**
+ * Generate an automatic game event that is a side-effect of a move.
+ * @param {string} type - The event type.
+ * @param {Array}  args - Additional arguments.
+ * @param {string}  playerID - The ID of the player making this action.
+ * @param {string}  credentials - (optional) The credentials for the player making this action.
+ */
+
+
+exports.g = gameEvent;
+
+const automaticGameEvent = (type, args, playerID, credentials) => ({
+  type: GAME_EVENT,
+  payload: {
+    type,
+    args,
+    playerID,
+    credentials
+  },
+  automatic: true
+});
+
+const sync = info => ({
+  type: SYNC,
+  state: info.state,
+  log: info.log,
+  initialState: info.initialState,
+  clientOnly: true
+});
+/**
+ * Used to update the Redux store's state with patch in response to
+ * an action coming from another player.
+ * @param prevStateID previous stateID
+ * @param stateID stateID after this patch
+ * @param {Operation[]} patch - The patch to apply.
+ * @param {LogEntry[]} deltalog - A log delta.
+ */
+
+
+exports.s = sync;
+
+const patch = (prevStateID, stateID, patch, deltalog) => ({
+  type: PATCH,
+  prevStateID,
+  stateID,
+  patch,
+  deltalog,
+  clientOnly: true
+});
+/**
+ * Used to update the Redux store's state in response to
+ * an action coming from another player.
+ * @param {object} state - The state to restore.
+ * @param {Array} deltalog - A log delta.
+ */
+
+
+exports.y = patch;
+
+const update = (state, deltalog) => ({
+  type: UPDATE,
+  state,
+  deltalog,
+  clientOnly: true
+});
+/**
+ * Used to reset the game state.
+ * @param {object} state - The initial state.
+ */
+
+
+exports.z = update;
+
+const reset = state => ({
+  type: RESET,
+  state,
+  clientOnly: true
+});
+/**
+ * Used to undo the last move.
+ * @param {string}  playerID - The ID of the player making this action.
+ * @param {string}  credentials - (optional) The credentials for the player making this action.
+ */
+
+
+exports.u = reset;
+
+const undo = (playerID, credentials) => ({
+  type: UNDO,
+  payload: {
+    type: null,
+    args: null,
+    playerID,
+    credentials
+  }
+});
+/**
+ * Used to redo the last undone move.
+ * @param {string}  playerID - The ID of the player making this action.
+ * @param {string}  credentials - (optional) The credentials for the player making this action.
+ */
+
+
+exports.v = undo;
+
+const redo = (playerID, credentials) => ({
+  type: REDO,
+  payload: {
+    type: null,
+    args: null,
+    playerID,
+    credentials
+  }
+});
+/**
+ * Allows plugins to define their own actions and intercept them.
+ */
+
+
+exports.w = redo;
+
+const plugin = (type, args, playerID, credentials) => ({
+  type: PLUGIN,
+  payload: {
+    type,
+    args,
+    playerID,
+    credentials
+  }
+});
+/**
+ * Private action used to strip transient metadata (e.g. errors) from the game
+ * state.
+ */
+
+
+const stripTransients = () => ({
+  type: STRIP_TRANSIENTS
+});
+
+exports.r = stripTransients;
+var ActionCreators = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  makeMove: makeMove,
+  gameEvent: gameEvent,
+  automaticGameEvent: automaticGameEvent,
+  sync: sync,
+  patch: patch,
+  update: update,
+  reset: reset,
+  undo: undo,
+  redo: redo,
+  plugin: plugin,
+  stripTransients: stripTransients
+});
+/**
+ * Moves can return this when they want to indicate
+ * that the combination of arguments is illegal and
+ * the move ought to be discarded.
+ */
+
+exports.A = ActionCreators;
+const INVALID_MOVE = 'INVALID_MOVE';
+/*
+ * Copyright 2018 The boardgame.io Authors
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
+ */
+
+/**
+ * Plugin that allows using Immer to make immutable changes
+ * to G by just mutating it.
+ */
+
+exports.n = INVALID_MOVE;
+const ImmerPlugin = {
+  name: 'plugin-immer',
+  fnWrap: move => function (G, ctx) {
+    for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      args[_key - 2] = arguments[_key];
+    }
+
+    let isInvalid = false;
+    const newG = (0, _immer.default)(G, G => {
+      const result = move(G, ctx, ...args);
+
+      if (result === INVALID_MOVE) {
+        isInvalid = true;
+        return;
+      }
+
+      return result;
+    });
+    if (isInvalid) return INVALID_MOVE;
+    return newG;
+  }
+};
 var GameMethod;
 exports.G = GameMethod;
 
@@ -2050,10 +2075,10 @@ class Events {
   update(state) {
     const initialState = state;
 
-    const stateWithError = (_ref5, message) => {
+    const stateWithError = (_ref, message) => {
       let {
         stack
-      } = _ref5;
+      } = _ref;
       return { ...initialState,
         plugins: { ...initialState.plugins,
           events: { ...initialState.plugins.events,
@@ -2153,16 +2178,16 @@ class Events {
 
 const EventsPlugin = {
   name: 'events',
-  noClient: _ref6 => {
+  noClient: _ref2 => {
     let {
       api
-    } = _ref6;
+    } = _ref2;
     return api._private.isUsed();
   },
-  isInvalid: _ref7 => {
+  isInvalid: _ref3 => {
     let {
       data
-    } = _ref7;
+    } = _ref3;
     return data.error || false;
   },
   // Update the events plugin’s internal turn context each time a move
@@ -2180,19 +2205,19 @@ const EventsPlugin = {
     if (api) api._private.unsetCurrentMethod();
     return G;
   },
-  dangerouslyFlushRawState: _ref8 => {
+  dangerouslyFlushRawState: _ref4 => {
     let {
       state,
       api
-    } = _ref8;
+    } = _ref4;
     return api._private.update(state);
   },
-  api: _ref9 => {
+  api: _ref5 => {
     let {
       game,
       ctx,
       playerID
-    } = _ref9;
+    } = _ref5;
     return new Events(game.flow, ctx, playerID).api();
   }
 };
@@ -2213,10 +2238,10 @@ const EventsPlugin = {
 const LogPlugin = {
   name: 'log',
   flush: () => ({}),
-  api: _ref10 => {
+  api: _ref6 => {
     let {
       data
-    } = _ref10;
+    } = _ref6;
     return {
       setMetadata: metadata => {
         data.metadata = metadata;
@@ -2307,7 +2332,7 @@ function error(error) {
  */
 
 
-const CORE_PLUGINS = [ImmerPlugin, RandomPlugin, LogPlugin, SerializablePlugin];
+const CORE_PLUGINS = [ImmerPlugin, _pluginRandom087f861e.R, LogPlugin, SerializablePlugin];
 const DEFAULT_PLUGINS = [...CORE_PLUGINS, EventsPlugin];
 /**
  * Allow plugins to intercept actions and process them.
@@ -2357,10 +2382,10 @@ const EnhanceCtx = state => {
   const ctx = { ...state.ctx
   };
   const plugins = state.plugins || {};
-  Object.entries(plugins).forEach(_ref11 => {
+  Object.entries(plugins).forEach(_ref7 => {
     let [name, {
       api
-    }] = _ref11;
+    }] = _ref7;
     ctx[name] = api;
   });
   return ctx;
@@ -2377,10 +2402,10 @@ const EnhanceCtx = state => {
 exports.E = EnhanceCtx;
 
 const FnWrap = (methodToWrap, methodType, plugins) => {
-  return [...CORE_PLUGINS, ...plugins, EventsPlugin].filter(plugin => plugin.fnWrap !== undefined).reduce((method, _ref12) => {
+  return [...CORE_PLUGINS, ...plugins, EventsPlugin].filter(plugin => plugin.fnWrap !== undefined).reduce((method, _ref8) => {
     let {
       fnWrap
-    } = _ref12;
+    } = _ref8;
     return fnWrap(method, methodType);
   }, methodToWrap);
 };
@@ -2572,21 +2597,21 @@ const FlushAndValidate = (state, opts) => {
 
 exports.q = FlushAndValidate;
 
-const PlayerView = (_ref13, _ref14) => {
+const PlayerView = (_ref9, _ref10) => {
   let {
     G,
     ctx,
     plugins = {}
-  } = _ref13;
+  } = _ref9;
   let {
     game,
     playerID
-  } = _ref14;
-  [...DEFAULT_PLUGINS, ...game.plugins].forEach(_ref15 => {
+  } = _ref10;
+  [...DEFAULT_PLUGINS, ...game.plugins].forEach(_ref11 => {
     let {
       name,
       playerView
-    } = _ref15;
+    } = _ref11;
     if (!playerView) return;
     const {
       data
@@ -3075,8 +3100,8 @@ const ActivePlayers = {
     maxMoves: 1
   }
 };
-exports.D = ActivePlayers;
-},{"immer":"../../../node_modules/immer/dist/immer.esm.js","lodash.isplainobject":"../../../node_modules/lodash.isplainobject/index.js"}],"../../../node_modules/rfc6902/pointer.js":[function(require,module,exports) {
+exports.C = ActivePlayers;
+},{"immer":"node_modules/immer/dist/immer.esm.js","./plugin-random-087f861e.js":"node_modules/boardgame.io/dist/esm/plugin-random-087f861e.js","lodash.isplainobject":"node_modules/lodash.isplainobject/index.js"}],"node_modules/rfc6902/pointer.js":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pointer = void 0;
@@ -3147,6 +3172,9 @@ var Pointer = /** @class */ (function () {
         for (var i = 1, l = this.tokens.length; i < l; i++) {
             parent = value;
             key = this.tokens[i];
+            if (key == '__proto__' || key == 'constructor' || key == 'prototype') {
+                continue;
+            }
             // not sure if this the best way to handle non-existant paths...
             value = (parent || {})[key];
         }
@@ -3182,7 +3210,7 @@ var Pointer = /** @class */ (function () {
 }());
 exports.Pointer = Pointer;
 
-},{}],"../../../node_modules/rfc6902/util.js":[function(require,module,exports) {
+},{}],"node_modules/rfc6902/util.js":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.clone = exports.objectType = exports.hasOwnProperty = void 0;
@@ -3247,7 +3275,7 @@ function clone(source) {
 }
 exports.clone = clone;
 
-},{}],"../../../node_modules/rfc6902/diff.js":[function(require,module,exports) {
+},{}],"node_modules/rfc6902/diff.js":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.diffAny = exports.diffObjects = exports.diffArrays = exports.intersection = exports.subtract = exports.isDestructive = void 0;
@@ -3532,7 +3560,7 @@ function diffAny(input, output, ptr, diff) {
 }
 exports.diffAny = diffAny;
 
-},{"./pointer":"../../../node_modules/rfc6902/pointer.js","./util":"../../../node_modules/rfc6902/util.js"}],"../../../node_modules/rfc6902/patch.js":[function(require,module,exports) {
+},{"./pointer":"node_modules/rfc6902/pointer.js","./util":"node_modules/rfc6902/util.js"}],"node_modules/rfc6902/patch.js":[function(require,module,exports) {
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -3769,7 +3797,7 @@ function apply(object, operation) {
 }
 exports.apply = apply;
 
-},{"./pointer":"../../../node_modules/rfc6902/pointer.js","./util":"../../../node_modules/rfc6902/util.js","./diff":"../../../node_modules/rfc6902/diff.js"}],"../../../node_modules/rfc6902/index.js":[function(require,module,exports) {
+},{"./pointer":"node_modules/rfc6902/pointer.js","./util":"node_modules/rfc6902/util.js","./diff":"node_modules/rfc6902/diff.js"}],"node_modules/rfc6902/index.js":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createTests = exports.createPatch = exports.applyPatch = void 0;
@@ -3859,7 +3887,7 @@ function createTests(input, patch) {
 }
 exports.createTests = createTests;
 
-},{"./pointer":"../../../node_modules/rfc6902/pointer.js","./patch":"../../../node_modules/rfc6902/patch.js","./diff":"../../../node_modules/rfc6902/diff.js"}],"../../../node_modules/boardgame.io/dist/esm/reducer-95b86815.js":[function(require,module,exports) {
+},{"./pointer":"node_modules/rfc6902/pointer.js","./patch":"node_modules/rfc6902/patch.js","./diff":"node_modules/rfc6902/diff.js"}],"node_modules/boardgame.io/dist/esm/reducer-07c7b307.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3870,7 +3898,7 @@ exports.I = IsLongFormMove;
 exports.P = ProcessGameConfig;
 exports.T = void 0;
 
-var _turnOrder406c = require("./turn-order-406c4349.js");
+var _turnOrder0b7dce3d = require("./turn-order-0b7dce3d.js");
 
 var _rfc = require("rfc6902");
 
@@ -3922,7 +3950,7 @@ function Flow(_ref) {
   };
 
   if ('' in phaseMap) {
-    (0, _turnOrder406c.e)('cannot specify phase with empty name');
+    (0, _turnOrder0b7dce3d.e)('cannot specify phase with empty name');
   }
 
   phaseMap[''] = {};
@@ -3932,22 +3960,22 @@ function Flow(_ref) {
   Object.keys(moves).forEach(name => moveNames.add(name));
 
   const HookWrapper = (hook, hookType) => {
-    const withPlugins = (0, _turnOrder406c.F)(hook, hookType, plugins);
+    const withPlugins = (0, _turnOrder0b7dce3d.F)(hook, hookType, plugins);
     return state => {
-      const ctxWithAPI = (0, _turnOrder406c.E)(state);
+      const ctxWithAPI = (0, _turnOrder0b7dce3d.E)(state);
       return withPlugins(state.G, ctxWithAPI);
     };
   };
 
   const TriggerWrapper = trigger => {
     return state => {
-      const ctxWithAPI = (0, _turnOrder406c.E)(state);
+      const ctxWithAPI = (0, _turnOrder0b7dce3d.E)(state);
       return trigger(state.G, ctxWithAPI);
     };
   };
 
   const wrapped = {
-    onEnd: HookWrapper(onEnd, _turnOrder406c.G.GAME_ON_END),
+    onEnd: HookWrapper(onEnd, _turnOrder0b7dce3d.G.GAME_ON_END),
     endIf: TriggerWrapper(endIf)
   };
 
@@ -3982,7 +4010,7 @@ function Flow(_ref) {
     }
 
     if (phaseConfig.turn.order === undefined) {
-      phaseConfig.turn.order = _turnOrder406c.T.DEFAULT;
+      phaseConfig.turn.order = _turnOrder0b7dce3d.T.DEFAULT;
     }
 
     if (phaseConfig.turn.onBegin === undefined) {
@@ -4006,7 +4034,7 @@ function Flow(_ref) {
     } // turns previously treated moveLimit as both minMoves and maxMoves, this behaviour is kept intentionally
 
 
-    (0, _turnOrder406c.a)(phaseConfig.turn, true);
+    (0, _turnOrder0b7dce3d.a)(phaseConfig.turn, true);
 
     for (const stage in phaseConfig.turn.stages) {
       const stageConfig = phaseConfig.turn.stages[stage];
@@ -4020,14 +4048,14 @@ function Flow(_ref) {
     }
 
     phaseConfig.wrapped = {
-      onBegin: HookWrapper(phaseConfig.onBegin, _turnOrder406c.G.PHASE_ON_BEGIN),
-      onEnd: HookWrapper(phaseConfig.onEnd, _turnOrder406c.G.PHASE_ON_END),
+      onBegin: HookWrapper(phaseConfig.onBegin, _turnOrder0b7dce3d.G.PHASE_ON_BEGIN),
+      onEnd: HookWrapper(phaseConfig.onEnd, _turnOrder0b7dce3d.G.PHASE_ON_END),
       endIf: TriggerWrapper(phaseConfig.endIf)
     };
     phaseConfig.turn.wrapped = {
-      onMove: HookWrapper(phaseConfig.turn.onMove, _turnOrder406c.G.TURN_ON_MOVE),
-      onBegin: HookWrapper(phaseConfig.turn.onBegin, _turnOrder406c.G.TURN_ON_BEGIN),
-      onEnd: HookWrapper(phaseConfig.turn.onEnd, _turnOrder406c.G.TURN_ON_END),
+      onMove: HookWrapper(phaseConfig.turn.onMove, _turnOrder0b7dce3d.G.TURN_ON_MOVE),
+      onBegin: HookWrapper(phaseConfig.turn.onBegin, _turnOrder0b7dce3d.G.TURN_ON_BEGIN),
+      onEnd: HookWrapper(phaseConfig.turn.onEnd, _turnOrder0b7dce3d.G.TURN_ON_END),
       endIf: TriggerWrapper(phaseConfig.turn.endIf)
     };
 
@@ -4190,12 +4218,12 @@ function Flow(_ref) {
       };
 
       if (phaseConfig.turn.activePlayers) {
-        ctx = (0, _turnOrder406c.b)(ctx, phaseConfig.turn.activePlayers);
+        ctx = (0, _turnOrder0b7dce3d.b)(ctx, phaseConfig.turn.activePlayers);
       }
     } else {
       // This is only called at the beginning of the phase
       // when there is no currentPlayer yet.
-      ctx = (0, _turnOrder406c.I)(state, phaseConfig.turn);
+      ctx = (0, _turnOrder0b7dce3d.I)(state, phaseConfig.turn);
     }
 
     const turn = ctx.turn + 1;
@@ -4237,7 +4265,7 @@ function Flow(_ref) {
           phase: arg.next
         };
       } else {
-        (0, _turnOrder406c.e)('invalid phase: ' + arg.next);
+        (0, _turnOrder0b7dce3d.e)('invalid phase: ' + arg.next);
         return state;
       }
     } else {
@@ -4271,7 +4299,7 @@ function Flow(_ref) {
     const {
       endPhase,
       ctx: newCtx
-    } = (0, _turnOrder406c.U)(state, currentPlayer, phaseConfig.turn, arg);
+    } = (0, _turnOrder0b7dce3d.U)(state, currentPlayer, phaseConfig.turn, arg);
     ctx = newCtx;
     state = { ...state,
       G,
@@ -4300,7 +4328,7 @@ function Flow(_ref) {
       playerID
     } = _ref7;
 
-    if (typeof arg === 'string' || arg === _turnOrder406c.S.NULL) {
+    if (typeof arg === 'string' || arg === _turnOrder0b7dce3d.S.NULL) {
       arg = {
         stage: arg
       };
@@ -4309,7 +4337,7 @@ function Flow(_ref) {
     if (typeof arg !== 'object') return state; // `arg` should be of type `StageArg`, loose typing as `any` here for historic reasons
     // stages previously did not enforce minMoves, this behaviour is kept intentionally
 
-    (0, _turnOrder406c.a)(arg);
+    (0, _turnOrder0b7dce3d.a)(arg);
     let {
       ctx
     } = state;
@@ -4361,7 +4389,7 @@ function Flow(_ref) {
       arg
     } = _ref8;
     return { ...state,
-      ctx: (0, _turnOrder406c.b)(state.ctx, arg)
+      ctx: (0, _turnOrder0b7dce3d.b)(state.ctx, arg)
     };
   } ///////////////
   // ShouldEnd //
@@ -4456,7 +4484,7 @@ function Flow(_ref) {
       phase: null
     }; // Add log entry.
 
-    const action = (0, _turnOrder406c.g)('endPhase', arg);
+    const action = (0, _turnOrder0b7dce3d.g)('endPhase', arg);
     const {
       _stateID
     } = state;
@@ -4502,7 +4530,7 @@ function Flow(_ref) {
     const currentPlayerMoves = numMoves || 0;
 
     if (!force && phaseConfig.turn.minMoves && currentPlayerMoves < phaseConfig.turn.minMoves) {
-      (0, _turnOrder406c.i)("cannot end turn before making ".concat(phaseConfig.turn.minMoves, " moves"));
+      (0, _turnOrder0b7dce3d.i)("cannot end turn before making ".concat(phaseConfig.turn.minMoves, " moves"));
       return state;
     } // Run turn-end triggers.
 
@@ -4542,7 +4570,7 @@ function Flow(_ref) {
     } // Create log entry.
 
 
-    const action = (0, _turnOrder406c.g)('endTurn', arg);
+    const action = (0, _turnOrder0b7dce3d.g)('endTurn', arg);
     const {
       _stateID
     } = state;
@@ -4609,7 +4637,7 @@ function Flow(_ref) {
     const currentPlayerMoves = _activePlayersNumMoves[playerID] || 0;
 
     if (_activePlayersMinMoves && _activePlayersMinMoves[playerID] && currentPlayerMoves < _activePlayersMinMoves[playerID]) {
-      (0, _turnOrder406c.i)("cannot end stage before making ".concat(_activePlayersMinMoves[playerID], " moves"));
+      (0, _turnOrder0b7dce3d.i)("cannot end stage before making ".concat(_activePlayersMinMoves[playerID], " moves"));
       return state;
     } // Remove player from activePlayers.
 
@@ -4632,13 +4660,13 @@ function Flow(_ref) {
       delete _activePlayersMaxMoves[playerID];
     }
 
-    ctx = (0, _turnOrder406c.c)({ ...ctx,
+    ctx = (0, _turnOrder0b7dce3d.c)({ ...ctx,
       activePlayers,
       _activePlayersMinMoves,
       _activePlayersMaxMoves
     }); // Create log entry.
 
-    const action = (0, _turnOrder406c.g)('endStage', arg);
+    const action = (0, _turnOrder0b7dce3d.g)('endStage', arg);
     const logEntry = {
       action,
       _stateID,
@@ -4678,7 +4706,7 @@ function Flow(_ref) {
       activePlayers
     } = ctx;
 
-    if (activePlayers && activePlayers[playerID] !== undefined && activePlayers[playerID] !== _turnOrder406c.S.NULL && stages[activePlayers[playerID]] !== undefined && stages[activePlayers[playerID]].moves !== undefined) {
+    if (activePlayers && activePlayers[playerID] !== undefined && activePlayers[playerID] !== _turnOrder0b7dce3d.S.NULL && stages[activePlayers[playerID]] !== undefined && stages[activePlayers[playerID]].moves !== undefined) {
       // Check if moves are defined for the player's stage.
       const stage = stages[activePlayers[playerID]];
       const moves = stage.moves;
@@ -4978,8 +5006,8 @@ function ProcessGameConfig(game) {
       }
 
       if (moveFn instanceof Function) {
-        const fn = (0, _turnOrder406c.F)(moveFn, _turnOrder406c.G.MOVE, game.plugins);
-        const ctxWithAPI = { ...(0, _turnOrder406c.E)(state),
+        const fn = (0, _turnOrder0b7dce3d.F)(moveFn, _turnOrder0b7dce3d.G.MOVE, game.plugins);
+        const ctxWithAPI = { ...(0, _turnOrder0b7dce3d.E)(state),
           playerID: action.playerID
         };
         let args = [];
@@ -4991,7 +5019,7 @@ function ProcessGameConfig(game) {
         return fn(state.G, ctxWithAPI, ...args);
       }
 
-      (0, _turnOrder406c.e)("invalid move object: ".concat(action.type));
+      (0, _turnOrder0b7dce3d.e)("invalid move object: ".concat(action.type));
       return state.G;
     }
   };
@@ -5140,7 +5168,7 @@ function initializeDeltalog(state, action, move) {
 
 
 function flushAndValidatePlugins(state, oldState, pluginOpts) {
-  const [newState, isInvalid] = (0, _turnOrder406c.q)(state, pluginOpts);
+  const [newState, isInvalid] = (0, _turnOrder0b7dce3d.q)(state, pluginOpts);
   if (!isInvalid) return [newState];
   return [newState, WithError(oldState, ActionErrorType.PluginActionInvalid, isInvalid)];
 }
@@ -5195,7 +5223,7 @@ const TransientHandlingMiddleware = store => next => action => {
   const result = next(action);
 
   switch (action.type) {
-    case _turnOrder406c.p:
+    case _turnOrder0b7dce3d.p:
       {
         return result;
       }
@@ -5205,7 +5233,7 @@ const TransientHandlingMiddleware = store => next => action => {
         const [, transients] = ExtractTransients(store.getState());
 
         if (typeof transients !== 'undefined') {
-          store.dispatch((0, _turnOrder406c.r)()); // Dev Note: If parent middleware needs to correlate the spawned
+          store.dispatch((0, _turnOrder0b7dce3d.r)()); // Dev Note: If parent middleware needs to correlate the spawned
           // StripTransients action to the triggering action, instrument here.
           //
           // This is a bit tricky; for more details, see:
@@ -5251,14 +5279,14 @@ function CreateGameReducer(_ref13) {
     ] = ExtractTransients(stateWithTransients);
 
     switch (action.type) {
-      case _turnOrder406c.p:
+      case _turnOrder0b7dce3d.p:
         {
           // This action indicates that transient metadata in the state has been
           // consumed and should now be stripped from the state..
           return state;
         }
 
-      case _turnOrder406c.o:
+      case _turnOrder0b7dce3d.o:
         {
           state = { ...state,
             deltalog: []
@@ -5273,18 +5301,18 @@ function CreateGameReducer(_ref13) {
 
 
           if (state.ctx.gameover !== undefined) {
-            (0, _turnOrder406c.e)("cannot call event after game end");
+            (0, _turnOrder0b7dce3d.e)("cannot call event after game end");
             return WithError(state, ActionErrorType.GameOver);
           } // Ignore the event if the player isn't active.
 
 
           if (actionHasPlayerID(action) && !game.flow.isPlayerActive(state.G, state.ctx, action.payload.playerID)) {
-            (0, _turnOrder406c.e)("disallowed event: ".concat(action.payload.type));
+            (0, _turnOrder0b7dce3d.e)("disallowed event: ".concat(action.payload.type));
             return WithError(state, ActionErrorType.InactivePlayer);
           } // Execute plugins.
 
 
-          state = (0, _turnOrder406c.m)(state, {
+          state = (0, _turnOrder0b7dce3d.m)(state, {
             game,
             isClient: false,
             playerID: action.payload.playerID
@@ -5308,7 +5336,7 @@ function CreateGameReducer(_ref13) {
           };
         }
 
-      case _turnOrder406c.M:
+      case _turnOrder0b7dce3d.M:
         {
           const oldState = state = { ...state,
             deltalog: []
@@ -5317,7 +5345,7 @@ function CreateGameReducer(_ref13) {
           const move = game.flow.getMove(state.ctx, action.payload.type, action.payload.playerID || state.ctx.currentPlayer);
 
           if (move === null) {
-            (0, _turnOrder406c.e)("disallowed move: ".concat(action.payload.type));
+            (0, _turnOrder0b7dce3d.e)("disallowed move: ".concat(action.payload.type));
             return WithError(state, ActionErrorType.UnavailableMove);
           } // Don't run move on client if move says so.
 
@@ -5328,18 +5356,18 @@ function CreateGameReducer(_ref13) {
 
 
           if (state.ctx.gameover !== undefined) {
-            (0, _turnOrder406c.e)("cannot make move after game end");
+            (0, _turnOrder0b7dce3d.e)("cannot make move after game end");
             return WithError(state, ActionErrorType.GameOver);
           } // Ignore the move if the player isn't active.
 
 
           if (actionHasPlayerID(action) && !game.flow.isPlayerActive(state.G, state.ctx, action.payload.playerID)) {
-            (0, _turnOrder406c.e)("disallowed move: ".concat(action.payload.type));
+            (0, _turnOrder0b7dce3d.e)("disallowed move: ".concat(action.payload.type));
             return WithError(state, ActionErrorType.InactivePlayer);
           } // Execute plugins.
 
 
-          state = (0, _turnOrder406c.m)(state, {
+          state = (0, _turnOrder0b7dce3d.m)(state, {
             game,
             isClient,
             playerID: action.payload.playerID
@@ -5347,8 +5375,8 @@ function CreateGameReducer(_ref13) {
 
           const G = game.processMove(state, action.payload); // The game declared the move as invalid.
 
-          if (G === _turnOrder406c.n) {
-            (0, _turnOrder406c.e)("invalid move: ".concat(action.payload.type, " args: ").concat(action.payload.args)); // TODO(#723): Marshal a nice error payload with the processed move.
+          if (G === _turnOrder0b7dce3d.n) {
+            (0, _turnOrder0b7dce3d.e)("invalid move: ".concat(action.payload.type, " args: ").concat(action.payload.args)); // TODO(#723): Marshal a nice error payload with the processed move.
 
             return WithError(state, ActionErrorType.InvalidMove);
           }
@@ -5359,7 +5387,7 @@ function CreateGameReducer(_ref13) {
           // materialized on the client (and must wait for the server
           // response instead).
 
-          if (isClient && (0, _turnOrder406c.N)(newState, {
+          if (isClient && (0, _turnOrder0b7dce3d.N)(newState, {
             game
           })) {
             return state;
@@ -5401,21 +5429,21 @@ function CreateGameReducer(_ref13) {
           };
         }
 
-      case _turnOrder406c.l:
-      case _turnOrder406c.k:
-      case _turnOrder406c.j:
+      case _turnOrder0b7dce3d.l:
+      case _turnOrder0b7dce3d.k:
+      case _turnOrder0b7dce3d.j:
         {
           return action.state;
         }
 
-      case _turnOrder406c.h:
+      case _turnOrder0b7dce3d.h:
         {
           state = { ...state,
             deltalog: []
           };
 
           if (game.disableUndo) {
-            (0, _turnOrder406c.e)('Undo is not enabled');
+            (0, _turnOrder0b7dce3d.e)('Undo is not enabled');
             return WithError(state, ActionErrorType.ActionDisabled);
           }
 
@@ -5428,7 +5456,7 @@ function CreateGameReducer(_ref13) {
           } = state;
 
           if (_undo.length < 2) {
-            (0, _turnOrder406c.e)("No moves to undo");
+            (0, _turnOrder0b7dce3d.e)("No moves to undo");
             return WithError(state, ActionErrorType.ActionInvalid);
           }
 
@@ -5436,7 +5464,7 @@ function CreateGameReducer(_ref13) {
           const restore = _undo[_undo.length - 2]; // Only allow players to undo their own moves.
 
           if (actionHasPlayerID(action) && action.payload.playerID !== last.playerID) {
-            (0, _turnOrder406c.e)("Cannot undo other players' moves");
+            (0, _turnOrder0b7dce3d.e)("Cannot undo other players' moves");
             return WithError(state, ActionErrorType.ActionInvalid);
           } // If undoing a move, check it is undoable.
 
@@ -5445,7 +5473,7 @@ function CreateGameReducer(_ref13) {
             const lastMove = game.flow.getMove(restore.ctx, last.moveType, last.playerID);
 
             if (!CanUndoMove(G, ctx, lastMove)) {
-              (0, _turnOrder406c.e)("Move cannot be undone");
+              (0, _turnOrder0b7dce3d.e)("Move cannot be undone");
               return WithError(state, ActionErrorType.ActionInvalid);
             }
           }
@@ -5461,14 +5489,14 @@ function CreateGameReducer(_ref13) {
           };
         }
 
-      case _turnOrder406c.R:
+      case _turnOrder0b7dce3d.R:
         {
           state = { ...state,
             deltalog: []
           };
 
           if (game.disableUndo) {
-            (0, _turnOrder406c.e)('Redo is not enabled');
+            (0, _turnOrder0b7dce3d.e)('Redo is not enabled');
             return WithError(state, ActionErrorType.ActionDisabled);
           }
 
@@ -5479,14 +5507,14 @@ function CreateGameReducer(_ref13) {
           } = state;
 
           if (_redo.length === 0) {
-            (0, _turnOrder406c.e)("No moves to redo");
+            (0, _turnOrder0b7dce3d.e)("No moves to redo");
             return WithError(state, ActionErrorType.ActionInvalid);
           }
 
           const first = _redo[0]; // Only allow players to redo their own undos.
 
           if (actionHasPlayerID(action) && action.payload.playerID !== first.playerID) {
-            (0, _turnOrder406c.e)("Cannot redo other players' moves");
+            (0, _turnOrder0b7dce3d.e)("Cannot redo other players' moves");
             return WithError(state, ActionErrorType.ActionInvalid);
           }
 
@@ -5501,15 +5529,15 @@ function CreateGameReducer(_ref13) {
           };
         }
 
-      case _turnOrder406c.d:
+      case _turnOrder0b7dce3d.d:
         {
           // TODO(#723): Expose error semantics to plugin processing.
-          return (0, _turnOrder406c.f)(state, action, {
+          return (0, _turnOrder0b7dce3d.f)(state, action, {
             game
           });
         }
 
-      case _turnOrder406c.P:
+      case _turnOrder0b7dce3d.P:
         {
           const oldState = state;
           const newState = JSON.parse(JSON.stringify(oldState));
@@ -5517,7 +5545,7 @@ function CreateGameReducer(_ref13) {
           const hasError = patchError.some(entry => entry !== null);
 
           if (hasError) {
-            (0, _turnOrder406c.e)("Patch ".concat(JSON.stringify(action.patch), " apply failed"));
+            (0, _turnOrder0b7dce3d.e)("Patch ".concat(JSON.stringify(action.patch), " apply failed"));
             return WithError(oldState, UpdateErrorType.PatchFailed, patchError);
           } else {
             return newState;
@@ -5531,7 +5559,7 @@ function CreateGameReducer(_ref13) {
     }
   };
 }
-},{"./turn-order-406c4349.js":"../../../node_modules/boardgame.io/dist/esm/turn-order-406c4349.js","rfc6902":"../../../node_modules/rfc6902/index.js"}],"../../../node_modules/flatted/esm/index.js":[function(require,module,exports) {
+},{"./turn-order-0b7dce3d.js":"node_modules/boardgame.io/dist/esm/turn-order-0b7dce3d.js","rfc6902":"node_modules/rfc6902/index.js"}],"node_modules/flatted/esm/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5869,7 +5897,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"../../../node_modules/setimmediate/setImmediate.js":[function(require,module,exports) {
+},{}],"node_modules/setimmediate/setImmediate.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 (function (global, undefined) {
@@ -6059,7 +6087,7 @@ var process = require("process");
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-},{"process":"node_modules/process/browser.js"}],"../../../node_modules/boardgame.io/dist/esm/ai-763ecd6c.js":[function(require,module,exports) {
+},{"process":"node_modules/process/browser.js"}],"node_modules/boardgame.io/dist/esm/ai-3099ce9a.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6069,9 +6097,11 @@ exports.R = exports.M = exports.B = void 0;
 exports.S = Step;
 exports.a = Simulate;
 
-var _turnOrder406c = require("./turn-order-406c4349.js");
+var _turnOrder0b7dce3d = require("./turn-order-0b7dce3d.js");
 
-var _reducer95b = require("./reducer-95b86815.js");
+var _pluginRandom087f861e = require("./plugin-random-087f861e.js");
+
+var _reducer07c7b = require("./reducer-07c7b307.js");
 
 require("setimmediate");
 
@@ -6132,11 +6162,11 @@ class Bot {
       }
 
       if ('move' in a) {
-        return (0, _turnOrder406c.B)(a.move, a.args, playerID);
+        return (0, _turnOrder0b7dce3d.B)(a.move, a.args, playerID);
       }
 
       if ('event' in a) {
-        return (0, _turnOrder406c.g)(a.event, a.args, playerID);
+        return (0, _turnOrder0b7dce3d.g)(a.event, a.args, playerID);
       }
     });
   }
@@ -6146,7 +6176,7 @@ class Bot {
 
     if (this.seed !== undefined) {
       const seed = this.prngstate ? '' : this.seed;
-      const rand = (0, _turnOrder406c.C)(seed, this.prngstate);
+      const rand = (0, _pluginRandom087f861e.a)(seed, this.prngstate);
       number = rand();
       this.prngstate = rand.state();
     } else {
@@ -6210,7 +6240,7 @@ class MCTSBot extends Bot {
 
     this.iterationCallback = iterationCallback || (() => {});
 
-    this.reducer = (0, _reducer95b.C)({
+    this.reducer = (0, _reducer07c7b.C)({
       game
     });
     this.iterations = iterations;
@@ -6551,7 +6581,7 @@ async function Simulate(_ref7) {
     depth
   } = _ref7;
   if (depth === undefined) depth = 10000;
-  const reducer = (0, _reducer95b.C)({
+  const reducer = (0, _reducer07c7b.C)({
     game
   });
   let metadata = null;
@@ -6581,7 +6611,7 @@ async function Simulate(_ref7) {
     metadata
   };
 }
-},{"./turn-order-406c4349.js":"../../../node_modules/boardgame.io/dist/esm/turn-order-406c4349.js","./reducer-95b86815.js":"../../../node_modules/boardgame.io/dist/esm/reducer-95b86815.js","setimmediate":"../../../node_modules/setimmediate/setImmediate.js"}],"../../../node_modules/boardgame.io/dist/esm/Debug-8ca6996f.js":[function(require,module,exports) {
+},{"./turn-order-0b7dce3d.js":"node_modules/boardgame.io/dist/esm/turn-order-0b7dce3d.js","./plugin-random-087f861e.js":"node_modules/boardgame.io/dist/esm/plugin-random-087f861e.js","./reducer-07c7b307.js":"node_modules/boardgame.io/dist/esm/reducer-07c7b307.js","setimmediate":"node_modules/setimmediate/setImmediate.js"}],"node_modules/boardgame.io/dist/esm/Debug-fd09b8bc.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6596,13 +6626,13 @@ exports.d = _classCallCheck;
 exports.e = _objectWithoutProperties;
 exports.f = _objectSpread2;
 
-var _turnOrder406c = require("./turn-order-406c4349.js");
+var _turnOrder0b7dce3d = require("./turn-order-0b7dce3d.js");
 
-var _reducer95b = require("./reducer-95b86815.js");
+var _reducer07c7b = require("./reducer-07c7b307.js");
 
 var _flatted = require("flatted");
 
-var _ai763ecd6c = require("./ai-763ecd6c.js");
+var _ai3099ce9a = require("./ai-3099ce9a.js");
 
 function noop() {}
 
@@ -12050,7 +12080,7 @@ function instance$i($$self, $$props, $$invalidate) {
 
   function Error(e) {
     $$invalidate(2, error$1 = e.detail);
-    (0, _turnOrder406c.e)(e.detail);
+    (0, _turnOrder0b7dce3d.e)(e.detail);
   }
 
   $$self.$$set = $$props => {
@@ -12241,7 +12271,7 @@ function instance$j($$self, $$props, $$invalidate) {
     if (gamestateJSON !== null && initialStateJSON !== null) {
       const gamestate = (0, _flatted.parse)(gamestateJSON);
       const initialState = (0, _flatted.parse)(initialStateJSON);
-      client.store.dispatch((0, _turnOrder406c.s)({
+      client.store.dispatch((0, _turnOrder0b7dce3d.s)({
         state: gamestate,
         initialState
       }));
@@ -12681,6 +12711,8 @@ function _assertThisInitialized(self) {
 function _possibleConstructorReturn(self, call) {
   if (call && (typeof call === "object" || typeof call === "function")) {
     return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
   }
 
   return _assertThisInitialized(self);
@@ -16251,7 +16283,7 @@ function instance$w($$self, $$props, $$invalidate) {
   const {
     secondaryPane
   } = getContext('secondaryPane');
-  const reducer = (0, _reducer95b.C)({
+  const reducer = (0, _reducer07c7b.C)({
     game: client.game
   });
   const initialState = client.getInitialState();
@@ -17578,8 +17610,8 @@ function instance$y($$self, $$props, $$invalidate) {
     secondaryPane
   } = getContext('secondaryPane');
   const bots = {
-    'MCTS': _ai763ecd6c.M,
-    'Random': _ai763ecd6c.R
+    'MCTS': _ai3099ce9a.M,
+    'Random': _ai3099ce9a.R
   };
   let debug = false;
   let progress = null;
@@ -17618,7 +17650,7 @@ function instance$y($$self, $$props, $$invalidate) {
   let bot;
 
   if (client.game.ai) {
-    bot = new _ai763ecd6c.M({
+    bot = new _ai3099ce9a.M({
       game: client.game,
       enumerate: client.game.ai.enumerate,
       iterationCallback
@@ -17648,7 +17680,7 @@ function instance$y($$self, $$props, $$invalidate) {
     $$invalidate(5, botAction = null);
     metadata = null;
     $$invalidate(3, iterationCounter = 0);
-    const t = await (0, _ai763ecd6c.S)(client, bot);
+    const t = await (0, _ai3099ce9a.S)(client, bot);
 
     if (t) {
       $$invalidate(5, botAction = t.payload.type);
@@ -17665,7 +17697,7 @@ function instance$y($$self, $$props, $$invalidate) {
 
     const step = async () => {
       for (let i = 0; i < iterations; i++) {
-        const action = await (0, _ai763ecd6c.S)(client, bot);
+        const action = await (0, _ai3099ce9a.S)(client, bot);
         if (!action) break;
         await new Promise(resolve => setTimeout(resolve, sleepTimeout));
       }
@@ -17733,16 +17765,11 @@ class AI extends SvelteComponent {
 
 function add_css$q(target) {
   append_styles(target, "svelte-8ymctk", ".debug-panel.svelte-8ymctk.svelte-8ymctk{position:fixed;color:#555;font-family:monospace;right:0;top:0;height:100%;font-size:14px;opacity:0.9;z-index:99999}.panel.svelte-8ymctk.svelte-8ymctk{display:flex;position:relative;flex-direction:row;height:100%}.visibility-toggle.svelte-8ymctk.svelte-8ymctk{position:absolute;box-sizing:border-box;top:7px;border:1px solid #ccc;border-radius:5px;width:48px;height:48px;padding:8px;background:white;color:#555;box-shadow:0 0 5px rgba(0, 0, 0, 0.2)}.visibility-toggle.svelte-8ymctk.svelte-8ymctk:hover,.visibility-toggle.svelte-8ymctk.svelte-8ymctk:focus{background:#eee}.opener.svelte-8ymctk.svelte-8ymctk{right:10px}.closer.svelte-8ymctk.svelte-8ymctk{left:-326px}@keyframes svelte-8ymctk-rotateFromZero{from{transform:rotateZ(0deg)}to{transform:rotateZ(180deg)}}.icon.svelte-8ymctk.svelte-8ymctk{display:flex;height:100%;animation:svelte-8ymctk-rotateFromZero 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s 1\n      normal forwards}.closer.svelte-8ymctk .icon.svelte-8ymctk{animation-direction:reverse}.pane.svelte-8ymctk.svelte-8ymctk{flex-grow:2;overflow-x:hidden;overflow-y:scroll;background:#fefefe;padding:20px;border-left:1px solid #ccc;box-shadow:-1px 0 5px rgba(0, 0, 0, 0.2);box-sizing:border-box;width:280px}.secondary-pane.svelte-8ymctk.svelte-8ymctk{background:#fefefe;overflow-y:scroll}.debug-panel.svelte-8ymctk button,.debug-panel.svelte-8ymctk select{cursor:pointer;font-size:14px;font-family:monospace}.debug-panel.svelte-8ymctk select{background:#eee;border:1px solid #bbb;color:#555;padding:3px;border-radius:3px}.debug-panel.svelte-8ymctk section{margin-bottom:20px}.debug-panel.svelte-8ymctk .screen-reader-only{clip:rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}");
-} // (194:2) {:else}
+} // (199:2) {:else}
 
 
 function create_else_block$4(ctx) {
   let div1;
-  let button;
-  let span;
-  let chevron;
-  let button_intro;
-  let button_outro;
   let t0;
   let menu;
   let t1;
@@ -17751,9 +17778,9 @@ function create_else_block$4(ctx) {
   let t2;
   let div1_transition;
   let current;
-  let mounted;
-  let dispose;
-  chevron = new FaChevronRight({});
+  let if_block0 =
+  /*showToggleButton*/
+  ctx[10] && create_if_block_3$2(ctx);
   menu = new Menu({
     props: {
       panes:
@@ -17793,26 +17820,20 @@ function create_else_block$4(ctx) {
     switch_instance = new switch_value(switch_props(ctx));
   }
 
-  let if_block =
+  let if_block1 =
   /*$secondaryPane*/
-  ctx[5] && create_if_block_1$7(ctx);
+  ctx[5] && create_if_block_2$5(ctx);
   return {
     c() {
       div1 = element("div");
-      button = element("button");
-      span = element("span");
-      create_component(chevron.$$.fragment);
+      if (if_block0) if_block0.c();
       t0 = space();
       create_component(menu.$$.fragment);
       t1 = space();
       div0 = element("div");
       if (switch_instance) create_component(switch_instance.$$.fragment);
       t2 = space();
-      if (if_block) if_block.c();
-      attr(span, "class", "icon svelte-8ymctk");
-      attr(span, "aria-hidden", "true");
-      attr(button, "class", "visibility-toggle closer svelte-8ymctk");
-      attr(button, "title", "Hide Debug Panel");
+      if (if_block1) if_block1.c();
       attr(div0, "class", "pane svelte-8ymctk");
       attr(div0, "role", "region");
       attr(div0, "aria-label",
@@ -17824,9 +17845,7 @@ function create_else_block$4(ctx) {
 
     m(target, anchor) {
       insert(target, div1, anchor);
-      append(div1, button);
-      append(button, span);
-      mount_component(chevron, span, null);
+      if (if_block0) if_block0.m(div1, null);
       append(div1, t0);
       mount_component(menu, div1, null);
       append(div1, t1);
@@ -17838,21 +17857,17 @@ function create_else_block$4(ctx) {
       /*div0_binding*/
 
 
-      ctx[15](div0);
+      ctx[16](div0);
       append(div1, t2);
-      if (if_block) if_block.m(div1, null);
+      if (if_block1) if_block1.m(div1, null);
       current = true;
-
-      if (!mounted) {
-        dispose = listen(button, "click",
-        /*ToggleVisibility*/
-        ctx[9]);
-        mounted = true;
-      }
     },
 
     p(new_ctx, dirty) {
       ctx = new_ctx;
+      if (
+      /*showToggleButton*/
+      ctx[10]) if_block0.p(ctx, dirty);
       const menu_changes = {};
       if (dirty &
       /*pane*/
@@ -17909,24 +17924,24 @@ function create_else_block$4(ctx) {
       if (
       /*$secondaryPane*/
       ctx[5]) {
-        if (if_block) {
-          if_block.p(ctx, dirty);
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
 
           if (dirty &
           /*$secondaryPane*/
           32) {
-            transition_in(if_block, 1);
+            transition_in(if_block1, 1);
           }
         } else {
-          if_block = create_if_block_1$7(ctx);
-          if_block.c();
-          transition_in(if_block, 1);
-          if_block.m(div1, null);
+          if_block1 = create_if_block_2$5(ctx);
+          if_block1.c();
+          transition_in(if_block1, 1);
+          if_block1.m(div1, null);
         }
-      } else if (if_block) {
+      } else if (if_block1) {
         group_outros();
-        transition_out(if_block, 1, 1, () => {
-          if_block = null;
+        transition_out(if_block1, 1, 1, () => {
+          if_block1 = null;
         });
         check_outros();
       }
@@ -17934,25 +17949,16 @@ function create_else_block$4(ctx) {
 
     i(local) {
       if (current) return;
-      transition_in(chevron.$$.fragment, local);
-      add_render_callback(() => {
-        if (button_outro) button_outro.end(1);
-        button_intro = create_in_transition(button,
-        /*receive*/
-        ctx[13], {
-          key: 'toggle'
-        });
-        button_intro.start();
-      });
+      transition_in(if_block0);
       transition_in(menu.$$.fragment, local);
       if (switch_instance) transition_in(switch_instance.$$.fragment, local);
-      transition_in(if_block);
+      transition_in(if_block1);
       add_render_callback(() => {
         if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fly, {
           x: 400,
           ...
           /*transitionOpts*/
-          ctx[11]
+          ctx[12]
         }, true);
         div1_transition.run(1);
       });
@@ -17960,21 +17966,15 @@ function create_else_block$4(ctx) {
     },
 
     o(local) {
-      transition_out(chevron.$$.fragment, local);
-      if (button_intro) button_intro.invalidate();
-      button_outro = create_out_transition(button,
-      /*send*/
-      ctx[12], {
-        key: 'toggle'
-      });
+      transition_out(if_block0);
       transition_out(menu.$$.fragment, local);
       if (switch_instance) transition_out(switch_instance.$$.fragment, local);
-      transition_out(if_block);
+      transition_out(if_block1);
       if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fly, {
         x: 400,
         ...
         /*transitionOpts*/
-        ctx[11]
+        ctx[12]
       }, false);
       div1_transition.run(0);
       current = false;
@@ -17982,24 +17982,65 @@ function create_else_block$4(ctx) {
 
     d(detaching) {
       if (detaching) detach(div1);
-      destroy_component(chevron);
-      if (detaching && button_outro) button_outro.end();
+      if (if_block0) if_block0.d();
       destroy_component(menu);
       if (switch_instance) destroy_component(switch_instance);
       /*div0_binding*/
 
-      ctx[15](null);
-      if (if_block) if_block.d();
+      ctx[16](null);
+      if (if_block1) if_block1.d();
       if (detaching && div1_transition) div1_transition.end();
-      mounted = false;
-      dispose();
     }
 
   };
-} // (182:2) {#if !visible}
+} // (185:2) {#if !visible}
 
 
 function create_if_block$e(ctx) {
+  let if_block_anchor;
+  let current;
+  let if_block =
+  /*showToggleButton*/
+  ctx[10] && create_if_block_1$7(ctx);
+  return {
+    c() {
+      if (if_block) if_block.c();
+      if_block_anchor = empty();
+    },
+
+    m(target, anchor) {
+      if (if_block) if_block.m(target, anchor);
+      insert(target, if_block_anchor, anchor);
+      current = true;
+    },
+
+    p(ctx, dirty) {
+      if (
+      /*showToggleButton*/
+      ctx[10]) if_block.p(ctx, dirty);
+    },
+
+    i(local) {
+      if (current) return;
+      transition_in(if_block);
+      current = true;
+    },
+
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+
+    d(detaching) {
+      if (if_block) if_block.d(detaching);
+      if (detaching) detach(if_block_anchor);
+    }
+
+  };
+} // (201:6) {#if showToggleButton}
+
+
+function create_if_block_3$2(ctx) {
   let button;
   let span;
   let chevron;
@@ -18016,8 +18057,8 @@ function create_if_block$e(ctx) {
       create_component(chevron.$$.fragment);
       attr(span, "class", "icon svelte-8ymctk");
       attr(span, "aria-hidden", "true");
-      attr(button, "class", "visibility-toggle opener svelte-8ymctk");
-      attr(button, "title", "Show Debug Panel");
+      attr(button, "class", "visibility-toggle closer svelte-8ymctk");
+      attr(button, "title", "Hide Debug Panel");
     },
 
     m(target, anchor) {
@@ -18043,7 +18084,7 @@ function create_if_block$e(ctx) {
         if (button_outro) button_outro.end(1);
         button_intro = create_in_transition(button,
         /*receive*/
-        ctx[13], {
+        ctx[14], {
           key: 'toggle'
         });
         button_intro.start();
@@ -18056,7 +18097,7 @@ function create_if_block$e(ctx) {
       if (button_intro) button_intro.invalidate();
       button_outro = create_out_transition(button,
       /*send*/
-      ctx[12], {
+      ctx[13], {
         key: 'toggle'
       });
       current = false;
@@ -18071,10 +18112,10 @@ function create_if_block$e(ctx) {
     }
 
   };
-} // (222:6) {#if $secondaryPane}
+} // (229:6) {#if $secondaryPane}
 
 
-function create_if_block_1$7(ctx) {
+function create_if_block_2$5(ctx) {
   let div;
   let switch_instance;
   let current;
@@ -18163,6 +18204,81 @@ function create_if_block_1$7(ctx) {
     }
 
   };
+} // (186:4) {#if showToggleButton}
+
+
+function create_if_block_1$7(ctx) {
+  let button;
+  let span;
+  let chevron;
+  let button_intro;
+  let button_outro;
+  let current;
+  let mounted;
+  let dispose;
+  chevron = new FaChevronRight({});
+  return {
+    c() {
+      button = element("button");
+      span = element("span");
+      create_component(chevron.$$.fragment);
+      attr(span, "class", "icon svelte-8ymctk");
+      attr(span, "aria-hidden", "true");
+      attr(button, "class", "visibility-toggle opener svelte-8ymctk");
+      attr(button, "title", "Show Debug Panel");
+    },
+
+    m(target, anchor) {
+      insert(target, button, anchor);
+      append(button, span);
+      mount_component(chevron, span, null);
+      current = true;
+
+      if (!mounted) {
+        dispose = listen(button, "click",
+        /*ToggleVisibility*/
+        ctx[9]);
+        mounted = true;
+      }
+    },
+
+    p: noop,
+
+    i(local) {
+      if (current) return;
+      transition_in(chevron.$$.fragment, local);
+      add_render_callback(() => {
+        if (button_outro) button_outro.end(1);
+        button_intro = create_in_transition(button,
+        /*receive*/
+        ctx[14], {
+          key: 'toggle'
+        });
+        button_intro.start();
+      });
+      current = true;
+    },
+
+    o(local) {
+      transition_out(chevron.$$.fragment, local);
+      if (button_intro) button_intro.invalidate();
+      button_outro = create_out_transition(button,
+      /*send*/
+      ctx[13], {
+        key: 'toggle'
+      });
+      current = false;
+    },
+
+    d(detaching) {
+      if (detaching) detach(button);
+      destroy_component(chevron);
+      if (detaching && button_outro) button_outro.end();
+      mounted = false;
+      dispose();
+    }
+
+  };
 }
 
 function create_fragment$z(ctx) {
@@ -18200,7 +18316,7 @@ function create_fragment$z(ctx) {
       if (!mounted) {
         dispose = listen(window, "keypress",
         /*Keypress*/
-        ctx[10]);
+        ctx[11]);
         mounted = true;
       }
     },
@@ -18258,7 +18374,7 @@ function instance$z($$self, $$props, $$invalidate) {
 
   let $clientManager,
       $$unsubscribe_clientManager = noop,
-      $$subscribe_clientManager = () => ($$unsubscribe_clientManager(), $$unsubscribe_clientManager = subscribe(clientManager, $$value => $$invalidate(14, $clientManager = $$value)), clientManager);
+      $$subscribe_clientManager = () => ($$unsubscribe_clientManager(), $$unsubscribe_clientManager = subscribe(clientManager, $$value => $$invalidate(15, $clientManager = $$value)), clientManager);
 
   let $secondaryPane;
   $$self.$$.on_destroy.push(() => $$unsubscribe_clientManager());
@@ -18310,7 +18426,9 @@ function instance$z($$self, $$props, $$invalidate) {
     $$invalidate(3, visible = !visible);
   }
 
-  let visible = true;
+  const debugOpt = $clientManager.client.debugOpt;
+  let visible = !debugOpt || !debugOpt.collapseOnLoad;
+  const showToggleButton = !debugOpt || !debugOpt.hideToggleButton;
 
   function Keypress(e) {
     if (e.key == '.') {
@@ -18351,12 +18469,12 @@ function instance$z($$self, $$props, $$invalidate) {
   $$self.$$.update = () => {
     if ($$self.$$.dirty &
     /*$clientManager*/
-    16384) {
+    32768) {
       $$invalidate(4, client = $clientManager.client);
     }
   };
 
-  return [clientManager, paneDiv, pane, visible, client, $secondaryPane, panes, secondaryPane, MenuChange, ToggleVisibility, Keypress, transitionOpts, send, receive, $clientManager, div0_binding];
+  return [clientManager, paneDiv, pane, visible, client, $secondaryPane, panes, secondaryPane, MenuChange, ToggleVisibility, showToggleButton, Keypress, transitionOpts, send, receive, $clientManager, div0_binding];
 }
 
 class Debug extends SvelteComponent {
@@ -18370,7 +18488,7 @@ class Debug extends SvelteComponent {
 }
 
 exports.D = Debug;
-},{"./turn-order-406c4349.js":"../../../node_modules/boardgame.io/dist/esm/turn-order-406c4349.js","./reducer-95b86815.js":"../../../node_modules/boardgame.io/dist/esm/reducer-95b86815.js","flatted":"../../../node_modules/flatted/esm/index.js","./ai-763ecd6c.js":"../../../node_modules/boardgame.io/dist/esm/ai-763ecd6c.js"}],"../../../node_modules/@babel/runtime/helpers/esm/defineProperty.js":[function(require,module,exports) {
+},{"./turn-order-0b7dce3d.js":"node_modules/boardgame.io/dist/esm/turn-order-0b7dce3d.js","./reducer-07c7b307.js":"node_modules/boardgame.io/dist/esm/reducer-07c7b307.js","flatted":"node_modules/flatted/esm/index.js","./ai-3099ce9a.js":"node_modules/boardgame.io/dist/esm/ai-3099ce9a.js"}],"node_modules/@babel/runtime/helpers/esm/defineProperty.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18392,7 +18510,7 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
-},{}],"../../../node_modules/@babel/runtime/helpers/esm/objectSpread2.js":[function(require,module,exports) {
+},{}],"node_modules/@babel/runtime/helpers/esm/objectSpread2.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18441,7 +18559,7 @@ function _objectSpread2(target) {
 
   return target;
 }
-},{"./defineProperty.js":"../../../node_modules/@babel/runtime/helpers/esm/defineProperty.js"}],"../../../node_modules/redux/es/redux.js":[function(require,module,exports) {
+},{"./defineProperty.js":"node_modules/@babel/runtime/helpers/esm/defineProperty.js"}],"node_modules/redux/es/redux.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19143,7 +19261,7 @@ function isCrushed() {}
 if ("development" !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
   warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
 }
-},{"@babel/runtime/helpers/esm/objectSpread2":"../../../node_modules/@babel/runtime/helpers/esm/objectSpread2.js"}],"../../../node_modules/boardgame.io/dist/esm/initialize-6ecd151b.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/objectSpread2":"node_modules/@babel/runtime/helpers/esm/objectSpread2.js"}],"node_modules/boardgame.io/dist/esm/initialize-9ac1bbf5.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19151,9 +19269,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.I = InitializeGame;
 
-var _turnOrder406c = require("./turn-order-406c4349.js");
+var _turnOrder0b7dce3d = require("./turn-order-0b7dce3d.js");
 
-var _reducer95b = require("./reducer-95b86815.js");
+var _reducer07c7b = require("./reducer-07c7b307.js");
 
 /*
  * Copyright 2020 The boardgame.io Authors
@@ -19172,7 +19290,7 @@ function InitializeGame(_ref) {
     numPlayers,
     setupData
   } = _ref;
-  game = (0, _reducer95b.P)(game);
+  game = (0, _reducer07c7b.P)(game);
 
   if (!numPlayers) {
     numPlayers = 2;
@@ -19188,14 +19306,14 @@ function InitializeGame(_ref) {
     plugins: {}
   }; // Run plugins over initial state.
 
-  state = (0, _turnOrder406c.t)(state, {
+  state = (0, _turnOrder0b7dce3d.t)(state, {
     game
   });
-  state = (0, _turnOrder406c.m)(state, {
+  state = (0, _turnOrder0b7dce3d.m)(state, {
     game,
     playerID: undefined
   });
-  const enhancedCtx = (0, _turnOrder406c.E)(state);
+  const enhancedCtx = (0, _turnOrder0b7dce3d.E)(state);
   state.G = game.setup(enhancedCtx, setupData);
   let initial = { ...state,
     // List of {G, ctx} pairs that can be undone.
@@ -19208,7 +19326,7 @@ function InitializeGame(_ref) {
     _stateID: 0
   };
   initial = game.flow.init(initial);
-  [initial] = (0, _turnOrder406c.q)(initial, {
+  [initial] = (0, _turnOrder0b7dce3d.q)(initial, {
     game
   }); // Initialize undo stack.
 
@@ -19222,7 +19340,7 @@ function InitializeGame(_ref) {
 
   return initial;
 }
-},{"./turn-order-406c4349.js":"../../../node_modules/boardgame.io/dist/esm/turn-order-406c4349.js","./reducer-95b86815.js":"../../../node_modules/boardgame.io/dist/esm/reducer-95b86815.js"}],"../../../node_modules/boardgame.io/dist/esm/transport-ce07b771.js":[function(require,module,exports) {
+},{"./turn-order-0b7dce3d.js":"node_modules/boardgame.io/dist/esm/turn-order-0b7dce3d.js","./reducer-07c7b307.js":"node_modules/boardgame.io/dist/esm/reducer-07c7b307.js"}],"node_modules/boardgame.io/dist/esm/transport-ce07b771.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19282,7 +19400,7 @@ class Transport {
 }
 
 exports.T = Transport;
-},{}],"../../../node_modules/boardgame.io/dist/esm/client-b9540450.js":[function(require,module,exports) {
+},{}],"node_modules/boardgame.io/dist/esm/client-fa36c03a.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19292,15 +19410,15 @@ exports.C = Client;
 
 var _nonSecure = require("nanoid/non-secure");
 
-var _Debug8ca6996f = require("./Debug-8ca6996f.js");
+var _DebugFd09b8bc = require("./Debug-fd09b8bc.js");
 
 var _redux = require("redux");
 
-var _turnOrder406c = require("./turn-order-406c4349.js");
+var _turnOrder0b7dce3d = require("./turn-order-0b7dce3d.js");
 
-var _reducer95b = require("./reducer-95b86815.js");
+var _reducer07c7b = require("./reducer-07c7b307.js");
 
-var _initialize6ecd151b = require("./initialize-6ecd151b.js");
+var _initialize9ac1bbf = require("./initialize-9ac1bbf5.js");
 
 var _transportCe07b = require("./transport-ce07b771.js");
 
@@ -19465,7 +19583,7 @@ class ClientManager {
     let target = document.body;
 
     if ("development" !== 'production') {
-      DebugImpl = _Debug8ca6996f.D;
+      DebugImpl = _DebugFd09b8bc.D;
     }
 
     if (client.debugOpt && client.debugOpt !== true) {
@@ -19539,7 +19657,7 @@ function createDispatchers(storeActionType, innerActionNames, store, playerID, c
         args[_key] = arguments[_key];
       }
 
-      const action = _turnOrder406c.A[storeActionType](name, args, assumedPlayerID(playerID, store, multiplayer), credentials);
+      const action = _turnOrder0b7dce3d.A[storeActionType](name, args, assumedPlayerID(playerID, store, multiplayer), credentials);
 
       store.dispatch(action);
     };
@@ -19570,7 +19688,7 @@ class _ClientImpl {
       credentials,
       enhancer
     } = _ref;
-    this.game = (0, _reducer95b.P)(game);
+    this.game = (0, _reducer07c7b.P)(game);
     this.playerID = playerID;
     this.matchID = matchID || 'default';
     this.credentials = credentials;
@@ -19580,30 +19698,30 @@ class _ClientImpl {
     this.gameStateOverride = null;
     this.subscribers = {};
     this._running = false;
-    this.reducer = (0, _reducer95b.C)({
+    this.reducer = (0, _reducer07c7b.C)({
       game: this.game,
       isClient: multiplayer !== undefined
     });
     this.initialState = null;
 
     if (!multiplayer) {
-      this.initialState = (0, _initialize6ecd151b.I)({
+      this.initialState = (0, _initialize9ac1bbf.I)({
         game: this.game,
         numPlayers
       });
     }
 
     this.reset = () => {
-      this.store.dispatch((0, _turnOrder406c.u)(this.initialState));
+      this.store.dispatch((0, _turnOrder0b7dce3d.u)(this.initialState));
     };
 
     this.undo = () => {
-      const undo$1 = (0, _turnOrder406c.v)(assumedPlayerID(this.playerID, this.store, this.multiplayer), this.credentials);
+      const undo$1 = (0, _turnOrder0b7dce3d.v)(assumedPlayerID(this.playerID, this.store, this.multiplayer), this.credentials);
       this.store.dispatch(undo$1);
     };
 
     this.redo = () => {
-      const redo$1 = (0, _turnOrder406c.w)(assumedPlayerID(this.playerID, this.store, this.multiplayer), this.credentials);
+      const redo$1 = (0, _turnOrder0b7dce3d.w)(assumedPlayerID(this.playerID, this.store, this.multiplayer), this.credentials);
       this.store.dispatch(redo$1);
     };
 
@@ -19623,24 +19741,24 @@ class _ClientImpl {
       const state = store.getState();
 
       switch (action.type) {
-        case _turnOrder406c.M:
-        case _turnOrder406c.o:
-        case _turnOrder406c.h:
-        case _turnOrder406c.R:
+        case _turnOrder0b7dce3d.M:
+        case _turnOrder0b7dce3d.o:
+        case _turnOrder0b7dce3d.h:
+        case _turnOrder0b7dce3d.R:
           {
             const deltalog = state.deltalog;
             this.log = [...this.log, ...deltalog];
             break;
           }
 
-        case _turnOrder406c.l:
+        case _turnOrder0b7dce3d.l:
           {
             this.log = [];
             break;
           }
 
-        case _turnOrder406c.P:
-        case _turnOrder406c.k:
+        case _turnOrder0b7dce3d.P:
+        case _turnOrder0b7dce3d.k:
           {
             let id = -1;
 
@@ -19658,7 +19776,7 @@ class _ClientImpl {
             break;
           }
 
-        case _turnOrder406c.j:
+        case _turnOrder0b7dce3d.j:
           {
             this.initialState = action.initialState;
             this.log = action.log || [];
@@ -19678,7 +19796,7 @@ class _ClientImpl {
       const baseState = store.getState();
       const result = next(action);
 
-      if (!('clientOnly' in action) && action.type !== _turnOrder406c.p) {
+      if (!('clientOnly' in action) && action.type !== _turnOrder0b7dce3d.p) {
         this.transport.sendAction(baseState, action);
       }
 
@@ -19695,7 +19813,7 @@ class _ClientImpl {
       return result;
     };
 
-    const middleware = (0, _redux.applyMiddleware)(_reducer95b.T, SubscriptionMiddleware, TransportMiddleware, LogMiddleware);
+    const middleware = (0, _redux.applyMiddleware)(_reducer07c7b.T, SubscriptionMiddleware, TransportMiddleware, LogMiddleware);
     enhancer = enhancer !== undefined ? (0, _redux.compose)(middleware, enhancer) : middleware;
     this.store = (0, _redux.createStore)(this.reducer, this.initialState, enhancer);
     if (!multiplayer) multiplayer = DummyTransport;
@@ -19745,7 +19863,7 @@ class _ClientImpl {
       case 'sync':
         {
           const [, syncInfo] = data.args;
-          const action = (0, _turnOrder406c.s)(syncInfo);
+          const action = (0, _turnOrder0b7dce3d.s)(syncInfo);
           this.receiveMatchData(syncInfo.filteredMetadata);
           this.store.dispatch(action);
           break;
@@ -19757,7 +19875,7 @@ class _ClientImpl {
           const currentState = this.store.getState();
 
           if (state._stateID >= currentState._stateID) {
-            const action = (0, _turnOrder406c.z)(state, deltalog);
+            const action = (0, _turnOrder0b7dce3d.z)(state, deltalog);
             this.store.dispatch(action);
           }
 
@@ -19771,7 +19889,7 @@ class _ClientImpl {
           const currentStateID = this.store.getState()._stateID;
 
           if (prevStateID !== currentStateID) break;
-          const action = (0, _turnOrder406c.y)(prevStateID, stateID, patch$1, deltalog);
+          const action = (0, _turnOrder0b7dce3d.y)(prevStateID, stateID, patch$1, deltalog);
           this.store.dispatch(action); // Emit sync if patch apply failed.
 
           if (this.store.getState()._stateID === currentStateID) {
@@ -19873,7 +19991,7 @@ class _ClientImpl {
     if (!this.multiplayer) {
       state = { ...state,
         G: this.game.playerView(state.G, state.ctx, this.playerID),
-        plugins: (0, _turnOrder406c.x)(state, this)
+        plugins: (0, _turnOrder0b7dce3d.x)(state, this)
       };
     } // Combine into return value.
 
@@ -19934,7 +20052,7 @@ class _ClientImpl {
 function Client(opts) {
   return new _ClientImpl(opts);
 }
-},{"nanoid/non-secure":"../../../node_modules/nanoid/non-secure/index.js","./Debug-8ca6996f.js":"../../../node_modules/boardgame.io/dist/esm/Debug-8ca6996f.js","redux":"../../../node_modules/redux/es/redux.js","./turn-order-406c4349.js":"../../../node_modules/boardgame.io/dist/esm/turn-order-406c4349.js","./reducer-95b86815.js":"../../../node_modules/boardgame.io/dist/esm/reducer-95b86815.js","./initialize-6ecd151b.js":"../../../node_modules/boardgame.io/dist/esm/initialize-6ecd151b.js","./transport-ce07b771.js":"../../../node_modules/boardgame.io/dist/esm/transport-ce07b771.js"}],"../../../node_modules/boardgame.io/dist/esm/client-5f57c3f2.js":[function(require,module,exports) {
+},{"nanoid/non-secure":"node_modules/nanoid/non-secure/index.js","./Debug-fd09b8bc.js":"node_modules/boardgame.io/dist/esm/Debug-fd09b8bc.js","redux":"node_modules/redux/es/redux.js","./turn-order-0b7dce3d.js":"node_modules/boardgame.io/dist/esm/turn-order-0b7dce3d.js","./reducer-07c7b307.js":"node_modules/boardgame.io/dist/esm/reducer-07c7b307.js","./initialize-9ac1bbf5.js":"node_modules/boardgame.io/dist/esm/initialize-9ac1bbf5.js","./transport-ce07b771.js":"node_modules/boardgame.io/dist/esm/transport-ce07b771.js"}],"node_modules/boardgame.io/dist/esm/client-5f57c3f2.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -20261,7 +20379,7 @@ class LobbyClient {
 }
 
 exports.L = LobbyClient;
-},{}],"../../../node_modules/boardgame.io/dist/esm/client.js":[function(require,module,exports) {
+},{}],"node_modules/boardgame.io/dist/esm/client.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -20270,7 +20388,7 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "Client", {
   enumerable: true,
   get: function () {
-    return _clientB.C;
+    return _clientFa36c03a.C;
   }
 });
 Object.defineProperty(exports, "LobbyClient", {
@@ -20288,34 +20406,36 @@ Object.defineProperty(exports, "LobbyClientError", {
 
 require("nanoid/non-secure");
 
-require("./Debug-8ca6996f.js");
+require("./Debug-fd09b8bc.js");
 
 require("redux");
 
-require("./turn-order-406c4349.js");
+require("./turn-order-0b7dce3d.js");
 
 require("immer");
 
+require("./plugin-random-087f861e.js");
+
 require("lodash.isplainobject");
 
-require("./reducer-95b86815.js");
+require("./reducer-07c7b307.js");
 
 require("rfc6902");
 
-require("./initialize-6ecd151b.js");
+require("./initialize-9ac1bbf5.js");
 
 require("./transport-ce07b771.js");
 
-var _clientB = require("./client-b9540450.js");
+var _clientFa36c03a = require("./client-fa36c03a.js");
 
 require("flatted");
 
 require("setimmediate");
 
-require("./ai-763ecd6c.js");
+require("./ai-3099ce9a.js");
 
 var _client5f57c3f = require("./client-5f57c3f2.js");
-},{"nanoid/non-secure":"../../../node_modules/nanoid/non-secure/index.js","./Debug-8ca6996f.js":"../../../node_modules/boardgame.io/dist/esm/Debug-8ca6996f.js","redux":"../../../node_modules/redux/es/redux.js","./turn-order-406c4349.js":"../../../node_modules/boardgame.io/dist/esm/turn-order-406c4349.js","immer":"../../../node_modules/immer/dist/immer.esm.js","lodash.isplainobject":"../../../node_modules/lodash.isplainobject/index.js","./reducer-95b86815.js":"../../../node_modules/boardgame.io/dist/esm/reducer-95b86815.js","rfc6902":"../../../node_modules/rfc6902/index.js","./initialize-6ecd151b.js":"../../../node_modules/boardgame.io/dist/esm/initialize-6ecd151b.js","./transport-ce07b771.js":"../../../node_modules/boardgame.io/dist/esm/transport-ce07b771.js","./client-b9540450.js":"../../../node_modules/boardgame.io/dist/esm/client-b9540450.js","flatted":"../../../node_modules/flatted/esm/index.js","setimmediate":"../../../node_modules/setimmediate/setImmediate.js","./ai-763ecd6c.js":"../../../node_modules/boardgame.io/dist/esm/ai-763ecd6c.js","./client-5f57c3f2.js":"../../../node_modules/boardgame.io/dist/esm/client-5f57c3f2.js"}],"../../../node_modules/boardgame.io/dist/esm/core.js":[function(require,module,exports) {
+},{"nanoid/non-secure":"node_modules/nanoid/non-secure/index.js","./Debug-fd09b8bc.js":"node_modules/boardgame.io/dist/esm/Debug-fd09b8bc.js","redux":"node_modules/redux/es/redux.js","./turn-order-0b7dce3d.js":"node_modules/boardgame.io/dist/esm/turn-order-0b7dce3d.js","immer":"node_modules/immer/dist/immer.esm.js","./plugin-random-087f861e.js":"node_modules/boardgame.io/dist/esm/plugin-random-087f861e.js","lodash.isplainobject":"node_modules/lodash.isplainobject/index.js","./reducer-07c7b307.js":"node_modules/boardgame.io/dist/esm/reducer-07c7b307.js","rfc6902":"node_modules/rfc6902/index.js","./initialize-9ac1bbf5.js":"node_modules/boardgame.io/dist/esm/initialize-9ac1bbf5.js","./transport-ce07b771.js":"node_modules/boardgame.io/dist/esm/transport-ce07b771.js","./client-fa36c03a.js":"node_modules/boardgame.io/dist/esm/client-fa36c03a.js","flatted":"node_modules/flatted/esm/index.js","setimmediate":"node_modules/setimmediate/setImmediate.js","./ai-3099ce9a.js":"node_modules/boardgame.io/dist/esm/ai-3099ce9a.js","./client-5f57c3f2.js":"node_modules/boardgame.io/dist/esm/client-5f57c3f2.js"}],"node_modules/boardgame.io/dist/esm/core.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -20324,38 +20444,40 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "ActivePlayers", {
   enumerable: true,
   get: function () {
-    return _turnOrder406c.D;
+    return _turnOrder0b7dce3d.C;
   }
 });
 Object.defineProperty(exports, "GameMethod", {
   enumerable: true,
   get: function () {
-    return _turnOrder406c.G;
+    return _turnOrder0b7dce3d.G;
   }
 });
 Object.defineProperty(exports, "INVALID_MOVE", {
   enumerable: true,
   get: function () {
-    return _turnOrder406c.n;
+    return _turnOrder0b7dce3d.n;
   }
 });
 exports.PlayerView = void 0;
 Object.defineProperty(exports, "Stage", {
   enumerable: true,
   get: function () {
-    return _turnOrder406c.S;
+    return _turnOrder0b7dce3d.S;
   }
 });
 Object.defineProperty(exports, "TurnOrder", {
   enumerable: true,
   get: function () {
-    return _turnOrder406c.T;
+    return _turnOrder0b7dce3d.T;
   }
 });
 
-var _turnOrder406c = require("./turn-order-406c4349.js");
+var _turnOrder0b7dce3d = require("./turn-order-0b7dce3d.js");
 
 require("immer");
+
+require("./plugin-random-087f861e.js");
 
 require("lodash.isplainobject");
 
@@ -20396,29 +20518,49 @@ const PlayerView = {
   }
 };
 exports.PlayerView = PlayerView;
-},{"./turn-order-406c4349.js":"../../../node_modules/boardgame.io/dist/esm/turn-order-406c4349.js","immer":"../../../node_modules/immer/dist/immer.esm.js","lodash.isplainobject":"../../../node_modules/lodash.isplainobject/index.js"}],"src/const.js":[function(require,module,exports) {
+},{"./turn-order-0b7dce3d.js":"node_modules/boardgame.io/dist/esm/turn-order-0b7dce3d.js","immer":"node_modules/immer/dist/immer.esm.js","./plugin-random-087f861e.js":"node_modules/boardgame.io/dist/esm/plugin-random-087f861e.js","lodash.isplainobject":"node_modules/lodash.isplainobject/index.js"}],"src/const.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TURN = void 0;
-const TURN = 0;
+exports.currentPlayers = exports.TURN = exports.PieceId = void 0;
+exports.rmPlayer = rmPlayer;
+exports.setPieceId = setPieceId;
+let TURN = 0;
 exports.TURN = TURN;
+let PieceId = 0;
+exports.PieceId = PieceId;
+let currentPlayers = [0, 1, 2, 3];
+exports.currentPlayers = currentPlayers;
+
+function setPieceId(value) {
+  exports.PieceId = PieceId = value;
+}
+
+function rmPlayer(value) {
+  currentPlayers.splice(value, 1);
+}
 },{}],"src/Game.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.pieceId = exports.Blokus = void 0;
+exports.diagonale = exports.Blokus = void 0;
+exports.initPiece = initPiece;
+exports.tour = exports.pieceId = void 0;
 
 var _core = require("boardgame.io/core");
 
 var _const = require("./const");
 
-let pieceId = 12;
+let pieceId = _const.PieceId;
 exports.pieceId = pieceId;
+let diagonale = true;
+exports.diagonale = diagonale;
+let tour = 0;
+exports.tour = tour;
 const Blokus = {
   setup: () => ({
     cells: Array(400).fill(null)
@@ -20430,52 +20572,92 @@ const Blokus = {
   },
   moves: {
     selectPiece: idPiece => {
-      exports.pieceId = pieceId = idPiece; //this.client.piece.test().test = idPiece;
+      (0, _const.setPieceId)(idPiece);
     },
     clickCell: (G, ctx, id, idPiece) => {
-      for (let i = 0; i < 5; i++) {
-        if (G.cells[id + initPiece()[idPiece][i]] !== null) {
-          return _core.INVALID_MOVE;
+      exports.diagonale = diagonale = false;
+      console.log(_const.currentPlayers);
+      console.log(ctx.currentPlayer);
+
+      if (id === 500) {
+        (0, _const.rmPlayer)(ctx.currentPlayer);
+      }
+
+      if (!_const.currentPlayers.includes(parseInt(ctx.currentPlayer))) {
+        document.getElementById('piece' + ctx.currentPlayer).style.display = 'none';
+        document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
+
+        if (ctx.currentPlayer == 3) {
+          exports.tour = tour = tour + 1;
+          (0, _const.setPieceId)(tour);
         }
 
-        if (i < 4) {
-          let test = (id + initPiece()[idPiece][i]) % 20 + (id + initPiece()[idPiece][i + 1]) % 20;
+        return;
+      }
 
+      for (let i = 0; i < 5; i++) {
+        //Les cases sont vides
+        if (G.cells[id + initPiece()[idPiece][i]] !== null) {
+          return _core.INVALID_MOVE;
+        } //Les cases sont côtes à côtes
+
+
+        if (i < 4) {
           if ((id + initPiece()[idPiece][i]) % 20 === 19 && (id + initPiece()[idPiece][i + 1]) % 20 === 0) {
             return _core.INVALID_MOVE;
           }
-        }
+        } //Les mêmes pièces ne se touchent pas
+
 
         if (G.cells[id + initPiece()[idPiece][i] + 1] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 1] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 20] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 20] === ctx.currentPlayer) {
+          return _core.INVALID_MOVE;
+        } //Les pièces se touchent au moins une fois en diagonale
+
+
+        if (G.cells[id + initPiece()[idPiece][i] + 21] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 21] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 19] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 19] === ctx.currentPlayer) {
+          exports.diagonale = diagonale = true;
+        }
+      }
+
+      if (tour !== 0 && diagonale == false) {
+        return _core.INVALID_MOVE;
+      }
+
+      if (tour === 0) {
+        let coin = false;
+
+        for (let i = 0; i < 5; i++) {
+          if ([0, 19, 380, 399].includes(id + initPiece()[idPiece][i])) {
+            console.log(id + initPiece()[idPiece][i] + "coin");
+            coin = true;
+          }
+        }
+
+        if (coin === false) {
           return _core.INVALID_MOVE;
         }
       }
 
       for (let i = 0; i < 5; i++) {
-        if (_const.TURN !== 0 && (G.cells[id + initPiece()[idPiece][i] + 21] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 21] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 19] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 19] === ctx.currentPlayer)) {
-          console.log("ok");
-          G.cells[id + initPiece()[idPiece][0]] = ctx.currentPlayer;
-          G.cells[id + initPiece()[idPiece][1]] = ctx.currentPlayer;
-          G.cells[id + initPiece()[idPiece][2]] = ctx.currentPlayer;
-          G.cells[id + initPiece()[idPiece][3]] = ctx.currentPlayer;
-          G.cells[id + initPiece()[idPiece][4]] = ctx.currentPlayer;
-          _const.TURN = (_const.TURN + 1, function () {
-            throw new Error('"' + "TURN" + '" is read-only.');
-          }());
+        //Attribution l'id du joueur sur les cases
+        G.cells[id + initPiece()[idPiece][0]] = ctx.currentPlayer;
+        G.cells[id + initPiece()[idPiece][1]] = ctx.currentPlayer;
+        G.cells[id + initPiece()[idPiece][2]] = ctx.currentPlayer;
+        G.cells[id + initPiece()[idPiece][3]] = ctx.currentPlayer;
+        G.cells[id + initPiece()[idPiece][4]] = ctx.currentPlayer; //Changement de couleur des cases
 
-          for (let i = 0; i < 5; i++) {
-            const test = id + initPiece()[idPiece][i];
+        for (let i = 0; i < 5; i++) {
+          const bloc = id + initPiece()[idPiece][i];
+          document.querySelector("[data-id=".concat(CSS.escape(bloc), "]")).classList.add('color' + ctx.currentPlayer);
+        }
 
-            if (ctx.currentPlayer == 0) {
-              document.querySelector("[data-id=".concat(CSS.escape(test), "]")).classList.add('redCell');
-            } else if (ctx.currentPlayer == 1) {
-              document.querySelector("[data-id=".concat(CSS.escape(test), "]")).classList.add('blueCell');
-            } else if (ctx.currentPlayer == 2) {
-              document.querySelector("[data-id=".concat(CSS.escape(test), "]")).classList.add('yellowCell');
-            } else {
-              document.querySelector("[data-id=".concat(CSS.escape(test), "]")).classList.add('greenCell');
-            }
-          }
+        exports.diagonale = diagonale = false;
+        document.getElementById('piece' + ctx.currentPlayer).style.display = 'none';
+        document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
+
+        if (ctx.currentPlayer == 3) {
+          exports.tour = tour = tour + 1;
+          (0, _const.setPieceId)(tour);
         }
 
         return;
@@ -20511,20 +20693,19 @@ const Blokus = {
       return moves;
     }
   }
-};
+}; //Liste des pièces
+
 exports.Blokus = Blokus;
 
 function initPiece() {
-  const forms = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, 1, 2, 3, 0], [0, 1, 2, 3, 4], [0, 1, 20, 0, 0], [0, 1, 2, 20, 0], [0, 1, 2, 21, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 1, 2, 3, 20], [0, 1, 2, 22, 23], [0, 1, 2, 20, 21], [0, 1, 21, 22, 42], [0, 1, 21, 41, 42], [0, 1, 20, 40, 41], [0, 1, 2, 20, 40], [0, 1, 2, 3, 21], [1, 20, 21, 22, 41], [0, 1, 21, 22, 41], [0, 1, 2, 21, 41]];
+  const forms = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, 20, 21, 0, 0], [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]];
   return forms;
 }
-/*function getCurrentPiece() {
-    return piece
-}*/
-
 
 function IsVictory(cells) {
-  const positions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+  const positions = [//[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
+    //[1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
+  ];
 
   const isRowComplete = row => {
     const symbols = row.map(i => cells[i]);
@@ -20532,18 +20713,21 @@ function IsVictory(cells) {
   };
 
   return positions.map(isRowComplete).some(i => i === true);
-} // Return true if all `cells` are occupied.
+} /////// probablement à retirer
+// Return true if all `cells` are occupied.
 
 
 function IsDraw(cells) {
   return cells.filter(c => c === null).length === 0;
 }
-},{"boardgame.io/core":"../../../node_modules/boardgame.io/dist/esm/core.js","./const":"src/const.js"}],"src/App.js":[function(require,module,exports) {
+},{"boardgame.io/core":"node_modules/boardgame.io/dist/esm/core.js","./const":"src/const.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 var _client = require("boardgame.io/client");
 
 var _Game = require("./Game");
+
+var _const = require("./const");
 
 class BlokusClient {
   constructor(rootElement) {
@@ -20553,18 +20737,18 @@ class BlokusClient {
     this.client = (0, _client.Client)({
       game: _Game.Blokus,
       numPlayers: 4,
-      playerID //debug: false,
-
+      playerID,
+      debug: false
     });
     this.client.start();
     this.rootElement = rootElement;
     this.createBoard();
     this.attachListeners();
     this.client.subscribe(state => this.update(state));
-  }
+  } //Creation du plateau
+
 
   createBoard() {
-    // Create cells in rows for the Tic-Tac-Toe board.
     const rows = [];
 
     for (let i = 0; i < 20; i++) {
@@ -20576,19 +20760,18 @@ class BlokusClient {
       }
 
       rows.push("<tr>".concat(cells.join(''), "</tr>"));
-    } // Add the HTML to our app <div>.
-    // We’ll use the empty <p> to display the game winner later.
+    }
 
+    this.rootElement.innerHTML = "\n      <table>".concat(rows.join(''), "</table>\n      <table><td class=\"cell\" data-id=\"500\" id=\"button\">giveup</td></table>\n      <p class=\"winner\"></p>\n    ");
+  } //Interaction souris-plateau
 
-    this.rootElement.innerHTML = "\n      <table>".concat(rows.join(''), "</table>\n      <p class=\"winner\"></p>\n    ");
-  }
 
   attachListeners() {
     // This event handler will read the cell id from a cell’s
     // `data-id` attribute and make the `clickCell` move.
     const handleCellClick = event => {
       const id = parseInt(event.target.dataset.id);
-      const piece = parseInt(_Game.pieceId);
+      const piece = parseInt(_const.PieceId);
       this.client.moves.clickCell(id, piece);
     }; // Attach the event listener to each of the board cells.
 
@@ -20597,19 +20780,11 @@ class BlokusClient {
     cells.forEach(cell => {
       cell.onclick = handleCellClick;
     });
-  }
+  } //Maj des cases si positionnement valide
+
 
   update(state) {
-    // Get all the board cells.
-    console.log("turn: " + this.turn);
-    const cells = this.rootElement.querySelectorAll('.cell'); // Update cells to display the values in game state.
-
-    cells.forEach(cell => {
-      const cellId = parseInt(cell.dataset.id);
-      const cellValue = state.G.cells[cellId]; //cell.textContent = cellValue !== null ? cellValue : '';
-      //cell.
-    }); // Get the gameover message element.
-
+    // Get the gameover message element.
     const messageEl = this.rootElement.querySelector('.winner'); // Update the element to show a winner if any.
 
     if (state.ctx.gameover) {
@@ -20621,9 +20796,66 @@ class BlokusClient {
 
 }
 
+class pieceBoard {
+  constructor(pieceElements) {
+    for (let i = 0; i < pieceElements.length; i++) {
+      // remplacer par (pieceElement in PieceElements)
+      this.pieceElement = pieceElements[i];
+      this.createBoard(i);
+    }
+  }
+
+  createBoard(player) {
+    const rows = [];
+
+    for (let i = 0; i < 28; i++) {
+      const cells = [];
+
+      for (let j = 0; j < 14; j++) {
+        const id = 1000 * (player + 1) + 14 * i + j;
+        cells.push("<td class=\"miniCell\" data-id=\"".concat(id, "\"></td>"));
+      }
+
+      rows.push("<tr>".concat(cells.join(''), "</tr>"));
+    }
+
+    this.pieceElement.innerHTML = "\n      <table class=\"pieceTable\">".concat(rows.join(''), "</table>\n    ");
+    const tab_piece = [0, 28, 70, 72, 126, 128, 131, 134, 137, 196, 198, 201, 204, 207, 280, 283, 287, 290, 350, 354, 358];
+
+    for (let i = 0; i < 21; i++) {
+      for (let j = 0; j < 5; j++) {
+        document.querySelector("[data-id=".concat(CSS.escape(1000 * (player + 1) + (Math.floor((0, _Game.initPiece)()[i][j] / 20) * 14 + (0, _Game.initPiece)()[i][j] % 20 + tab_piece[i])), "]")).classList.add('color' + player);
+      }
+    } //if ne fonctionne pas
+
+
+    if (cell === classList.contains('color' + player)) {
+      classList.replace(miniCell + 'color' + player, miniCell);
+    }
+  }
+
+}
+
+class giveUp {
+  constructor(giveUpElement) {
+    // remplacer par (pieceElement in PieceElements)
+    this.giveUpElement = giveUpElement;
+    this.createButtonDiv();
+  }
+
+  createButtonDiv() {
+    cells.push("<td class=\"cell\" data-id=\"500\"></td>");
+  }
+
+}
+
 const appElement = document.getElementById('app');
+const pieceElements = document.getElementsByClassName('pieces');
+const giveUpElement = document.getElementById('give_up');
 const app = new BlokusClient(appElement);
-},{"boardgame.io/client":"../../../node_modules/boardgame.io/dist/esm/client.js","./Game":"src/Game.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+const piece = new pieceBoard(pieceElements);
+const button = new giveUp(giveUpElement);
+},{"boardgame.io/client":"node_modules/boardgame.io/dist/esm/client.js","./Game":"src/Game.js","./const":"src/const.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -20651,7 +20883,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52770" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61281" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

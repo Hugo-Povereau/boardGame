@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>boardgame.io Tutorial</title>
+    <title>Ceci est un blokus</title>
     <meta charset="utf-8">
+    <script type="text/javascript" src="/Game.fe698b75.js"></script>
 </head>
 <body>
-<div class="canvas" id="app"></div>
+    <div class="canvas">
+        <div class="pieces" id="piece0"></div>
+        <div class="pieces" id="piece1"></div>
+        <div class="pieces" id="piece2"></div>
+        <div class="pieces" id="piece3"></div>
+        <div id="app"></div>
+    </div>
+
 <script src="/App.f684dadd.js"></script>
 <style>.canvas{
-        padding-left: 25%;
+        display: flex;
+        align-items: center;
+    }
+    .pieces{
+        width: 315px;
+        height: 672px;
+        background: #ececf5;
+        border-spacing: 0;
+    }
+    #piece0{
+        display: block;
+    }
+    #piece1{
+        display: none;
+    }
+    #piece2{
+        display: none;
+    }
+    #piece3{
+        display: none;
+    }
+    #app{
+        padding-left: 10%;
     }
     .cell {
         left: 100px;
@@ -18,17 +48,41 @@
         line-height: 30px;
         text-align: center;
     }
-    .redCell{
+    .miniCell {
+        left: 100px;
+        border: 1px solid #e0daec;
+        width: 20px;
+        height: 20px;
+        line-height: 30px;
+        text-align: center;
+    }
+    .pieceTable {
+        border-spacing: 0px;
+    }
+    .color0{
         background-color: #ce5959;
     }
-    .blueCell{
+    .color1{
         background-color: #6f6fe3;
     }
-    .yellowCell{
+    .color2{
         background-color: #e7e781;
     }
-    .greenCell{
+    .color3{
         background-color: #7bd77b;
+    }
+    #button{
+        position: relative;
+        top: 50px;
+        padding: 5px;
+        border-radius: 5px;
+        background: #575656;
+        color: #e5e5e5;
+    }
+    #button:hover{
+        background: #6f6fe3;
+        cursor: pointer;
     }</style>
+
 </body>
 </html>
