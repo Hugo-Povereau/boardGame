@@ -9,11 +9,11 @@ function setPieceId(value) {
 }
 
 function  nextPlayer() {
-    currentPlayer = (currentPlayer + 1) % currentPlayers.length
+    currentPlayer = currentPlayers[(currentPlayers.indexOf(currentPlayer)+1)%currentPlayers.length]
 }
 
 function rmPlayer(value) {
-    currentPlayers.splice(value,1);
+    currentPlayers.splice(currentPlayers.indexOf(value),1);
 }
 
 export {TURN, PieceId, currentPlayers, currentPlayer,nbPieces, setPieceId, nextPlayer, rmPlayer}

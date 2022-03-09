@@ -1,5 +1,6 @@
 import {INVALID_MOVE, TurnOrder} from 'boardgame.io/core';
-import {currentPlayers, currentPlayer,nbPieces, PieceId, nextPlayer, rmPlayer, setPieceId} from "./const";
+import {currentPlayers, currentPlayer, nbPieces, PieceId, nextPlayer, rmPlayer, setPieceId} from "./const";
+import * as Console from "console";
 
 export let pieceId = PieceId;
 export let diagonale = true;
@@ -19,15 +20,13 @@ export const Blokus = ({
         },
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
-            if(id===500) {
-                console.log(currentPlayer)
-                rmPlayer(currentPlayer);
-                return Blokus.switchPlayer(G,ctx);
-            }
-            /*if(!currentPlayers.includes(parseInt(currentPlayer))){
-                Blokus.switchPlayer(G,ctx);
+            if (id === 500) {
+
+                const flag = currentPlayer
+                Blokus.switchPlayer(G, ctx);
+                rmPlayer(flag);
                 return
-            }*/
+            }
 
             for (let i = 0; i < 5; i++) {
 
@@ -62,20 +61,20 @@ export const Blokus = ({
                         coin = true;
                     }
                 }
-                if(coin === false){
+                if (coin === false) {
                     return INVALID_MOVE;
                 }
             }
             for (let i = 0; i < 5; i++) {
 
                 //Attribution l'id du joueur sur les cases
-                for (let i = 0; i < 5; i++){
+                for (let i = 0; i < 5; i++) {
                     G.cells[id + initPiece()[idPiece][i]] = currentPlayer;
                 }
 
-                let somme = ((currentPlayer+1)*1000 + idPiece);
+                let somme = ((currentPlayer + 1) * 1000 + idPiece);
                 let test = document.querySelectorAll(`[data-name=${CSS.escape(somme)}]`);
-                test.forEach(div => div.className='miniCell');
+                test.forEach(div => div.className = 'miniCell');
 
                 nbPieces[currentPlayer] += 1;
 
@@ -85,26 +84,25 @@ export const Blokus = ({
                     document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color' + currentPlayer);
                 }
                 diagonale = false;
-                return Blokus.switchPlayer(G,ctx);
+                return Blokus.switchPlayer(G, ctx);
             }
         },
     },
     endIf: (G, ctx) => {
-        if (currentPlayers.length===0) {
+        if (currentPlayers.length === 0) {
 
-            let max = Math.max.apply(null,nbPieces);
-            let GGPlayers = getAllIndexes(nbPieces,max);
+            let max = Math.max.apply(null, nbPieces);
+            let GGPlayers = getAllIndexes(nbPieces, max);
 
-            if(GGPlayers.length>1){
+            if (GGPlayers.length > 1) {
                 return {draw: GGPlayers};
-            }
-            else{
+            } else {
                 return {winner: GGPlayers[0]};
             }
         }
     },
     switchPlayer: (G, ctx) => {
-        if (currentPlayers.length!==0) {
+        if (currentPlayers.length !== 0) {
             document.getElementById('piece' + (currentPlayer)).style.display = 'none';
             document.getElementById('piece' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]).style.display = 'block';
 
@@ -114,7 +112,7 @@ export const Blokus = ({
             }
             return nextPlayer()
         }
-        Blokus.endIf(G,ctx)
+        Blokus.endIf(G, ctx)
     },
     ai: {
         enumerate: (G, ctx) => {
@@ -144,7 +142,7 @@ export function initPiece() {
 
 function getAllIndexes(arr, val) {
     var indexes = [], i = -1;
-    while ((i = arr.indexOf(val, i+1)) !== -1){
+    while ((i = arr.indexOf(val, i + 1)) !== -1) {
         indexes.push(i);
     }
     return indexes;
