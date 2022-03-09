@@ -1,5 +1,5 @@
-import {INVALID_MOVE,TurnOrder,ActivePlayers} from 'boardgame.io/core';
-import {PieceId, setPieceId, currentPlayers, rmPlayer, nbPieces} from "./const";
+import {INVALID_MOVE, TurnOrder} from 'boardgame.io/core';
+import {currentPlayers, currentPlayer,nbPieces, PieceId, nextPlayer, rmPlayer, setPieceId} from "./const";
 
 export let pieceId = PieceId;
 export let diagonale = true;
@@ -19,15 +19,15 @@ export const Blokus = ({
         },
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
-            console.log("test "+currentPlayers);
             if(id===500) {
-                Blokus.switchPlayer(G,ctx);
-                return rmPlayer(ctx.currentPlayer);
+                console.log(currentPlayer)
+                rmPlayer(currentPlayer);
+                return Blokus.switchPlayer(G,ctx);
             }
-            if(!currentPlayers.includes(parseInt(ctx.currentPlayer))){
+            /*if(!currentPlayers.includes(parseInt(currentPlayer))){
                 Blokus.switchPlayer(G,ctx);
                 return
-            }
+            }*/
 
             for (let i = 0; i < 5; i++) {
 
@@ -43,16 +43,16 @@ export const Blokus = ({
                 }
 
                 //Les mêmes pièces ne se touchent pas
-                if (G.cells[id + initPiece()[idPiece][i] + 1] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 1] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 20] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 20] === ctx.currentPlayer) {
+                if (G.cells[id + initPiece()[idPiece][i] + 1] === currentPlayer || G.cells[id + initPiece()[idPiece][i] - 1] === currentPlayer || G.cells[id + initPiece()[idPiece][i] + 20] === currentPlayer || G.cells[id + initPiece()[idPiece][i] - 20] === currentPlayer) {
                     return INVALID_MOVE;
                 }
 
                 //Les pièces se touchent au moins une fois en diagonale
-                if (G.cells[id + initPiece()[idPiece][i] + 21] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 21] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 19] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 19] === ctx.currentPlayer) {
+                if (G.cells[id + initPiece()[idPiece][i] + 21] === currentPlayer || G.cells[id + initPiece()[idPiece][i] - 21] === currentPlayer || G.cells[id + initPiece()[idPiece][i] + 19] === currentPlayer || G.cells[id + initPiece()[idPiece][i] - 19] === currentPlayer) {
                     diagonale = true;
                 }
             }
-            if (tour !== 0 && diagonale == false) {
+            if (tour !== 0 && diagonale === false) {
                 return INVALID_MOVE;
             }
             if (tour === 0) {
@@ -70,23 +70,22 @@ export const Blokus = ({
 
                 //Attribution l'id du joueur sur les cases
                 for (let i = 0; i < 5; i++){
-                    G.cells[id + initPiece()[idPiece][i]] = ctx.currentPlayer;
+                    G.cells[id + initPiece()[idPiece][i]] = currentPlayer;
                 }
 
-                let somme = ((Number(ctx.currentPlayer)+1)*1000 + idPiece);
+                let somme = ((currentPlayer+1)*1000 + idPiece);
                 let test = document.querySelectorAll(`[data-name=${CSS.escape(somme)}]`);
                 test.forEach(div => div.className='miniCell');
 
-                nbPieces[ctx.currentPlayer] += 1;
+                nbPieces[currentPlayer] += 1;
 
                 //Changement de couleur des cases
                 for (let i = 0; i < 5; i++) {
                     const bloc = id + initPiece()[idPiece][i];
-                    document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color' + ctx.currentPlayer);
+                    document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color' + currentPlayer);
                 }
                 diagonale = false;
-                Blokus.switchPlayer(G,ctx);
-                return
+                return Blokus.switchPlayer(G,ctx);
             }
         },
     },
@@ -105,12 +104,17 @@ export const Blokus = ({
         }
     },
     switchPlayer: (G, ctx) => {
-        document.getElementById('piece' + (ctx.currentPlayer)).style.display = 'none';
-        document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
-        if (ctx.currentPlayer == 3) {
-            tour += 1;
-            setPieceId(tour);
+        if (currentPlayers.length!==0) {
+            document.getElementById('piece' + (currentPlayer)).style.display = 'none';
+            document.getElementById('piece' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]).style.display = 'block';
+
+            if (currentPlayer === currentPlayers[currentPlayers.length - 1]) {
+                tour += 1;
+                setPieceId(tour);
+            }
+            return nextPlayer()
         }
+        Blokus.endIf(G,ctx)
     },
     ai: {
         enumerate: (G, ctx) => {
@@ -127,7 +131,7 @@ export const Blokus = ({
 
 //Liste des pièces
 export function initPiece() {
-    const forms = [
+    return [
         [0, 0, 0, 0, 0],
         [0, 20, 0, 0, 0],
         [0, 20, 40, 0, 0], [0, 20, 21, 0, 0],
@@ -136,13 +140,11 @@ export function initPiece() {
         [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]
 
     ];
-
-    return forms;
 }
 
 function getAllIndexes(arr, val) {
     var indexes = [], i = -1;
-    while ((i = arr.indexOf(val, i+1)) != -1){
+    while ((i = arr.indexOf(val, i+1)) !== -1){
         indexes.push(i);
     }
     return indexes;
