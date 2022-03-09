@@ -19,17 +19,13 @@ export const Blokus = ({
         },
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
-            console.log(currentPlayers);
+            console.log("test "+currentPlayers);
             if(id===500) {
+                Blokus.switchPlayer(G,ctx);
                 return rmPlayer(ctx.currentPlayer);
             }
             if(!currentPlayers.includes(parseInt(ctx.currentPlayer))){
-                document.getElementById('piece' + (ctx.currentPlayer)).style.display = 'none';
-                document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
-                if (ctx.currentPlayer == 3) {
-                    tour += 1;
-                    setPieceId(tour);
-                }
+                Blokus.switchPlayer(G,ctx);
                 return
             }
 
@@ -89,14 +85,8 @@ export const Blokus = ({
                     document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color' + ctx.currentPlayer);
                 }
                 diagonale = false;
-                document.getElementById('piece' + (ctx.currentPlayer)).style.display = 'none';
-                document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
-
-                if (ctx.currentPlayer == 3) {
-                    tour += 1;
-                    setPieceId(tour);
-                }
-                return;
+                Blokus.switchPlayer(G,ctx);
+                return
             }
         },
     },
@@ -112,6 +102,14 @@ export const Blokus = ({
             else{
                 return {winner: GGPlayers[0]};
             }
+        }
+    },
+    switchPlayer: (G, ctx) => {
+        document.getElementById('piece' + (ctx.currentPlayer)).style.display = 'none';
+        document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
+        if (ctx.currentPlayer == 3) {
+            tour += 1;
+            setPieceId(tour);
         }
     },
     ai: {
