@@ -1,6 +1,6 @@
 import {Client} from 'boardgame.io/client';
 import {Blokus, initPiece} from './Game';
-import {PieceId} from "./const";
+import {PieceId, RootElement, setRootElement} from "./const";
 class BlokusClient {
 
     constructor(rootElement, {playerID} = {}) {
@@ -30,7 +30,7 @@ class BlokusClient {
         }
         this.rootElement.innerHTML = `
       <table>${rows.join('')}</table>
-      <table id="buttonTab"><td class="cell" data-id="500" id="button">giveup</td></table>
+      <table id="buttonTab"><td class="cell color0" data-id="500" id="button">giveup</td></table>
       <p class="winner"></p>
     `;
     }
@@ -71,10 +71,10 @@ class pieceBoard {
     constructor(pieceElements) {
         for (let i=0; i<pieceElements.length; i++) { // remplacer par (pieceElement in PieceElements)
             this.pieceElement = pieceElements[i];
-            this.createBoard(i);
+            this.createBoardLeft(i);
         }
     }
-    createBoard(player) {
+    createBoardLeft(player) {
         const rows = [];
         for (let i = 0; i < 28; i++) {
             const cells = [];

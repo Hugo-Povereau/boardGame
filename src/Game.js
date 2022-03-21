@@ -1,6 +1,5 @@
 import {INVALID_MOVE, TurnOrder} from 'boardgame.io/core';
 import {currentPlayers, currentPlayer, nbPieces, PieceId, nextPlayer, rmPlayer, setPieceId} from "./const";
-import * as Console from "console";
 
 export let pieceId = PieceId;
 export let diagonale = true;
@@ -75,6 +74,7 @@ export const Blokus = ({
                 let somme = ((currentPlayer + 1) * 1000 + idPiece);
                 let test = document.querySelectorAll(`[data-name=${CSS.escape(somme)}]`);
                 test.forEach(div => div.className = 'miniCell');
+                test.item(0).attributes.removeNamedItem('data-name');
 
                 nbPieces[currentPlayer] += 1;
 
@@ -84,6 +84,8 @@ export const Blokus = ({
                     document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color' + currentPlayer);
                 }
                 diagonale = false;
+                document.querySelector(`[data-id=\"500\"]`).style.removeProperty('background');
+
                 return Blokus.switchPlayer(G, ctx);
             }
         },
@@ -102,6 +104,12 @@ export const Blokus = ({
         }
     },
     switchPlayer: (G, ctx) => {
+        if(currentPlayers.length>1){
+            document.getElementById("button").style.removeProperty('background');
+            document.querySelector(`[data-id=\"500\"]`).classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer)+1)%currentPlayers.length]);
+            document.querySelector(`[data-id=\"500\"]`).classList.remove('color' + currentPlayer);
+        }
+
         if (currentPlayers.length !== 0) {
             document.getElementById('piece' + (currentPlayer)).style.display = 'none';
             document.getElementById('piece' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]).style.display = 'block';
