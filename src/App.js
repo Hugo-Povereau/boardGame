@@ -41,7 +41,7 @@ class BlokusClient {
         // `data-id` attribute and make the `clickCell` move.
         const handleCellClick = event => {
             const id = parseInt(event.target.dataset.id);
-            const piece = parseInt(PieceId);
+            let piece = parseInt(PieceId);
             this.client.moves.clickCell(id,piece);
         };
         // Attach the event listener to each of the board cells.

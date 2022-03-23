@@ -1,7 +1,15 @@
 import {INVALID_MOVE, TurnOrder} from 'boardgame.io/core';
-import {currentPlayers, currentPlayer, nbPieces, PieceId, nextPlayer, rmPlayer, setPieceId} from "./const";
+import {
+    currentPlayers,
+    currentPlayer,
+    nbPieces,
+    PieceId,
+    nextPlayer,
+    rmPlayer,
+    setPieceId,
+    pieceSelected, setPieceSelected
+} from "./const";
 
-export let pieceId = PieceId;
 export let diagonale = true;
 export let tour = 0;
 
@@ -14,11 +22,9 @@ export const Blokus = ({
         maxMoves: 1,
     },
     moves: {
-        selectPiece: (idPiece) => {
-            setPieceId(idPiece);
-        },
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
+            console.log("2 "+PieceId)
             if (id === 500) {
 
                 const flag = currentPlayer
@@ -26,7 +32,6 @@ export const Blokus = ({
                 rmPlayer(flag);
                 return
             }
-
             for (let i = 0; i < 5; i++) {
 
                 //Les cases sont vides
@@ -137,6 +142,8 @@ export const Blokus = ({
 
 //Liste des pièces
 export function initPiece() {
+
+
     return [
         [0, 0, 0, 0, 0],
         [0, 20, 0, 0, 0],
@@ -144,7 +151,6 @@ export function initPiece() {
         [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0],
         [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41],
         [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]
-
     ];
 }
 
@@ -155,3 +161,18 @@ function getAllIndexes(arr, val) {
     }
     return indexes;
 }
+
+document.addEventListener('click', function (event) {
+    let element = document.elementFromPoint(event.x, event.y);
+    if (element.hasAttribute('data-name')) {
+        let old = document.querySelectorAll("[data-name=\'" + pieceSelected + "\']");
+        if(old.length>0){
+            old.forEach(e => e.classList.replace('color' + currentPlayer + 'pale',"color"+currentPlayer));
+        }
+        let pieces = document.querySelectorAll("[data-name=\'" + element.getAttribute('data-name') + "\']");
+        pieces.forEach(e => e.classList.replace("color"+currentPlayer, "color"+currentPlayer+"pale"));
+        setPieceSelected(element.getAttribute('data-name'))
+        setPieceId(element.getAttribute('data-name')%1000)
+        console.log("1 "+PieceId)
+    }
+});
