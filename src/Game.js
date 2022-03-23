@@ -3,11 +3,12 @@ import {
     currentPlayers,
     currentPlayer,
     nbPieces,
+    rotation,
     PieceId,
     nextPlayer,
     rmPlayer,
     setPieceId,
-    pieceSelected, setPieceSelected
+    pieceSelected, setPieceSelected, setRotation
 } from "./const";
 
 export let diagonale = true;
@@ -24,7 +25,6 @@ export const Blokus = ({
     moves: {
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
-            console.log("2 "+PieceId)
             if (id === 500) {
 
                 const flag = currentPlayer
@@ -35,23 +35,23 @@ export const Blokus = ({
             for (let i = 0; i < 5; i++) {
 
                 //Les cases sont vides
-                if (G.cells[id + initPiece()[idPiece][i]] !== null) {
+                if (G.cells[id + initPiece(rotation)[idPiece][i]] !== null) {
                     return INVALID_MOVE;
                 }
                 //Les cases sont côtes à côtes
                 if (i < 4) {
-                    if (((id + initPiece()[idPiece][i]) % 20) === 19 && ((id + initPiece()[idPiece][i + 1]) % 20) === 0) {
+                    if (((id + initPiece(rotation)[idPiece][i]) % 20) === 19 && ((id + initPiece(rotation)[idPiece][i + 1]) % 20) === 0) {
                         return INVALID_MOVE;
                     }
                 }
 
                 //Les mêmes pièces ne se touchent pas
-                if (G.cells[id + initPiece()[idPiece][i] + 1] === currentPlayer || G.cells[id + initPiece()[idPiece][i] - 1] === currentPlayer || G.cells[id + initPiece()[idPiece][i] + 20] === currentPlayer || G.cells[id + initPiece()[idPiece][i] - 20] === currentPlayer) {
+                if (G.cells[id + initPiece(rotation)[idPiece][i] + 1] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 1] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] + 20] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 20] === currentPlayer) {
                     return INVALID_MOVE;
                 }
 
                 //Les pièces se touchent au moins une fois en diagonale
-                if (G.cells[id + initPiece()[idPiece][i] + 21] === currentPlayer || G.cells[id + initPiece()[idPiece][i] - 21] === currentPlayer || G.cells[id + initPiece()[idPiece][i] + 19] === currentPlayer || G.cells[id + initPiece()[idPiece][i] - 19] === currentPlayer) {
+                if (G.cells[id + initPiece(rotation)[idPiece][i] + 21] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 21] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] + 19] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 19] === currentPlayer) {
                     diagonale = true;
                 }
             }
@@ -61,7 +61,7 @@ export const Blokus = ({
             if (tour === 0) {
                 let coin = false;
                 for (let i = 0; i < 5; i++) {
-                    if ([0, 19, 380, 399].includes(id + initPiece()[idPiece][i])) {
+                    if ([0, 19, 380, 399].includes(id + initPiece(rotation)[idPiece][i])) {
                         coin = true;
                     }
                 }
@@ -73,7 +73,7 @@ export const Blokus = ({
 
                 //Attribution l'id du joueur sur les cases
                 for (let i = 0; i < 5; i++) {
-                    G.cells[id + initPiece()[idPiece][i]] = currentPlayer;
+                    G.cells[id + initPiece(rotation)[idPiece][i]] = currentPlayer;
                 }
 
                 let somme = ((currentPlayer + 1) * 1000 + idPiece);
@@ -85,7 +85,7 @@ export const Blokus = ({
 
                 //Changement de couleur des cases
                 for (let i = 0; i < 5; i++) {
-                    const bloc = id + initPiece()[idPiece][i];
+                    const bloc = id + initPiece(rotation)[idPiece][i];
                     document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color' + currentPlayer);
                 }
                 diagonale = false;
@@ -121,8 +121,8 @@ export const Blokus = ({
 
             if (currentPlayer === currentPlayers[currentPlayers.length - 1]) {
                 tour += 1;
-                setPieceId(tour);
             }
+            setPieceId(-1);
             return nextPlayer()
         }
         Blokus.endIf(G, ctx)
@@ -141,15 +141,15 @@ export const Blokus = ({
 });
 
 //Liste des pièces
-export function initPiece() {
+export function initPiece(rotation) {
     //pos de base
     const tab1 = [
         [0, 0, 0, 0, 0],
         [0, 20, 0, 0, 0],
         [0, 20, 40, 0, 0], [0, 20, 21, 0, 0],
-        [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], /*tourne pas*/[0, 1, 20, 21, 0], [0, 1, 21, 22, 0],
+        [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0],
         [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41],
-        [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], /*tourne pas*/[1, 20, 21, 22, 41]
+        [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]
     ]
 
     //90° anti horaire
@@ -157,9 +157,9 @@ export function initPiece() {
         [0, 0, 0, 0, 0],
         [0, 1, 0, 0, 0],
         [0, 1, 2, 0, 0], [0, 1, -19, 0, 0],
-        [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0], /*tourne pas*/[0, 1, 20, 21, 0], [0, -20, -19, -49, 0],
+        [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, -20, -19, -49, 0],
         [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18], [0, 1, -19, 2, 3], [0, -20, -40, -18, -17],
-        [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39] /*tourne pas*/[1, 20, 21, 22, 41]
+        [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39], [1, 20, 21, 22, 41]
     ]
 
     //180°
@@ -167,9 +167,9 @@ export function initPiece() {
         [0, 0, 0, 0, 0],
         [0, 20, 0, 0, 0],
         [0, 20, 40, 0, 0], [0, -20, -21, 0, 0],
-        [0, 20, 40, 60, 0], [0, -20, -40, -41, 0], [0, -20, -21, -40, -0], /*tourne pas*/[0, 1, 20, 21, 0], [0, -1, -21, -22, 0],
+        [0, 20, 40, 60, 0], [0, -20, -40, -41, 0], [0, -20, -21, -40, -0], [0, 1, 20, 21, 0], [0, -1, -21, -22, 0],
         [0, 20, 40, 60, 80], [0, -20, -40, -60, -61], [0, -20, -40, -41, -61], [0, -20, -21, -40, -41], [0, -1, -20, -40, -41], [0, -20, -21, -40, -60], [0, -1, -2, -21, -41],
-        [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -21, -22, -42], [0, -20, -21, -22, -41] /*tourne pas*/[1, 20, 21, 22, 41]
+        [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -21, -22, -42], [0, -20, -21, -22, -41], [1, 20, 21, 22, 41]
     ]
     
     //270° 
@@ -177,12 +177,13 @@ export function initPiece() {
         [0, 0, 0, 0, 0],
         [0, 1, 0, 0, 0],
         [0, 1, 2, 0, 0], [0, -1, 19, 0, 0],
-        [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0], /*tourne pas*/[0, 1, 20, 21, 0], [0, 20, 19, 49, 0],
+        [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, 20, 19, 49, 0],
         [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 18, 17],
-        [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39] /*tourne pas*/[-1, -20, -21, -22, -41]
+        [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39], [-1, -20, -21, -22, -41]
     ]
-    
-    return tab1;
+
+    const tab = [tab1, tab2, tab3, tab4]
+    return tab[rotation];
 }
 
 function getAllIndexes(arr, val) {
@@ -204,6 +205,9 @@ document.addEventListener('click', function (event) {
         pieces.forEach(e => e.classList.replace("color"+currentPlayer, "color"+currentPlayer+"pale"));
         setPieceSelected(element.getAttribute('data-name'))
         setPieceId(element.getAttribute('data-name')%1000)
-        console.log("1 "+PieceId)
     }
 });
+
+document.addEventListener('contextmenu', function(event){
+    setRotation(1)
+})
