@@ -20526,8 +20526,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.nbPieces = exports.currentPlayers = exports.currentPlayer = exports.TURN = exports.PieceId = void 0;
 exports.nextPlayer = nextPlayer;
+exports.pieceSelected = void 0;
 exports.rmPlayer = rmPlayer;
 exports.setPieceId = setPieceId;
+exports.setPieceSelected = setPieceSelected;
 let TURN = 0;
 exports.TURN = TURN;
 let PieceId = 0;
@@ -20538,6 +20540,12 @@ let currentPlayer = 0;
 exports.currentPlayer = currentPlayer;
 let nbPieces = [0, 0, 0, 0];
 exports.nbPieces = nbPieces;
+let pieceSelected;
+exports.pieceSelected = pieceSelected;
+
+function setPieceSelected(value) {
+  exports.pieceSelected = pieceSelected = value;
+}
 
 function setPieceId(value) {
   exports.PieceId = PieceId = value;
@@ -20558,14 +20566,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.diagonale = exports.Blokus = void 0;
 exports.initPiece = initPiece;
-exports.tour = exports.pieceId = void 0;
+exports.tour = void 0;
 
 var _core = require("boardgame.io/core");
 
 var _const = require("./const");
 
-let pieceId = _const.PieceId;
-exports.pieceId = pieceId;
 let diagonale = true;
 exports.diagonale = diagonale;
 let tour = 0;
@@ -20580,11 +20586,9 @@ const Blokus = {
     maxMoves: 1
   },
   moves: {
-    selectPiece: idPiece => {
-      (0, _const.setPieceId)(idPiece);
-    },
     clickCell: (G, ctx, id, idPiece) => {
       exports.diagonale = diagonale = false;
+      console.log("2 " + _const.PieceId);
 
       if (id === 500) {
         const flag = _const.currentPlayer;
@@ -20716,7 +20720,31 @@ const Blokus = {
 exports.Blokus = Blokus;
 
 function initPiece() {
-  return [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, 20, 21, 0, 0], [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]];
+  //pos de base
+  const tab1 = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, 20, 21, 0, 0], [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0],
+  /*tourne pas*/
+  [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41],
+  /*tourne pas*/
+  [1, 20, 21, 22, 41]]; //90° anti horaire
+
+  const tab2 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, 1, -19, 0, 0], [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0],
+  /*tourne pas*/
+  [0, 1, 20, 21, 0], [0, -20, -19, -49, 0], [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18], [0, 1, -19, 2, 3], [0, -20, -40, -18, -17], [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39]
+  /*tourne pas*/
+  [(1, 20, 21, 22, 41)]]; //180°
+
+  const tab3 = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, -20, -21, 0, 0], [0, 20, 40, 60, 0], [0, -20, -40, -41, 0], [0, -20, -21, -40, -0],
+  /*tourne pas*/
+  [0, 1, 20, 21, 0], [0, -1, -21, -22, 0], [0, 20, 40, 60, 80], [0, -20, -40, -60, -61], [0, -20, -40, -41, -61], [0, -20, -21, -40, -41], [0, -1, -20, -40, -41], [0, -20, -21, -40, -60], [0, -1, -2, -21, -41], [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -21, -22, -42], [0, -20, -21, -22, -41]
+  /*tourne pas*/
+  [(1, 20, 21, 22, 41)]]; //270° 
+
+  const tab4 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, -1, 19, 0, 0], [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0],
+  /*tourne pas*/
+  [0, 1, 20, 21, 0], [0, 20, 19, 49, 0], [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 18, 17], [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39]
+  /*tourne pas*/
+  [(-1, -20, -21, -22, -41)]];
+  return tab1;
 }
 
 function getAllIndexes(arr, val) {
@@ -20729,6 +20757,24 @@ function getAllIndexes(arr, val) {
 
   return indexes;
 }
+
+document.addEventListener('click', function (event) {
+  let element = document.elementFromPoint(event.x, event.y);
+
+  if (element.hasAttribute('data-name')) {
+    let old = document.querySelectorAll("[data-name=\'" + _const.pieceSelected + "\']");
+
+    if (old.length > 0) {
+      old.forEach(e => e.classList.replace('color' + _const.currentPlayer + 'pale', "color" + _const.currentPlayer));
+    }
+
+    let pieces = document.querySelectorAll("[data-name=\'" + element.getAttribute('data-name') + "\']");
+    pieces.forEach(e => e.classList.replace("color" + _const.currentPlayer, "color" + _const.currentPlayer + "pale"));
+    (0, _const.setPieceSelected)(element.getAttribute('data-name'));
+    (0, _const.setPieceId)(element.getAttribute('data-name') % 1000);
+    console.log("1 " + _const.PieceId);
+  }
+});
 },{"boardgame.io/core":"node_modules/boardgame.io/dist/esm/core.js","./const":"src/const.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -20780,7 +20826,7 @@ class BlokusClient {
     // `data-id` attribute and make the `clickCell` move.
     const handleCellClick = event => {
       const id = parseInt(event.target.dataset.id);
-      const piece = parseInt(_const.PieceId);
+      let piece = parseInt(_const.PieceId);
       this.client.moves.clickCell(id, piece);
     }; // Attach the event listener to each of the board cells.
 
@@ -20888,7 +20934,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57953" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61003" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
