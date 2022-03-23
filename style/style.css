@@ -1,0 +1,95 @@
+.canvas {
+  display: flex;
+  align-items: center;
+}
+.pieces {
+  width: 315px;
+  height: 672px;
+  background: #ececf5;
+  border-spacing: 0;
+}
+#piece0 {
+  display: block;
+}
+#piece1 {
+  display: none;
+}
+#piece2 {
+  display: none;
+}
+#piece3 {
+  display: none;
+}
+#app {
+  padding-left: 10%;
+}
+.cell {
+  left: 100px;
+  border: 1px solid #555;
+  width: 25px;
+  height: 25px;
+  line-height: 30px;
+  text-align: center;
+}
+.miniCell {
+  left: 100px;
+  border: 1px solid #e0daec;
+  width: 20px;
+  height: 20px;
+  line-height: 30px;
+  text-align: center;
+}
+.pieceTable {
+  border-spacing: 0px;
+}
+.color0 {
+  background-color: #ce5959;
+}
+.color1 {
+  background-color: #6f6fe3;
+}
+.color2 {
+  background-color: #dede52;
+}
+.color3 {
+  background-color: #7bd77b;
+}
+#button {
+  top: 50px;
+  left: 100px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 50px;
+  color: #e5e5e5;
+}
+#buttonTab {
+  margin-left: auto;
+  margin-right: auto;
+}
+#button:hover {
+  cursor: pointer;
+}
+#button.color0:hover {
+  background-color: #fdbaba;
+  color: #747476;
+}
+#button.color1:hover {
+  background-color: #c1c1f3;
+  color: #747476;
+}
+#button.color2:hover {
+  background-color: #fdfdbb;
+  color: #747476;
+}
+#button.color3:hover {
+  background-color: #b2e0b2;
+  color: #747476;
+}
+html {
+  height: 100vh;
+  background: radial-gradient(ellipse at top left, #ffa8a8 15%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #8989d9 15%, transparent 60%),
+    radial-gradient(ellipse at top right, #baba83 15%, transparent 60%),
+    radial-gradient(ellipse at bottom right, #95c695 15%, transparent 60%);
+}

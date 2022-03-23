@@ -20524,7 +20524,8 @@ exports.PlayerView = PlayerView;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.currentPlayers = exports.TURN = exports.PieceId = void 0;
+exports.nbPieces = exports.currentPlayers = exports.currentPlayer = exports.TURN = exports.PieceId = void 0;
+exports.nextPlayer = nextPlayer;
 exports.rmPlayer = rmPlayer;
 exports.setPieceId = setPieceId;
 let TURN = 0;
@@ -20533,13 +20534,21 @@ let PieceId = 0;
 exports.PieceId = PieceId;
 let currentPlayers = [0, 1, 2, 3];
 exports.currentPlayers = currentPlayers;
+let currentPlayer = 0;
+exports.currentPlayer = currentPlayer;
+let nbPieces = [0, 0, 0, 0];
+exports.nbPieces = nbPieces;
 
 function setPieceId(value) {
   exports.PieceId = PieceId = value;
 }
 
+function nextPlayer() {
+  exports.currentPlayer = currentPlayer = currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length];
+}
+
 function rmPlayer(value) {
-  currentPlayers.splice(value, 1);
+  currentPlayers.splice(currentPlayers.indexOf(value), 1);
 }
 },{}],"src/Game.js":[function(require,module,exports) {
 "use strict";
@@ -20576,22 +20585,11 @@ const Blokus = {
     },
     clickCell: (G, ctx, id, idPiece) => {
       exports.diagonale = diagonale = false;
-      console.log(_const.currentPlayers);
-      console.log(ctx.currentPlayer);
 
       if (id === 500) {
-        (0, _const.rmPlayer)(ctx.currentPlayer);
-      }
-
-      if (!_const.currentPlayers.includes(parseInt(ctx.currentPlayer))) {
-        document.getElementById('piece' + ctx.currentPlayer).style.display = 'none';
-        document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
-
-        if (ctx.currentPlayer == 3) {
-          exports.tour = tour = tour + 1;
-          (0, _const.setPieceId)(tour);
-        }
-
+        const flag = _const.currentPlayer;
+        Blokus.switchPlayer(G, ctx);
+        (0, _const.rmPlayer)(flag);
         return;
       }
 
@@ -20609,17 +20607,17 @@ const Blokus = {
         } //Les mêmes pièces ne se touchent pas
 
 
-        if (G.cells[id + initPiece()[idPiece][i] + 1] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 1] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 20] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 20] === ctx.currentPlayer) {
+        if (G.cells[id + initPiece()[idPiece][i] + 1] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 1] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 20] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 20] === _const.currentPlayer) {
           return _core.INVALID_MOVE;
         } //Les pièces se touchent au moins une fois en diagonale
 
 
-        if (G.cells[id + initPiece()[idPiece][i] + 21] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 21] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 19] === ctx.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 19] === ctx.currentPlayer) {
+        if (G.cells[id + initPiece()[idPiece][i] + 21] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 21] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 19] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 19] === _const.currentPlayer) {
           exports.diagonale = diagonale = true;
         }
       }
 
-      if (tour !== 0 && diagonale == false) {
+      if (tour !== 0 && diagonale === false) {
         return _core.INVALID_MOVE;
       }
 
@@ -20628,7 +20626,6 @@ const Blokus = {
 
         for (let i = 0; i < 5; i++) {
           if ([0, 19, 380, 399].includes(id + initPiece()[idPiece][i])) {
-            console.log(id + initPiece()[idPiece][i] + "coin");
             coin = true;
           }
         }
@@ -20640,42 +20637,63 @@ const Blokus = {
 
       for (let i = 0; i < 5; i++) {
         //Attribution l'id du joueur sur les cases
-        G.cells[id + initPiece()[idPiece][0]] = ctx.currentPlayer;
-        G.cells[id + initPiece()[idPiece][1]] = ctx.currentPlayer;
-        G.cells[id + initPiece()[idPiece][2]] = ctx.currentPlayer;
-        G.cells[id + initPiece()[idPiece][3]] = ctx.currentPlayer;
-        G.cells[id + initPiece()[idPiece][4]] = ctx.currentPlayer; //Changement de couleur des cases
+        for (let i = 0; i < 5; i++) {
+          G.cells[id + initPiece()[idPiece][i]] = _const.currentPlayer;
+        }
+
+        let somme = (_const.currentPlayer + 1) * 1000 + idPiece;
+        let test = document.querySelectorAll("[data-name=".concat(CSS.escape(somme), "]"));
+        test.forEach(div => div.className = 'miniCell');
+        test.item(0).attributes.removeNamedItem('data-name');
+        _const.nbPieces[_const.currentPlayer] += 1; //Changement de couleur des cases
 
         for (let i = 0; i < 5; i++) {
           const bloc = id + initPiece()[idPiece][i];
-          document.querySelector("[data-id=".concat(CSS.escape(bloc), "]")).classList.add('color' + ctx.currentPlayer);
+          document.querySelector("[data-id=".concat(CSS.escape(bloc), "]")).classList.add('color' + _const.currentPlayer);
         }
 
         exports.diagonale = diagonale = false;
-        document.getElementById('piece' + ctx.currentPlayer).style.display = 'none';
-        document.getElementById('piece' + (Number(ctx.currentPlayer) + 1) % 4).style.display = 'block';
-
-        if (ctx.currentPlayer == 3) {
-          exports.tour = tour = tour + 1;
-          (0, _const.setPieceId)(tour);
-        }
-
-        return;
+        document.querySelector("[data-id=\"500\"]").style.removeProperty('background');
+        return Blokus.switchPlayer(G, ctx);
       }
     }
   },
   endIf: (G, ctx) => {
-    if (IsVictory(G.cells)) {
-      return {
-        winner: ctx.currentPlayer
-      };
+    if (_const.currentPlayers.length === 0) {
+      let max = Math.max.apply(null, _const.nbPieces);
+      let GGPlayers = getAllIndexes(_const.nbPieces, max);
+
+      if (GGPlayers.length > 1) {
+        return {
+          draw: GGPlayers
+        };
+      } else {
+        return {
+          winner: GGPlayers[0]
+        };
+      }
+    }
+  },
+  switchPlayer: (G, ctx) => {
+    if (_const.currentPlayers.length > 1) {
+      document.getElementById("button").style.removeProperty('background');
+      document.querySelector("[data-id=\"500\"]").classList.add('color' + _const.currentPlayers[(_const.currentPlayers.indexOf(_const.currentPlayer) + 1) % _const.currentPlayers.length]);
+      document.querySelector("[data-id=\"500\"]").classList.remove('color' + _const.currentPlayer);
     }
 
-    if (IsDraw(G.cells)) {
-      return {
-        draw: true
-      };
+    if (_const.currentPlayers.length !== 0) {
+      document.getElementById('piece' + _const.currentPlayer).style.display = 'none';
+      document.getElementById('piece' + _const.currentPlayers[(_const.currentPlayers.indexOf(_const.currentPlayer) + 1) % _const.currentPlayers.length]).style.display = 'block';
+
+      if (_const.currentPlayer === _const.currentPlayers[_const.currentPlayers.length - 1]) {
+        exports.tour = tour = tour + 1;
+        (0, _const.setPieceId)(tour);
+      }
+
+      return (0, _const.nextPlayer)();
     }
+
+    Blokus.endIf(G, ctx);
   },
   ai: {
     enumerate: (G, ctx) => {
@@ -20698,27 +20716,18 @@ const Blokus = {
 exports.Blokus = Blokus;
 
 function initPiece() {
-  const forms = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, 20, 21, 0, 0], [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]];
-  return forms;
+  return [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, 20, 21, 0, 0], [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]];
 }
 
-function IsVictory(cells) {
-  const positions = [//[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
-    //[1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
-  ];
+function getAllIndexes(arr, val) {
+  var indexes = [],
+      i = -1;
 
-  const isRowComplete = row => {
-    const symbols = row.map(i => cells[i]);
-    return symbols.every(i => i !== null && i === symbols[0]);
-  };
+  while ((i = arr.indexOf(val, i + 1)) !== -1) {
+    indexes.push(i);
+  }
 
-  return positions.map(isRowComplete).some(i => i === true);
-} /////// probablement à retirer
-// Return true if all `cells` are occupied.
-
-
-function IsDraw(cells) {
-  return cells.filter(c => c === null).length === 0;
+  return indexes;
 }
 },{"boardgame.io/core":"node_modules/boardgame.io/dist/esm/core.js","./const":"src/const.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
@@ -20762,7 +20771,7 @@ class BlokusClient {
       rows.push("<tr>".concat(cells.join(''), "</tr>"));
     }
 
-    this.rootElement.innerHTML = "\n      <table>".concat(rows.join(''), "</table>\n      <table><td class=\"cell\" data-id=\"500\" id=\"button\">giveup</td></table>\n      <p class=\"winner\"></p>\n    ");
+    this.rootElement.innerHTML = "\n      <table>".concat(rows.join(''), "</table>\n      <table id=\"buttonTab\"><td class=\"cell color0\" data-id=\"500\" id=\"button\">giveup</td></table>\n      <p class=\"winner\"></p>\n    ");
   } //Interaction souris-plateau
 
 
@@ -20788,7 +20797,7 @@ class BlokusClient {
     const messageEl = this.rootElement.querySelector('.winner'); // Update the element to show a winner if any.
 
     if (state.ctx.gameover) {
-      messageEl.textContent = state.ctx.gameover.winner !== undefined ? 'Winner: Player ' + state.ctx.gameover.winner : 'Draw!';
+      messageEl.textContent = state.ctx.gameover.winner !== undefined ? 'Winner: Player ' + state.ctx.gameover.winner : 'Draw between players ' + state.ctx.gameover.draw;
     } else {
       messageEl.textContent = '';
     }
@@ -20801,11 +20810,11 @@ class pieceBoard {
     for (let i = 0; i < pieceElements.length; i++) {
       // remplacer par (pieceElement in PieceElements)
       this.pieceElement = pieceElements[i];
-      this.createBoard(i);
+      this.createBoardLeft(i);
     }
   }
 
-  createBoard(player) {
+  createBoardLeft(player) {
     const rows = [];
 
     for (let i = 0; i < 28; i++) {
@@ -20825,12 +20834,8 @@ class pieceBoard {
     for (let i = 0; i < 21; i++) {
       for (let j = 0; j < 5; j++) {
         document.querySelector("[data-id=".concat(CSS.escape(1000 * (player + 1) + (Math.floor((0, _Game.initPiece)()[i][j] / 20) * 14 + (0, _Game.initPiece)()[i][j] % 20 + tab_piece[i])), "]")).classList.add('color' + player);
+        document.querySelector("[data-id=".concat(CSS.escape(1000 * (player + 1) + (Math.floor((0, _Game.initPiece)()[i][j] / 20) * 14 + (0, _Game.initPiece)()[i][j] % 20 + tab_piece[i])), "]")).setAttribute("data-name", (Number(player) + 1) * 1000 + i);
       }
-    } //if ne fonctionne pas
-
-
-    if (cell === classList.contains('color' + player)) {
-      classList.replace(miniCell + 'color' + player, miniCell);
     }
   }
 
@@ -20883,7 +20888,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61281" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57953" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
