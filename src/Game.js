@@ -186,7 +186,7 @@ export function initPiece(rotation) {
 }
 
 function getAllIndexes(arr, val) {
-    var indexes = [], i = -1;
+    let indexes = [], i = -1;
     while ((i = arr.indexOf(val, i + 1)) !== -1) {
         indexes.push(i);
     }
@@ -211,3 +211,24 @@ document.addEventListener('contextmenu', function(event){
     setRotation((rotation+1)%4)
     console.log(rotation)
 })
+
+document.getElementById("app").addEventListener("mouseover", function( event ) {
+
+    let oldPieces = document.querySelectorAll(".color"+currentPlayer+"pale");
+    console.log(oldPieces);
+    oldPieces.forEach(e => e.classList.remove("color"+currentPlayer+"pale"));
+    let element = document.elementFromPoint(event.x, event.y);
+    let selected = element.getAttribute("data-id");
+
+    if(typeof pieceSelected !== 'undefined' && selected>=0 && selected<500){
+        let piece = initPiece(rotation)[pieceSelected-((currentPlayer+1)*1000)];
+        console.log("piece "+pieceSelected)
+        console.log("selected "+selected)
+        for(let p in piece){
+            console.log("p "+(piece[p]))
+            document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`).classList.add('color' + currentPlayer + 'pale');
+        }
+    }
+
+
+});
