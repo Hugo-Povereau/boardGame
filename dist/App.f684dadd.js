@@ -20524,7 +20524,7 @@ exports.PlayerView = PlayerView;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.nbPieces = exports.currentPlayers = exports.currentPlayer = exports.TURN = exports.PieceId = void 0;
+exports.nbPieces = exports.isEnded = exports.currentPlayers = exports.currentPlayer = exports.TURN = exports.PieceId = void 0;
 exports.nextPlayer = nextPlayer;
 exports.pieceSelected = void 0;
 exports.rmPlayer = rmPlayer;
@@ -20532,6 +20532,7 @@ exports.rotation = void 0;
 exports.setPieceId = setPieceId;
 exports.setPieceSelected = setPieceSelected;
 exports.setRotation = setRotation;
+exports.theEnd = theEnd;
 let TURN = 0;
 exports.TURN = TURN;
 let PieceId = -1;
@@ -20546,6 +20547,8 @@ let pieceSelected;
 exports.pieceSelected = pieceSelected;
 let rotation = 0;
 exports.rotation = rotation;
+let isEnded = false;
+exports.isEnded = isEnded;
 
 function setPieceSelected(value) {
   exports.pieceSelected = pieceSelected = value;
@@ -20557,6 +20560,10 @@ function setRotation(value) {
 
 function setPieceId(value) {
   exports.PieceId = PieceId = value;
+}
+
+function theEnd() {
+  exports.isEnded = isEnded = true;
 }
 
 function nextPlayer() {
@@ -20700,6 +20707,9 @@ const Blokus = {
         exports.tour = tour = tour + 1;
       }
 
+      let oldPieces = document.getElementById('app').querySelectorAll(".color" + _const.currentPlayer + "pale");
+      oldPieces.forEach(e => e.classList.remove("color" + _const.currentPlayer + "pale"));
+      (0, _const.setRotation)(0);
       (0, _const.setPieceId)(-1);
       return (0, _const.nextPlayer)();
     }
@@ -20730,11 +20740,11 @@ function initPiece(rotation) {
   //pos de base
   const tab1 = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, 20, 21, 0, 0], [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]]; //90° anti horaire
 
-  const tab2 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, 1, -19, 0, 0], [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, -20, -19, -49, 0], [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18], [0, 1, -19, 2, 3], [0, -20, -40, -19, -18], [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39], [1, 20, 21, 22, 41]]; //180°
+  const tab2 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, 1, -19, 0, 0], [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, -20, -19, -39, 0], [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18], [0, 1, -19, 2, 3], [0, -20, -40, -19, -18], [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39], [1, 20, 21, 22, 41]]; //180°
 
   const tab3 = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, -20, -21, 0, 0], [0, 20, 40, 60, 0], [0, -20, -40, -41, 0], [0, -20, -21, -40, -0], [0, 1, 20, 21, 0], [0, -1, -21, -22, 0], [0, 20, 40, 60, 80], [0, -20, -40, -60, -61], [0, -20, -40, -41, -61], [0, -20, -21, -40, -41], [0, -1, -20, -40, -41], [0, -20, -21, -40, -60], [0, -1, -2, -21, -41], [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -21, -22, -42], [0, -20, -21, -22, -41], [1, 20, 21, 22, 41]]; //270°
 
-  const tab4 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, -1, 19, 0, 0], [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, 20, 19, 49, 0], [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 18, 17], [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39], [-1, -20, -21, -22, -41]];
+  const tab4 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, -1, 19, 0, 0], [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, 20, 19, 39, 0], [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 19, 18], [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39], [-1, -20, -21, -22, -41]];
   const tab = [tab1, tab2, tab3, tab4];
   return tab[rotation];
 }
@@ -20751,40 +20761,42 @@ function getAllIndexes(arr, val) {
 }
 
 document.addEventListener('click', function (event) {
-  let element = document.elementFromPoint(event.x, event.y);
+  if (!_const.isEnded) {
+    let element = document.elementFromPoint(event.x, event.y);
 
-  if (element.hasAttribute('data-name')) {
-    let old = document.querySelectorAll("[data-name=\'" + _const.pieceSelected + "\']");
+    if (element.hasAttribute('data-name')) {
+      let old = document.querySelectorAll("[data-name=\'" + _const.pieceSelected + "\']");
 
-    if (old.length > 0) {
-      old.forEach(e => e.classList.replace('color' + _const.currentPlayer + 'pale', "color" + _const.currentPlayer));
+      if (old.length > 0) {
+        old.forEach(e => e.classList.replace('color' + _const.currentPlayer + 'pale', "color" + _const.currentPlayer));
+      }
+
+      let pieces = document.querySelectorAll("[data-name=\'" + element.getAttribute('data-name') + "\']");
+      pieces.forEach(e => e.classList.replace("color" + _const.currentPlayer, "color" + _const.currentPlayer + "pale"));
+      (0, _const.setPieceSelected)(element.getAttribute('data-name'));
+      (0, _const.setPieceId)(element.getAttribute('data-name') % 1000);
     }
-
-    let pieces = document.querySelectorAll("[data-name=\'" + element.getAttribute('data-name') + "\']");
-    pieces.forEach(e => e.classList.replace("color" + _const.currentPlayer, "color" + _const.currentPlayer + "pale"));
-    (0, _const.setPieceSelected)(element.getAttribute('data-name'));
-    (0, _const.setPieceId)(element.getAttribute('data-name') % 1000);
   }
 });
-document.addEventListener('contextmenu', function (event) {
-  (0, _const.setRotation)((_const.rotation + 1) % 4);
-  console.log(_const.rotation);
+document.addEventListener('keydown', function (event) {
+  if (!_const.isEnded && event.keyCode === 82) {
+    (0, _const.setRotation)((_const.rotation + 1) % 4);
+    console.log(_const.rotation);
+  }
 });
 document.getElementById("app").addEventListener("mouseover", function (event) {
-  let oldPieces = document.querySelectorAll(".color" + _const.currentPlayer + "pale");
-  console.log(oldPieces);
+  let oldPieces = document.getElementById('app').querySelectorAll(".color" + _const.currentPlayer + "pale");
   oldPieces.forEach(e => e.classList.remove("color" + _const.currentPlayer + "pale"));
   let element = document.elementFromPoint(event.x, event.y);
   let selected = element.getAttribute("data-id");
 
   if (typeof _const.pieceSelected !== 'undefined' && selected >= 0 && selected < 500) {
-    let piece = initPiece(_const.rotation)[_const.pieceSelected - (_const.currentPlayer + 1) * 1000];
-    console.log("piece " + _const.pieceSelected);
-    console.log("selected " + selected);
+    if (typeof _const.pieceSelected !== 'undefined' && selected >= 0 && selected < 500) {
+      let piece = initPiece(_const.rotation)[_const.pieceSelected - (_const.currentPlayer + 1) * 1000];
 
-    for (let p in piece) {
-      console.log("p " + piece[p]);
-      document.querySelector("[data-id=".concat(CSS.escape(parseInt(piece[p]) + parseInt(selected)), "]")).classList.add('color' + _const.currentPlayer + 'pale');
+      for (let p in piece) {
+        document.querySelector("[data-id=".concat(CSS.escape(parseInt(piece[p]) + parseInt(selected)), "]")).classList.add('color' + _const.currentPlayer + 'pale');
+      }
     }
   }
 });
@@ -20830,7 +20842,7 @@ class BlokusClient {
       rows.push("<tr>".concat(cells.join(''), "</tr>"));
     }
 
-    this.rootElement.innerHTML = "\n      <table>".concat(rows.join(''), "</table>\n      <table id=\"buttonTab\"><td class=\"cell color0\" data-id=\"500\" id=\"button\">giveup</td></table>\n      <p class=\"winner\"></p>\n    ");
+    this.rootElement.innerHTML = "\n      <table style=\"margin-top: 50px;\">".concat(rows.join(''), "</table>\n      <table id=\"buttonTab\"><td class=\"cell color0\" data-id=\"500\" id=\"button\" style=\"width: 80px;\">Give Up</td></table>\n      <p class=\"winner\"></p>\n    ");
   } //Interaction souris-plateau
 
 
@@ -20856,7 +20868,8 @@ class BlokusClient {
     const messageEl = this.rootElement.querySelector('.winner'); // Update the element to show a winner if any.
 
     if (state.ctx.gameover) {
-      messageEl.textContent = state.ctx.gameover.winner !== undefined ? 'Winner: Player ' + state.ctx.gameover.winner : 'Draw between players ' + state.ctx.gameover.draw;
+      (0, _const.theEnd)();
+      messageEl.textContent = state.ctx.gameover.winner !== undefined ? 'Winner: Player ' + (state.ctx.gameover.winner + 1) : 'Draw between players ' + state.ctx.gameover.draw;
     } else {
       messageEl.textContent = '';
     }
@@ -20947,7 +20960,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64612" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53995" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

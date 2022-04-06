@@ -93,6 +93,7 @@
 #buttonTab {
   margin-left: auto;
   margin-right: auto;
+  font-family: sans-serif;
 }
 
 #button:hover {
@@ -101,22 +102,22 @@
 
 #button.color0:hover {
   background-color: #fdbaba;
-  color: #747476;
+  color: #000000;
 }
 
 #button.color1:hover {
   background-color: #c1c1f3;
-  color: #747476;
+  color: #000000;
 }
 
 #button.color2:hover {
   background-color: #fdfdbb;
-  color: #747476;
+  color: #000000;
 }
 
 #button.color3:hover {
   background-color: #b2e0b2;
-  color: #747476;
+  color: #000000;
 }
 html {
   height: 100vh;
@@ -150,4 +151,8 @@ p {
   font-size: 30px;
   padding-left: 124px;
   margin-top: 0px;
+}
+
+#buttonTab {
+  padding-top: 30px;
 }
