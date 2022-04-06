@@ -1,127 +1,153 @@
 .canvas {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .pieces {
-    width: 315px;
-    height: 672px;
-    background: #ececf5;
-    border-spacing: 0;
+  width: 315px;
+  height: 672px;
+  background: #ececf5;
+  border-spacing: 0;
 }
 
 #piece0 {
-    display: block;
+  display: block;
 }
 
 #piece1 {
-    display: none;
+  display: none;
 }
 
 #piece2 {
-    display: none;
+  display: none;
 }
 
 #piece3 {
-    display: none;
+  display: none;
 }
 
 #app {
-    padding-left: 10%;
+  padding-left: 10%;
 }
 
 .cell {
-    left: 100px;
-    border: 1px solid #555;
-    width: 25px;
-    height: 25px;
-    line-height: 30px;
-    text-align: center;
+  left: 100px;
+  border: 1px solid #555;
+  width: 25px;
+  height: 25px;
+  line-height: 30px;
+  text-align: center;
 }
 
 .miniCell {
-    left: 100px;
-    border: 1px solid #e0daec;
-    width: 20px;
-    height: 20px;
-    line-height: 30px;
-    text-align: center;
+  left: 100px;
+  border: 1px solid #e0daec;
+  width: 20px;
+  height: 20px;
+  line-height: 30px;
+  text-align: center;
 }
 
 .pieceTable {
-    border-spacing: 0px;
+  border-spacing: 0px;
 }
 
 .color0 {
-    background-color: #ce5959
+  background-color: #ce5959;
 }
 .color0pale {
-    background-color: #d59393
+  background-color: #d59393;
 }
 
 .color1 {
-    background-color: #6f6fe3
+  background-color: #6f6fe3;
 }
 .color1pale {
-    background-color: #a3a3de
+  background-color: #a3a3de;
 }
 
 .color2 {
-    background-color: #dede52
+  background-color: #dede52;
 }
 .color2pale {
-    background-color: #ecec90
+  background-color: #ecec90;
 }
 
 .color3 {
-    background-color: #7bd77b
+  background-color: #7bd77b;
 }
 .color3pale {
-    background-color: #ade7ad
+  background-color: #ade7ad;
 }
 
 #button {
-    top: 50px;
-    left: 100px;
-    padding: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 50px;
-    color: #e5e5e5;
+  top: 50px;
+  left: 100px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 50px;
+  color: #e5e5e5;
 }
 
 #buttonTab {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #button.color0:hover {
-    background-color: #fdbaba;
-    color: #747476;
+  background-color: #fdbaba;
+  color: #747476;
 }
 
 #button.color1:hover {
-    background-color: #c1c1f3;
-    color: #747476;
+  background-color: #c1c1f3;
+  color: #747476;
 }
 
 #button.color2:hover {
-    background-color: #fdfdbb;
-    color: #747476;
+  background-color: #fdfdbb;
+  color: #747476;
 }
 
 #button.color3:hover {
-    background-color: #b2e0b2;
-    color: #747476;
+  background-color: #b2e0b2;
+  color: #747476;
 }
 html {
-    height: 100vh;
-    background: radial-gradient(ellipse at top left, #ffa8a8 15%, transparent 60%),
+  height: 100vh;
+  background: radial-gradient(ellipse at top left, #ffa8a8 15%, transparent 60%),
     radial-gradient(ellipse at bottom left, #8989d9 15%, transparent 60%),
     radial-gradient(ellipse at top right, #baba83 15%, transparent 60%),
-    radial-gradient(ellipse at bottom right, #95c695 15%, transparent 60%)
+    radial-gradient(ellipse at bottom right, #95c695 15%, transparent 60%);
+}
+
+kbd {
+  background-color: #eee;
+  border-radius: 3px;
+  border: 1px solid #b4b4b4;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+    0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+  color: #333;
+  display: inline-block;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+p {
+  font-family: sans-serif;
+}
+
+.commands {
+  margin-bottom: 30px;
+  font-size: 30px;
+  padding-left: 124px;
+  margin-top: 0px;
 }

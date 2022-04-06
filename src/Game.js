@@ -224,11 +224,9 @@ document.getElementById("app").addEventListener("mouseover", function( event ) {
         let piece = initPiece(rotation)[pieceSelected-((currentPlayer+1)*1000)];
         console.log("piece "+pieceSelected)
         console.log("selected "+selected)
-        for(let p in piece){
+        for(let p in piece){ 
             console.log("p "+(piece[p]))
             document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`).classList.add('color' + currentPlayer + 'pale');
         }
     }
-
-
 });

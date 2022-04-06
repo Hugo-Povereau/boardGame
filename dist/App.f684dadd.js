@@ -20528,11 +20528,13 @@ exports.nbPieces = exports.currentPlayers = exports.currentPlayer = exports.TURN
 exports.nextPlayer = nextPlayer;
 exports.pieceSelected = void 0;
 exports.rmPlayer = rmPlayer;
+exports.rotation = void 0;
 exports.setPieceId = setPieceId;
 exports.setPieceSelected = setPieceSelected;
+exports.setRotation = setRotation;
 let TURN = 0;
 exports.TURN = TURN;
-let PieceId = 0;
+let PieceId = -1;
 exports.PieceId = PieceId;
 let currentPlayers = [0, 1, 2, 3];
 exports.currentPlayers = currentPlayers;
@@ -20542,9 +20544,15 @@ let nbPieces = [0, 0, 0, 0];
 exports.nbPieces = nbPieces;
 let pieceSelected;
 exports.pieceSelected = pieceSelected;
+let rotation = 0;
+exports.rotation = rotation;
 
 function setPieceSelected(value) {
   exports.pieceSelected = pieceSelected = value;
+}
+
+function setRotation(value) {
+  exports.rotation = rotation = value;
 }
 
 function setPieceId(value) {
@@ -20588,7 +20596,6 @@ const Blokus = {
   moves: {
     clickCell: (G, ctx, id, idPiece) => {
       exports.diagonale = diagonale = false;
-      console.log("2 " + _const.PieceId);
 
       if (id === 500) {
         const flag = _const.currentPlayer;
@@ -20599,24 +20606,24 @@ const Blokus = {
 
       for (let i = 0; i < 5; i++) {
         //Les cases sont vides
-        if (G.cells[id + initPiece()[idPiece][i]] !== null) {
+        if (G.cells[id + initPiece(_const.rotation)[idPiece][i]] !== null) {
           return _core.INVALID_MOVE;
         } //Les cases sont côtes à côtes
 
 
         if (i < 4) {
-          if ((id + initPiece()[idPiece][i]) % 20 === 19 && (id + initPiece()[idPiece][i + 1]) % 20 === 0) {
+          if ((id + initPiece(_const.rotation)[idPiece][i]) % 20 === 19 && (id + initPiece(_const.rotation)[idPiece][i + 1]) % 20 === 0) {
             return _core.INVALID_MOVE;
           }
         } //Les mêmes pièces ne se touchent pas
 
 
-        if (G.cells[id + initPiece()[idPiece][i] + 1] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 1] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 20] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 20] === _const.currentPlayer) {
+        if (G.cells[id + initPiece(_const.rotation)[idPiece][i] + 1] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] - 1] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] + 20] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] - 20] === _const.currentPlayer) {
           return _core.INVALID_MOVE;
         } //Les pièces se touchent au moins une fois en diagonale
 
 
-        if (G.cells[id + initPiece()[idPiece][i] + 21] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 21] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] + 19] === _const.currentPlayer || G.cells[id + initPiece()[idPiece][i] - 19] === _const.currentPlayer) {
+        if (G.cells[id + initPiece(_const.rotation)[idPiece][i] + 21] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] - 21] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] + 19] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] - 19] === _const.currentPlayer) {
           exports.diagonale = diagonale = true;
         }
       }
@@ -20629,7 +20636,7 @@ const Blokus = {
         let coin = false;
 
         for (let i = 0; i < 5; i++) {
-          if ([0, 19, 380, 399].includes(id + initPiece()[idPiece][i])) {
+          if ([0, 19, 380, 399].includes(id + initPiece(_const.rotation)[idPiece][i])) {
             coin = true;
           }
         }
@@ -20642,7 +20649,7 @@ const Blokus = {
       for (let i = 0; i < 5; i++) {
         //Attribution l'id du joueur sur les cases
         for (let i = 0; i < 5; i++) {
-          G.cells[id + initPiece()[idPiece][i]] = _const.currentPlayer;
+          G.cells[id + initPiece(_const.rotation)[idPiece][i]] = _const.currentPlayer;
         }
 
         let somme = (_const.currentPlayer + 1) * 1000 + idPiece;
@@ -20652,7 +20659,7 @@ const Blokus = {
         _const.nbPieces[_const.currentPlayer] += 1; //Changement de couleur des cases
 
         for (let i = 0; i < 5; i++) {
-          const bloc = id + initPiece()[idPiece][i];
+          const bloc = id + initPiece(_const.rotation)[idPiece][i];
           document.querySelector("[data-id=".concat(CSS.escape(bloc), "]")).classList.add('color' + _const.currentPlayer);
         }
 
@@ -20691,9 +20698,9 @@ const Blokus = {
 
       if (_const.currentPlayer === _const.currentPlayers[_const.currentPlayers.length - 1]) {
         exports.tour = tour = tour + 1;
-        (0, _const.setPieceId)(tour);
       }
 
+      (0, _const.setPieceId)(-1);
       return (0, _const.nextPlayer)();
     }
 
@@ -20719,36 +20726,21 @@ const Blokus = {
 
 exports.Blokus = Blokus;
 
-function initPiece() {
+function initPiece(rotation) {
   //pos de base
-  const tab1 = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, 20, 21, 0, 0], [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0],
-  /*tourne pas*/
-  [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41],
-  /*tourne pas*/
-  [1, 20, 21, 22, 41]]; //90° anti horaire
+  const tab1 = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, 20, 21, 0, 0], [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0], [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]]; //90° anti horaire
 
-  const tab2 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, 1, -19, 0, 0], [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0],
-  /*tourne pas*/
-  [0, 1, 20, 21, 0], [0, -20, -19, -49, 0], [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18], [0, 1, -19, 2, 3], [0, -20, -40, -18, -17], [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39]
-  /*tourne pas*/
-  [(1, 20, 21, 22, 41)]]; //180°
+  const tab2 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, 1, -19, 0, 0], [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, -20, -19, -49, 0], [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18], [0, 1, -19, 2, 3], [0, -20, -40, -19, -18], [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39], [1, 20, 21, 22, 41]]; //180°
 
-  const tab3 = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, -20, -21, 0, 0], [0, 20, 40, 60, 0], [0, -20, -40, -41, 0], [0, -20, -21, -40, -0],
-  /*tourne pas*/
-  [0, 1, 20, 21, 0], [0, -1, -21, -22, 0], [0, 20, 40, 60, 80], [0, -20, -40, -60, -61], [0, -20, -40, -41, -61], [0, -20, -21, -40, -41], [0, -1, -20, -40, -41], [0, -20, -21, -40, -60], [0, -1, -2, -21, -41], [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -21, -22, -42], [0, -20, -21, -22, -41]
-  /*tourne pas*/
-  [(1, 20, 21, 22, 41)]]; //270° 
+  const tab3 = [[0, 0, 0, 0, 0], [0, 20, 0, 0, 0], [0, 20, 40, 0, 0], [0, -20, -21, 0, 0], [0, 20, 40, 60, 0], [0, -20, -40, -41, 0], [0, -20, -21, -40, -0], [0, 1, 20, 21, 0], [0, -1, -21, -22, 0], [0, 20, 40, 60, 80], [0, -20, -40, -60, -61], [0, -20, -40, -41, -61], [0, -20, -21, -40, -41], [0, -1, -20, -40, -41], [0, -20, -21, -40, -60], [0, -1, -2, -21, -41], [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -21, -22, -42], [0, -20, -21, -22, -41], [1, 20, 21, 22, 41]]; //270°
 
-  const tab4 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, -1, 19, 0, 0], [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0],
-  /*tourne pas*/
-  [0, 1, 20, 21, 0], [0, 20, 19, 49, 0], [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 18, 17], [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39]
-  /*tourne pas*/
-  [(-1, -20, -21, -22, -41)]];
-  return tab1;
+  const tab4 = [[0, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 2, 0, 0], [0, -1, 19, 0, 0], [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, 20, 19, 49, 0], [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 18, 17], [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39], [-1, -20, -21, -22, -41]];
+  const tab = [tab1, tab2, tab3, tab4];
+  return tab[rotation];
 }
 
 function getAllIndexes(arr, val) {
-  var indexes = [],
+  let indexes = [],
       i = -1;
 
   while ((i = arr.indexOf(val, i + 1)) !== -1) {
@@ -20772,7 +20764,28 @@ document.addEventListener('click', function (event) {
     pieces.forEach(e => e.classList.replace("color" + _const.currentPlayer, "color" + _const.currentPlayer + "pale"));
     (0, _const.setPieceSelected)(element.getAttribute('data-name'));
     (0, _const.setPieceId)(element.getAttribute('data-name') % 1000);
-    console.log("1 " + _const.PieceId);
+  }
+});
+document.addEventListener('contextmenu', function (event) {
+  (0, _const.setRotation)((_const.rotation + 1) % 4);
+  console.log(_const.rotation);
+});
+document.getElementById("app").addEventListener("mouseover", function (event) {
+  let oldPieces = document.querySelectorAll(".color" + _const.currentPlayer + "pale");
+  console.log(oldPieces);
+  oldPieces.forEach(e => e.classList.remove("color" + _const.currentPlayer + "pale"));
+  let element = document.elementFromPoint(event.x, event.y);
+  let selected = element.getAttribute("data-id");
+
+  if (typeof _const.pieceSelected !== 'undefined' && selected >= 0 && selected < 500) {
+    let piece = initPiece(_const.rotation)[_const.pieceSelected - (_const.currentPlayer + 1) * 1000];
+    console.log("piece " + _const.pieceSelected);
+    console.log("selected " + selected);
+
+    for (let p in piece) {
+      console.log("p " + piece[p]);
+      document.querySelector("[data-id=".concat(CSS.escape(parseInt(piece[p]) + parseInt(selected)), "]")).classList.add('color' + _const.currentPlayer + 'pale');
+    }
   }
 });
 },{"boardgame.io/core":"node_modules/boardgame.io/dist/esm/core.js","./const":"src/const.js"}],"src/App.js":[function(require,module,exports) {
@@ -20879,8 +20892,8 @@ class pieceBoard {
 
     for (let i = 0; i < 21; i++) {
       for (let j = 0; j < 5; j++) {
-        document.querySelector("[data-id=".concat(CSS.escape(1000 * (player + 1) + (Math.floor((0, _Game.initPiece)()[i][j] / 20) * 14 + (0, _Game.initPiece)()[i][j] % 20 + tab_piece[i])), "]")).classList.add('color' + player);
-        document.querySelector("[data-id=".concat(CSS.escape(1000 * (player + 1) + (Math.floor((0, _Game.initPiece)()[i][j] / 20) * 14 + (0, _Game.initPiece)()[i][j] % 20 + tab_piece[i])), "]")).setAttribute("data-name", (Number(player) + 1) * 1000 + i);
+        document.querySelector("[data-id=".concat(CSS.escape(1000 * (player + 1) + (Math.floor((0, _Game.initPiece)(_const.rotation)[i][j] / 20) * 14 + (0, _Game.initPiece)(_const.rotation)[i][j] % 20 + tab_piece[i])), "]")).classList.add('color' + player);
+        document.querySelector("[data-id=".concat(CSS.escape(1000 * (player + 1) + (Math.floor((0, _Game.initPiece)(_const.rotation)[i][j] / 20) * 14 + (0, _Game.initPiece)(_const.rotation)[i][j] % 20 + tab_piece[i])), "]")).setAttribute("data-name", (Number(player) + 1) * 1000 + i);
       }
     }
   }
@@ -20934,7 +20947,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61003" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64612" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
