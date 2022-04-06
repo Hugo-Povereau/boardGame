@@ -7,7 +7,7 @@ import {
     nextPlayer,
     rmPlayer,
     setPieceId,
-    pieceSelected, setPieceSelected, setRotation
+    pieceSelected, setPieceSelected, setRotation, isEnded
 } from "./const";
 
 export let diagonale = true;
@@ -121,6 +121,9 @@ export const Blokus = ({
             if (currentPlayer === currentPlayers[currentPlayers.length - 1]) {
                 tour += 1;
             }
+            let oldPieces = document.getElementById('app').querySelectorAll(".color" + currentPlayer + "pale");
+            oldPieces.forEach(e => e.classList.remove("color" + currentPlayer + "pale"));
+            setRotation(0);
             setPieceId(-1);
             return nextPlayer()
         }
@@ -156,7 +159,7 @@ export function initPiece(rotation) {
         [0, 0, 0, 0, 0],
         [0, 1, 0, 0, 0],
         [0, 1, 2, 0, 0], [0, 1, -19, 0, 0],
-        [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, -20, -19, -49, 0],
+        [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, -20, -19, -39, 0],
         [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18], [0, 1, -19, 2, 3], [0, -20, -40, -19, -18],
         [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39], [1, 20, 21, 22, 41]
     ]
@@ -176,8 +179,8 @@ export function initPiece(rotation) {
         [0, 0, 0, 0, 0],
         [0, 1, 0, 0, 0],
         [0, 1, 2, 0, 0], [0, -1, 19, 0, 0],
-        [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, 20, 19, 49, 0],
-        [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 18, 17],
+        [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, 20, 19, 39, 0],
+        [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 19, 18],
         [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39], [-1, -20, -21, -22, -41]
     ]
 
@@ -194,39 +197,41 @@ function getAllIndexes(arr, val) {
 }
 
 document.addEventListener('click', function (event) {
-    let element = document.elementFromPoint(event.x, event.y);
-    if (element.hasAttribute('data-name')) {
-        let old = document.querySelectorAll("[data-name=\'" + pieceSelected + "\']");
-        if(old.length>0){
-            old.forEach(e => e.classList.replace('color' + currentPlayer + 'pale',"color"+currentPlayer));
+    if(!isEnded){
+        let element = document.elementFromPoint(event.x, event.y);
+        if (element.hasAttribute('data-name')) {
+            let old = document.querySelectorAll("[data-name=\'" + pieceSelected + "\']");
+            if(old.length>0){
+                old.forEach(e => e.classList.replace('color' + currentPlayer + 'pale',"color"+currentPlayer));
+            }
+            let pieces = document.querySelectorAll("[data-name=\'" + element.getAttribute('data-name') + "\']");
+            pieces.forEach(e => e.classList.replace("color"+currentPlayer, "color"+currentPlayer+"pale"));
+            setPieceSelected(element.getAttribute('data-name'))
+            setPieceId(element.getAttribute('data-name')%1000)
         }
-        let pieces = document.querySelectorAll("[data-name=\'" + element.getAttribute('data-name') + "\']");
-        pieces.forEach(e => e.classList.replace("color"+currentPlayer, "color"+currentPlayer+"pale"));
-        setPieceSelected(element.getAttribute('data-name'))
-        setPieceId(element.getAttribute('data-name')%1000)
     }
 });
 
-document.addEventListener('contextmenu', function(event){
-    setRotation((rotation+1)%4)
-    console.log(rotation)
-})
+document.addEventListener('keydown', function(event){
+    if(!isEnded && event.keyCode === 82) {
+        setRotation((rotation + 1) % 4)
+        console.log(rotation)
+    }
+});
 
 document.getElementById("app").addEventListener("mouseover", function( event ) {
 
-    let oldPieces = document.querySelectorAll(".color"+currentPlayer+"pale");
-    console.log(oldPieces);
-    oldPieces.forEach(e => e.classList.remove("color"+currentPlayer+"pale"));
+    let oldPieces = document.getElementById('app').querySelectorAll(".color" + currentPlayer + "pale");
+    oldPieces.forEach(e => e.classList.remove("color" + currentPlayer + "pale"));
     let element = document.elementFromPoint(event.x, event.y);
     let selected = element.getAttribute("data-id");
 
     if(typeof pieceSelected !== 'undefined' && selected>=0 && selected<500){
-        let piece = initPiece(rotation)[pieceSelected-((currentPlayer+1)*1000)];
-        console.log("piece "+pieceSelected)
-        console.log("selected "+selected)
-        for(let p in piece){ 
-            console.log("p "+(piece[p]))
-            document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`).classList.add('color' + currentPlayer + 'pale');
+        if (typeof pieceSelected !== 'undefined' && selected >= 0 && selected < 500) {
+            let piece = initPiece(rotation)[pieceSelected - ((currentPlayer + 1) * 1000)];
+            for (let p in piece) {
+                document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`).classList.add('color' + currentPlayer + 'pale');
+            }
         }
     }
 });
