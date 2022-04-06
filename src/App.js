@@ -1,6 +1,6 @@
 import {Client} from 'boardgame.io/client';
 import {Blokus, initPiece} from './Game';
-import {PieceId, RootElement, setRootElement, rotation} from "./const";
+import {PieceId, rotation} from "./const";
 class BlokusClient {
 
     constructor(rootElement, {playerID} = {}) {

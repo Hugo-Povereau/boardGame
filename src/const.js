@@ -11,7 +11,7 @@ function setPieceSelected(value) {
 }
 
 function setRotation(value) {
-    pieceSelected = value;
+    rotation = value;
 }
 
 function setPieceId(value) {
