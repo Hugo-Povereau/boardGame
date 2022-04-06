@@ -1,6 +1,6 @@
 import {Client} from 'boardgame.io/client';
 import {Blokus, initPiece} from './Game';
-import {PieceId, rotation} from "./const";
+import {isEnded, PieceId, rotation, setRotation, theEnd} from "./const";
 class BlokusClient {
 
     constructor(rootElement, {playerID} = {}) {
@@ -37,6 +37,8 @@ class BlokusClient {
 
     //Interaction souris-plateau
     attachListeners() {
+
+
         // This event handler will read the cell id from a cell’s
         // `data-id` attribute and make the `clickCell` move.
         const handleCellClick = event => {
@@ -57,6 +59,7 @@ class BlokusClient {
         const messageEl = this.rootElement.querySelector('.winner');
         // Update the element to show a winner if any.
         if (state.ctx.gameover) {
+            theEnd()
             messageEl.textContent =
                 state.ctx.gameover.winner !== undefined
                     ? 'Winner: Player ' + state.ctx.gameover.winner
