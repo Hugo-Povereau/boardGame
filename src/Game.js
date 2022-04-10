@@ -44,12 +44,12 @@ export const Blokus = ({
                     }
                 }
 
-                //Les mêmes pièces ne se touchent pas
+                //Les pièces du currentPlayer ne se touchent pas
                 if (G.cells[id + initPiece(rotation)[idPiece][i] + 1] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 1] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] + 20] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 20] === currentPlayer) {
                     return INVALID_MOVE;
                 }
 
-                //Les pièces se touchent au moins une fois en diagonale
+                //Les pièces currentPlayer se touchent au moins une fois en diagonale
                 if (G.cells[id + initPiece(rotation)[idPiece][i] + 21] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 21] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] + 19] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 19] === currentPlayer) {
                     diagonale = true;
                 }
@@ -90,7 +90,12 @@ export const Blokus = ({
                 diagonale = false;
                 document.querySelector(`[data-id=\"500\"]`).style.removeProperty('background');
 
-                return Blokus.switchPlayer(G, ctx);
+                const flag = currentPlayer
+                Blokus.switchPlayer(G, ctx);
+                if(nbPieces[currentPlayer] === 21){
+                    rmPlayer(flag);
+                }
+                return
             }
         },
     },
@@ -108,9 +113,9 @@ export const Blokus = ({
         }
     },
     switchPlayer: (G, ctx) => {
-        if(currentPlayers.length>1){
+        if (currentPlayers.length > 1) {
             document.getElementById("button").style.removeProperty('background');
-            document.querySelector(`[data-id=\"500\"]`).classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer)+1)%currentPlayers.length]);
+            document.querySelector(`[data-id=\"500\"]`).classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]);
             document.querySelector(`[data-id=\"500\"]`).classList.remove('color' + currentPlayer);
         }
 
@@ -197,40 +202,43 @@ function getAllIndexes(arr, val) {
 }
 
 document.addEventListener('click', function (event) {
-    if(!isEnded){
+    if (!isEnded) {
         let element = document.elementFromPoint(event.x, event.y);
         if (element.hasAttribute('data-name')) {
             let old = document.querySelectorAll("[data-name=\'" + pieceSelected + "\']");
-            if(old.length>0){
-                old.forEach(e => e.classList.replace('color' + currentPlayer + 'pale',"color"+currentPlayer));
+            if (old.length > 0) {
+                old.forEach(e => e.classList.replace('color' + currentPlayer + 'pale', "color" + currentPlayer));
             }
             let pieces = document.querySelectorAll("[data-name=\'" + element.getAttribute('data-name') + "\']");
-            pieces.forEach(e => e.classList.replace("color"+currentPlayer, "color"+currentPlayer+"pale"));
+            pieces.forEach(e => e.classList.replace("color" + currentPlayer, "color" + currentPlayer + "pale"));
             setPieceSelected(element.getAttribute('data-name'))
-            setPieceId(element.getAttribute('data-name')%1000)
+            setPieceId(element.getAttribute('data-name') % 1000)
         }
     }
 });
 
-document.addEventListener('keydown', function(event){
-    if(!isEnded && event.keyCode === 82) {
+document.addEventListener('keydown', function (event) {
+    if (!isEnded && event.keyCode === 82) {
         setRotation((rotation + 1) % 4)
         console.log(rotation)
     }
 });
 
-document.getElementById("app").addEventListener("mouseover", function( event ) {
+document.getElementById("app").addEventListener("mouseover", function (event) {
 
     let oldPieces = document.getElementById('app').querySelectorAll(".color" + currentPlayer + "pale");
     oldPieces.forEach(e => e.classList.remove("color" + currentPlayer + "pale"));
     let element = document.elementFromPoint(event.x, event.y);
     let selected = element.getAttribute("data-id");
 
-    if(typeof pieceSelected !== 'undefined' && selected>=0 && selected<500){
-        if (typeof pieceSelected !== 'undefined' && selected >= 0 && selected < 500) {
-            let piece = initPiece(rotation)[pieceSelected - ((currentPlayer + 1) * 1000)];
-            for (let p in piece) {
-                document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`).classList.add('color' + currentPlayer + 'pale');
+    if (typeof pieceSelected !== 'undefined' && selected >= 0 && selected < 500 && !isEnded) {
+        let piece = initPiece(rotation)[pieceSelected - ((currentPlayer + 1) * 1000)];
+
+        for (let p in piece) {
+            let htmlElement = document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`)
+
+            if (Math.abs(((parseInt(selected)+piece[0])%20)-((parseInt(selected)+piece[p])%20))<10 && !htmlElement.className.toString().includes('color')) {
+                htmlElement.classList.add('color' + currentPlayer + 'pale');
             }
         }
     }
