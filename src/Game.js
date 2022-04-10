@@ -104,11 +104,21 @@ export const Blokus = ({
 
             let max = Math.max.apply(null, nbPieces);
             let GGPlayers = getAllIndexes(nbPieces, max);
-
+            let playersColor = ['Red','Blue','Yellow','Green'];
+            for(let i=4; i--;i>=0){
+                if(!GGPlayers.includes(i)){
+                    playersColor.splice(i,1)
+                }
+            }
+            console.log(playersColor[GGPlayers[0]])
+            console.log(playersColor)
+            console.log(GGPlayers)
+            console.log(GGPlayers[0])
             if (GGPlayers.length > 1) {
-                return {draw: GGPlayers};
+                return {draw: playersColor};
             } else {
-                return {winner: GGPlayers[0]};
+                document.querySelector(".winner").classList.add(playersColor);
+                return {winner: playersColor};
             }
         }
     },
@@ -220,14 +230,22 @@ document.addEventListener('click', function (event) {
 document.addEventListener('keydown', function (event) {
     if (!isEnded && event.keyCode === 82) {
         setRotation((rotation + 1) % 4)
-        console.log(rotation)
+        //hoverPreview(MouseEvent.prototype.)
+        var event = new CustomEvent("mouseover", function (event) {
+            hoverPreview(event);
+        });
+        document.dispatchEvent(event);
     }
 });
 
 document.getElementById("app").addEventListener("mouseover", function (event) {
+    hoverPreview(event);
+});
 
+function hoverPreview(event){
     let oldPieces = document.getElementById('app').querySelectorAll(".color" + currentPlayer + "pale");
     oldPieces.forEach(e => e.classList.remove("color" + currentPlayer + "pale"));
+    console.log(event)
     let element = document.elementFromPoint(event.x, event.y);
     let selected = element.getAttribute("data-id");
 
@@ -242,4 +260,4 @@ document.getElementById("app").addEventListener("mouseover", function (event) {
             }
         }
     }
-});
+}

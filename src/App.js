@@ -1,6 +1,6 @@
 import {Client} from 'boardgame.io/client';
 import {Blokus, initPiece} from './Game';
-import {isEnded, PieceId, rotation, setRotation, theEnd} from "./const";
+import {PieceId, rotation, theEnd} from "./const";
 class BlokusClient {
 
     constructor(rootElement, {playerID} = {}) {
@@ -62,7 +62,7 @@ class BlokusClient {
             theEnd()
             messageEl.textContent =
                 state.ctx.gameover.winner !== undefined
-                    ? 'Winner: Player ' + (state.ctx.gameover.winner + 1)
+                    ? 'Winner: ' + (state.ctx.gameover.winner) + ' Player'
                     : 'Draw between players ' +state.ctx.gameover.draw;
         } else {
             messageEl.textContent = '';

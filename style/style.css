@@ -156,3 +156,43 @@ p {
 #buttonTab {
   padding-top: 30px;
 }
+
+.Red{
+  animation: color-change-Red 1s infinite;
+}
+
+@keyframes color-change-Red {
+  0% { color: red; }
+  50% { color: #000000; }
+  100% { color: red; }
+}
+
+.Blue{
+  animation: color-change-Blue 1s infinite;
+}
+
+@keyframes color-change-Blue {
+  0% { color: blue; }
+  50% { color: #000000; }
+  100% { color: blue; }
+}
+
+.Yellow{
+  animation: color-change-Yellow 1s infinite;
+}
+
+@keyframes color-change-Yellow {
+  0% { color: yellow; }
+  50% { color: #000000; }
+  100% { color: yellow; }
+}
+
+.Green{
+  animation: color-change-Green 1s infinite;
+}
+
+@keyframes color-change-Green {
+  0% { color: green; }
+  50% { color: #000000; }
+  100% { color: green; }
+}
