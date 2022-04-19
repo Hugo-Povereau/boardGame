@@ -7,7 +7,7 @@ import {
     nextPlayer,
     rmPlayer,
     setPieceId,
-    pieceSelected, setPieceSelected, setRotation, isEnded
+    pieceSelected, setPieceSelected, setRotation, isEnded, PieceId
 } from "./const";
 
 export let diagonale = true;
@@ -17,6 +17,8 @@ export const Blokus = ({
     setup: () => ({cells: Array(400).fill(null)}),
 
     turn: {
+        first: (G, ctx) => 0,
+        next: (G, ctx) => (ctx.playOrderPos + 1) % ctx.numPlayers,
         order: TurnOrder.ONCE,
         minMoves: 1,
         maxMoves: 1,
@@ -25,7 +27,6 @@ export const Blokus = ({
         clickCell: (G, ctx, id, idPiece) => {
             diagonale = false;
             if (id === 500) {
-
                 const flag = currentPlayer
                 Blokus.switchPlayer(G, ctx);
                 rmPlayer(flag);
@@ -92,7 +93,7 @@ export const Blokus = ({
 
                 const flag = currentPlayer
                 Blokus.switchPlayer(G, ctx);
-                if(nbPieces[currentPlayer] === 21){
+                if (nbPieces[currentPlayer] === 21) {
                     rmPlayer(flag);
                 }
                 return
@@ -104,10 +105,10 @@ export const Blokus = ({
 
             let max = Math.max.apply(null, nbPieces);
             let GGPlayers = getAllIndexes(nbPieces, max);
-            let playersColor = ['Red','Blue','Yellow','Green'];
-            for(let i=4; i--;i>=0){
-                if(!GGPlayers.includes(i)){
-                    playersColor.splice(i,1)
+            let playersColor = ['Red', 'Blue', 'Yellow', 'Green'];
+            for (let i = 4; i--; i >= 0) {
+                if (!GGPlayers.includes(i)) {
+                    playersColor.splice(i, 1)
                 }
             }
             console.log(playersColor[GGPlayers[0]])
@@ -236,13 +237,17 @@ document.addEventListener('keydown', function (event) {
         });
         document.dispatchEvent(event);
     }
+    if (!isEnded && event.keyCode === 81) {
+        Blokus.moves.clickCell(0,0,500,PieceId)
+        Move();
+    }
 });
 
 document.getElementById("app").addEventListener("mouseover", function (event) {
     hoverPreview(event);
 });
 
-function hoverPreview(event){
+function hoverPreview(event) {
     let oldPieces = document.getElementById('app').querySelectorAll(".color" + currentPlayer + "pale");
     oldPieces.forEach(e => e.classList.remove("color" + currentPlayer + "pale"));
     console.log(event)
@@ -255,9 +260,15 @@ function hoverPreview(event){
         for (let p in piece) {
             let htmlElement = document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`)
 
-            if (Math.abs(((parseInt(selected)+piece[0])%20)-((parseInt(selected)+piece[p])%20))<10 && !htmlElement.className.toString().includes('color')) {
+            if (Math.abs(((parseInt(selected) + piece[0]) % 20) - ((parseInt(selected) + piece[p]) % 20)) < 10 && !htmlElement.className.toString().includes('color')) {
                 htmlElement.classList.add('color' + currentPlayer + 'pale');
             }
         }
     }
+}
+
+function Move(G, ctx) {
+    nextPlayer()
+    ctx.events.moves.clickCell({id: 500,idPiece: PieceId});
+    ctx.events.endTurn({ next: currentPlayer});
 }
