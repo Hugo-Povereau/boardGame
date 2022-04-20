@@ -112,10 +112,9 @@ export const Blokus = ({
                     playersColor.splice(i, 1)
                 }
             }
-            console.log(playersColor[GGPlayers[0]])
-            console.log(playersColor)
-            console.log(GGPlayers)
-            console.log(GGPlayers[0])
+            document.getElementById('wrap').style.display = 'none';
+            document.getElementById('win').style.display = 'block';
+
             if (GGPlayers.length > 1) {
                 return {draw: playersColor};
             } else {
@@ -297,6 +296,7 @@ document.addEventListener('contextmenu', function(ev) {
 }, false);
 
 document.addEventListener("scroll",(event) => {
+    alert("ok")
     setRotation((rotation + 1) % 4);
 });
 
@@ -304,10 +304,19 @@ document.getElementById("app").addEventListener("mouseover", function (event) {
     hoverPreview(event);
 });
 
+document.onclick = function(e)
+{
+    if(e.which == 2 && e.target.tagName == 'TR')
+    {
+        var loc = e.target.getAttribute('onclick').replace('window.location.href=','');
+        window.location = loc;
+        alert("ok");
+    }
+}
+
 function hoverPreview(event) {
     let oldPieces = document.getElementById('app').querySelectorAll(".color" + currentPlayer + "pale");
     oldPieces.forEach(e => e.classList.remove("color" + currentPlayer + "pale"));
-    console.log(event)
     let element = document.elementFromPoint(event.x, event.y);
     let selected = element.getAttribute("data-id");
 
@@ -316,6 +325,8 @@ function hoverPreview(event) {
 
         for (let p in piece) {
             let htmlElement = document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`)
+            console.log("1 "+piece[p])
+            console.log("2 "+selected)
 
             if (Math.abs(((parseInt(selected) + piece[0]) % 20) - ((parseInt(selected) + piece[p]) % 20)) < 10 && !htmlElement.className.toString().includes('color')) {
                 htmlElement.classList.add('color' + currentPlayer + 'pale');

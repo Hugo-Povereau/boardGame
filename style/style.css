@@ -8,7 +8,7 @@ html {
     radial-gradient(ellipse at bottom right, #95c695 15%, transparent 60%);
 }
 
-body { height: 100vh; }
+body { height: 99vh; }
 
 .canvas {
   display: flex;
@@ -57,8 +57,19 @@ body { height: 100vh; }
   padding-left: 10%;
 }
 
+.winner {
+  background: rgba(255, 255, 255, 0.39);
+  text-align: center;
+  position: relative;
+  left: 23%;
+  width: 50%;
+  border-radius: 10px;
+  padding: 10px;
+  display: none;
+}
+
 .cell {
-  background-color: #00000045;
+  background-color: rgba(73, 55, 55, 0.5);
   left: 100px;
   border: 1px solid #555;
   width: 25px;
@@ -84,7 +95,7 @@ body { height: 100vh; }
   background-color: #ce5959;
 }
 .color0pale {
-  background-color: #d59393;
+  background-color: #e39696;
 }
 
 .color1 {

@@ -30,8 +30,8 @@ class BlokusClient {
         }
         this.rootElement.innerHTML = `
       <table style="margin-top: 5vh;">${rows.join('')}</table>
-      <table class="wrapper"><td class="cell color0" data-id="500" id="button" style="width: 150px;">Give Up</td></table>
-      <p class="winner"></p>
+      <table id="wrap" class="wrapper"><td class="cell color0" data-id="500" id="button" style="width: 150px;">Give Up</td></table>
+      <p id="win" class="winner"></p>
     `;
     }
 
@@ -63,8 +63,8 @@ class BlokusClient {
             theEnd()
             messageEl.textContent =
                 state.ctx.gameover.winner !== undefined
-                    ? 'Winner: ' + (state.ctx.gameover.winner) + ' Player'
-                    : 'Draw between players ' +state.ctx.gameover.draw;
+                    ? 'Winner : ' + (state.ctx.gameover.winner) + ' Player'
+                    : 'Draw between players : ' +state.ctx.gameover.draw;
         } else {
             messageEl.textContent = '';
         }
