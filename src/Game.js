@@ -129,8 +129,9 @@ export const Blokus = ({
             document.getElementById("button").style.removeProperty('background');
             document.querySelector(`[data-id=\"500\"]`).classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]);
             document.querySelector(`[data-id=\"500\"]`).classList.remove('color' + currentPlayer);
-            document.querySelector('.player').classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]);
-            document.querySelector('.player').classList.remove('color' + currentPlayer);
+            document.querySelector('#player').classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]);
+            document.querySelector('#player').classList.remove('color' + currentPlayer);
+            document.getElementById('player').textContent = "Player "+ (currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]+1);
         }
 
         if (currentPlayers.length !== 0) {
@@ -284,16 +285,19 @@ document.addEventListener('keydown', function (event) {
     }
     if (!isEnded && event.keyCode === 69) {
         setFlip((flip + 1) % 2)
-        //hoverPreview(MouseEvent.prototype.)
-        var event = new CustomEvent("mouseover", function (event) {
-            hoverPreview(event);
-        });
-        document.dispatchEvent(event);
     }
     if (!isEnded && event.keyCode === 81) {
         Blokus.moves.clickCell(0,0,500,PieceId)
         Move();
     }
+});
+
+document.addEventListener('contextmenu', function(ev) {
+    setFlip((flip + 1) % 2)
+}, false);
+
+document.addEventListener("scroll",(event) => {
+    setRotation((rotation + 1) % 4);
 });
 
 document.getElementById("app").addEventListener("mouseover", function (event) {

@@ -1,11 +1,14 @@
 html {
   font-family: sans-serif;
   height: 100vh;
+  overflow:auto;
   background: radial-gradient(ellipse at top left, #ffa8a8 15%, transparent 60%),
     radial-gradient(ellipse at bottom left, #8989d9 15%, transparent 60%),
     radial-gradient(ellipse at top right, #baba83 15%, transparent 60%),
     radial-gradient(ellipse at bottom right, #95c695 15%, transparent 60%);
 }
+
+body { height: 100vh; }
 
 .canvas {
   display: flex;
@@ -19,10 +22,11 @@ html {
   border-spacing: 0;
 }
 
-.player {
-  left: 4%;
+#player {
+  margin: 10px;
+  left: 20%;
   position: relative;
-  width: 10%;
+  width: 50%;
   height: 30px;
   text-align: center;
   line-height: 30px;
@@ -135,10 +139,6 @@ p {
   margin-top: 0px;
 }
 
-/* #buttonTab {
-  padding-top: 30px;
-}
-
 .Red {
   animation: color-change-Red 1s infinite;
 }
@@ -201,31 +201,25 @@ p {
   100% {
     color: green;
   }
-} */
+}
+
 .wrapper {
-  position: fixed;
+  position: relative;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 37.5%;
+  margin-top: 10px;
 }
 
 #button {
-  width: 150px;
-  display: block;
-  height: 40px;
   line-height: 40px;
   font-size: 18px;
   font-family: sans-serif;
-  text-decoration: none;
-  color: #333;
   border: 2px solid #333;
   letter-spacing: 2px;
-  text-align: center;
   position: relative;
   transition: all 0.35s;
   border-radius: 10px;
-  left: 2vh;
-  top: 40vh;
+  left: 0;
 }
 
 #button table {
@@ -240,8 +234,8 @@ p {
   left: 0;
   width: 0;
   height: 100%;
-  background: #c53333;
-  transition: all 0.35s;
+  background: #de4d4d;
+  transition: all 0.15s;
   border-radius: 7px;
 }
 #button.color1:after {
@@ -282,28 +276,11 @@ p {
 
 #button:hover {
   cursor: pointer;
-}
-
-#button.color0:hover {
-  background-color: #ce5959;
-  color: #000000;
-}
-
-#button.color1:hover {
-  background-color: #6f6fe3;
-  color: #000000;
-}
-
-#button.color2:hover {
-  background-color: #dede52;
-  color: #000000;
-}
-
-#button.color3:hover {
-  background-color: #7bd77b;
-  color: #000000;
+  color: #ffffff;
 }
 
 #button:hover:after {
   width: 100%;
+  content: "Give Up";
+  white-space: nowrap;
 }
