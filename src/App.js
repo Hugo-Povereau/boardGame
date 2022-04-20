@@ -59,11 +59,16 @@ class BlokusClient {
         const messageEl = this.rootElement.querySelector('.winner');
         // Update the element to show a winner if any.
         if (state.ctx.gameover) {
+            let thisPlayer = state.ctx.gameover
             theEnd()
+            this.rootElement.innerHTML = `<div class="pyro">
+            <div class="before"></div>
+            <div class="after"></div>
+        </div>`
             messageEl.textContent =
-                state.ctx.gameover.winner !== undefined
-                    ? 'Winner: Player ' + (state.ctx.gameover.winner + 1)
-                    : 'Draw between players ' +state.ctx.gameover.draw;
+                thisPlayer.winner !== undefined
+                    ? 'Winner: Player ' + (thisPlayer.winner + 1)
+                    : 'Draw between players ' + thisPlayer.draw;
         } else {
             messageEl.textContent = '';
         }

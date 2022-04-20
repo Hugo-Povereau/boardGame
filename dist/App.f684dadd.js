@@ -20868,8 +20868,10 @@ class BlokusClient {
     const messageEl = this.rootElement.querySelector('.winner'); // Update the element to show a winner if any.
 
     if (state.ctx.gameover) {
+      let thisPlayer = state.ctx.gameover;
       (0, _const.theEnd)();
-      messageEl.textContent = state.ctx.gameover.winner !== undefined ? 'Winner: Player ' + (state.ctx.gameover.winner + 1) : 'Draw between players ' + state.ctx.gameover.draw;
+      this.rootElement.innerHTML = "<div class=\"pyro\">\n            <div class=\"before\"></div>\n            <div class=\"after\"></div>\n        </div>";
+      messageEl.textContent = thisPlayer.winner !== undefined ? 'Winner: Player ' + (thisPlayer.winner + 1) : 'Draw between players ' + thisPlayer.draw;
     } else {
       messageEl.textContent = '';
     }
@@ -20960,7 +20962,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53995" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58471" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
