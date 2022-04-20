@@ -15,8 +15,22 @@ html {
 .pieces {
   width: 315px;
   height: 672px;
-  background: #ececf5;
+  background: #ffffff;
   border-spacing: 0;
+}
+
+.player {
+  left: 4%;
+  position: relative;
+  width: 10%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 100%;
+  font-family: "Comic Sans MS";
+  vertical-align: middle;
+  border: 3px solid #323232;
+  border-radius: 10px;
 }
 
 #piece0 {
@@ -77,10 +91,10 @@ html {
 }
 
 .color2 {
-  background-color: #dede52;
+  background-color: #f5e356;
 }
 .color2pale {
-  background-color: #ecec90;
+  background-color: #d9d989;
 }
 
 .color3 {
@@ -112,6 +126,73 @@ kbd {
   margin-top: 0px;
 }
 
+/* #buttonTab {
+  padding-top: 30px;
+}
+
+.Red {
+  animation: color-change-Red 1s infinite;
+}
+
+@keyframes color-change-Red {
+  0% {
+    color: red;
+  }
+  50% {
+    color: #000000;
+  }
+  100% {
+    color: red;
+  }
+}
+
+.Blue {
+  animation: color-change-Blue 1s infinite;
+}
+
+@keyframes color-change-Blue {
+  0% {
+    color: blue;
+  }
+  50% {
+    color: #000000;
+  }
+  100% {
+    color: blue;
+  }
+}
+
+.Yellow {
+  animation: color-change-Yellow 1s infinite;
+}
+
+@keyframes color-change-Yellow {
+  0% {
+    color: #f5e356;
+  }
+  50% {
+    color: #000000;
+  }
+  100% {
+    color: #f5e356;
+  }
+}
+
+.Green {
+  animation: color-change-Green 1s infinite;
+}
+
+@keyframes color-change-Green {
+  0% {
+    color: green;
+  }
+  50% {
+    color: #000000;
+  }
+  100% {
+    color: green;
+  }
+} */
 .wrapper {
   position: fixed;
   top: 50%;

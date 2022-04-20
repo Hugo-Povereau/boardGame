@@ -5,6 +5,7 @@ let currentPlayer = 0;
 let nbPieces = [0,0,0,0];
 let pieceSelected;
 let rotation = 0;
+let flip = 0;
 let isEnded = false;
 
 function setPieceSelected(value) {
@@ -13,6 +14,10 @@ function setPieceSelected(value) {
 
 function setRotation(value) {
     rotation = value;
+}
+
+function setFlip(value) {
+    flip = value;
 }
 
 function setPieceId(value) {
@@ -31,4 +36,4 @@ function rmPlayer(value) {
     currentPlayers.splice(currentPlayers.indexOf(value),1);
 }
 
-export {TURN, isEnded, PieceId, pieceSelected, rotation, currentPlayers, currentPlayer,nbPieces, theEnd, setPieceId, setPieceSelected, setRotation, nextPlayer, rmPlayer}
+export {TURN, isEnded, PieceId, pieceSelected, rotation, flip, currentPlayers, currentPlayer,nbPieces, theEnd, setPieceId, setPieceSelected, setRotation, setFlip, nextPlayer, rmPlayer}
