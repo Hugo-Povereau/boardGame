@@ -119,6 +119,15 @@ kbd {
   white-space: nowrap;
 }
 
+p {
+  display: flex;
+  align-items: center;
+}
+
+.mouseImg {
+  width: 12%;
+}
+
 .commands {
   margin-bottom: 30px;
   font-size: 30px;
