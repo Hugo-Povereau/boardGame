@@ -30,7 +30,7 @@ class BlokusClient {
         }
         this.rootElement.innerHTML = `
       <table style="margin-top: 50px;">${rows.join('')}</table>
-      <table id="buttonTab"><td class="cell color0" data-id="500" id="button" style="width: 80px;">Give Up</td></table>
+      <table classe="wrapper" id="buttonTab"><td class="cell color0" data-id="500" id="button" style="width: 150px;">Give Up</td></table>
       <p class="winner"></p>
     `;
     }

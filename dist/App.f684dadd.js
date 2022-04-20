@@ -20891,7 +20891,7 @@ class BlokusClient {
       rows.push("<tr>".concat(cells.join(''), "</tr>"));
     }
 
-    this.rootElement.innerHTML = "\n      <table style=\"margin-top: 50px;\">".concat(rows.join(''), "</table>\n      <table id=\"buttonTab\"><td class=\"cell color0\" data-id=\"500\" id=\"button\" style=\"width: 80px;\">Give Up</td></table>\n      <p class=\"winner\"></p>\n    ");
+    this.rootElement.innerHTML = "\n      <table style=\"margin-top: 50px;\">".concat(rows.join(''), "</table>\n      <table classe=\"wrapper\" id=\"buttonTab\"><td class=\"cell color0\" data-id=\"500\" id=\"button\" style=\"width: 150px;\">Give Up</td></table>\n      <p class=\"winner\"></p>\n    ");
   } //Interaction souris-plateau
 
 
@@ -21011,7 +21011,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60486" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54396" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
