@@ -1,3 +1,12 @@
+html {
+  font-family: sans-serif;
+  height: 100vh;
+  background: radial-gradient(ellipse at top left, #ffa8a8 15%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #8989d9 15%, transparent 60%),
+    radial-gradient(ellipse at top right, #baba83 15%, transparent 60%),
+    radial-gradient(ellipse at bottom right, #95c695 15%, transparent 60%);
+}
+
 .canvas {
   display: flex;
   align-items: center;
@@ -81,53 +90,6 @@
   background-color: #ade7ad;
 }
 
-/* #button {
-  top: 50px;
-  left: 100px;
-  padding: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 50px;
-  color: #e5e5e5;
-}
-
-#buttonTab {
-  margin-left: auto;
-  margin-right: auto;
-  font-family: sans-serif;
-}
-
-#button:hover {
-  cursor: pointer;
-}
-
-#button.color0:hover {
-  background-color: #fdbaba;
-  color: #000000;
-}
-
-#button.color1:hover {
-  background-color: #c1c1f3;
-  color: #000000;
-}
-
-#button.color2:hover {
-  background-color: #fdfdbb;
-  color: #000000;
-}
-
-#button.color3:hover {
-  background-color: #b2e0b2;
-  color: #000000;
-} */
-html {
-  height: 100vh;
-  background: radial-gradient(ellipse at top left, #ffa8a8 15%, transparent 60%),
-    radial-gradient(ellipse at bottom left, #8989d9 15%, transparent 60%),
-    radial-gradient(ellipse at top right, #baba83 15%, transparent 60%),
-    radial-gradient(ellipse at bottom right, #95c695 15%, transparent 60%);
-}
-
 kbd {
   background-color: #eee;
   border-radius: 3px;
@@ -143,10 +105,6 @@ kbd {
   white-space: nowrap;
 }
 
-p {
-  font-family: sans-serif;
-}
-
 .commands {
   margin-bottom: 30px;
   font-size: 30px;
@@ -154,73 +112,6 @@ p {
   margin-top: 0px;
 }
 
-/* #buttonTab {
-  padding-top: 30px;
-}
-
-.Red {
-  animation: color-change-Red 1s infinite;
-}
-
-@keyframes color-change-Red {
-  0% {
-    color: red;
-  }
-  50% {
-    color: #000000;
-  }
-  100% {
-    color: red;
-  }
-}
-
-.Blue {
-  animation: color-change-Blue 1s infinite;
-}
-
-@keyframes color-change-Blue {
-  0% {
-    color: blue;
-  }
-  50% {
-    color: #000000;
-  }
-  100% {
-    color: blue;
-  }
-}
-
-.Yellow {
-  animation: color-change-Yellow 1s infinite;
-}
-
-@keyframes color-change-Yellow {
-  0% {
-    color: yellow;
-  }
-  50% {
-    color: #000000;
-  }
-  100% {
-    color: yellow;
-  }
-}
-
-.Green {
-  animation: color-change-Green 1s infinite;
-}
-
-@keyframes color-change-Green {
-  0% {
-    color: green;
-  }
-  50% {
-    color: #000000;
-  }
-  100% {
-    color: green;
-  }
-} */
 .wrapper {
   position: fixed;
   top: 50%;
@@ -230,8 +121,6 @@ p {
 
 #button {
   width: 150px;
-  margin-left: 84%;
-  margin-top: 30px;
   display: block;
   height: 40px;
   line-height: 40px;
@@ -245,6 +134,8 @@ p {
   position: relative;
   transition: all 0.35s;
   border-radius: 10px;
+  left: 2vh;
+  top: 35vh;
 }
 
 #button table {
