@@ -6,8 +6,23 @@
 .pieces {
   width: 315px;
   height: 672px;
-  background: #ececf5;
+  background: #ffffff;
   border-spacing: 0;
+}
+
+.player {
+  left: 4%;
+  position: relative;
+  width: 10%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 100%;
+  font-family: "Comic Sans MS";
+  vertical-align: middle;
+  border: 3px solid #323232;
+  border-radius: 10px;
+
 }
 
 #piece0 {
@@ -68,10 +83,10 @@
 }
 
 .color2 {
-  background-color: #dede52;
+  background-color: #f5e356;
 }
 .color2pale {
-  background-color: #ecec90;
+  background-color: #d9d989;
 }
 
 .color3 {
@@ -196,13 +211,13 @@ p {
 
 @keyframes color-change-Yellow {
   0% {
-    color: yellow;
+    color: #f5e356;
   }
   50% {
     color: #000000;
   }
   100% {
-    color: yellow;
+    color: #f5e356;
   }
 }
 

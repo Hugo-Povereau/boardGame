@@ -1,6 +1,6 @@
 import {Client} from 'boardgame.io/client';
 import {Blokus, initPiece} from './Game';
-import {PieceId, rotation, theEnd} from "./const";
+import {PieceId, rotation, flip, theEnd} from "./const";
 class BlokusClient {
 
     constructor(rootElement, {playerID} = {}) {
@@ -61,10 +61,6 @@ class BlokusClient {
         if (state.ctx.gameover) {
             let thisPlayer = state.ctx.gameover
             theEnd()
-            this.rootElement.innerHTML = `<div class="pyro">
-            <div class="before"></div>
-            <div class="after"></div>
-        </div>`
             messageEl.textContent =
                 state.ctx.gameover.winner !== undefined
                     ? 'Winner: ' + (state.ctx.gameover.winner) + ' Player'
@@ -101,8 +97,8 @@ class pieceBoard {
 
         for (let i = 0; i < 21; i++) {
             for (let j = 0; j < 5; j++) {
-                document.querySelector(`[data-id=${CSS.escape((1000 * (player + 1)) + (Math.floor(initPiece(rotation)[i][j] / 20) * 14 + (initPiece(rotation)[i][j] % 20) + tab_piece[i]))}]`).classList.add('color' + player);
-                document.querySelector(`[data-id=${CSS.escape((1000 * (player + 1)) + (Math.floor(initPiece(rotation)[i][j] / 20) * 14 + (initPiece(rotation)[i][j] % 20) + tab_piece[i]))}]`).setAttribute("data-name",(Number(player)+1)*1000 + i);
+                document.querySelector(`[data-id=${CSS.escape((1000 * (player + 1)) + (Math.floor(initPiece(rotation,flip)[i][j] / 20) * 14 + (initPiece(rotation,flip)[i][j] % 20) + tab_piece[i]))}]`).classList.add('color' + player);
+                document.querySelector(`[data-id=${CSS.escape((1000 * (player + 1)) + (Math.floor(initPiece(rotation,flip)[i][j] / 20) * 14 + (initPiece(rotation,flip)[i][j] % 20) + tab_piece[i]))}]`).setAttribute("data-name",(Number(player)+1)*1000 + i);
             }
         }
     }

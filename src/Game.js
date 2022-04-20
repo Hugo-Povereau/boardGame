@@ -4,10 +4,11 @@ import {
     currentPlayer,
     nbPieces,
     rotation,
+    flip,
     nextPlayer,
     rmPlayer,
     setPieceId,
-    pieceSelected, setPieceSelected, setRotation, isEnded, PieceId
+    pieceSelected, setPieceSelected, setRotation, setFlip, isEnded, PieceId
 } from "./const";
 
 export let diagonale = true;
@@ -35,23 +36,23 @@ export const Blokus = ({
             for (let i = 0; i < 5; i++) {
 
                 //Les cases sont vides
-                if (G.cells[id + initPiece(rotation)[idPiece][i]] !== null) {
+                if (G.cells[id + initPiece(rotation,flip)[idPiece][i]] !== null) {
                     return INVALID_MOVE;
                 }
                 //Les cases sont côtes à côtes
                 if (i < 4) {
-                    if (((id + initPiece(rotation)[idPiece][i]) % 20) === 19 && ((id + initPiece(rotation)[idPiece][i + 1]) % 20) === 0) {
+                    if (((id + initPiece(rotation,flip)[idPiece][i]) % 20) === 19 && ((id + initPiece(rotation,flip)[idPiece][i + 1]) % 20) === 0) {
                         return INVALID_MOVE;
                     }
                 }
 
                 //Les pièces du currentPlayer ne se touchent pas
-                if (G.cells[id + initPiece(rotation)[idPiece][i] + 1] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 1] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] + 20] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 20] === currentPlayer) {
+                if (G.cells[id + initPiece(rotation,flip)[idPiece][i] + 1] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] - 1] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] + 20] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] - 20] === currentPlayer) {
                     return INVALID_MOVE;
                 }
 
                 //Les pièces currentPlayer se touchent au moins une fois en diagonale
-                if (G.cells[id + initPiece(rotation)[idPiece][i] + 21] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 21] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] + 19] === currentPlayer || G.cells[id + initPiece(rotation)[idPiece][i] - 19] === currentPlayer) {
+                if (G.cells[id + initPiece(rotation,flip)[idPiece][i] + 21] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] - 21] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] + 19] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] - 19] === currentPlayer) {
                     diagonale = true;
                 }
             }
@@ -61,7 +62,7 @@ export const Blokus = ({
             if (tour === 0) {
                 let coin = false;
                 for (let i = 0; i < 5; i++) {
-                    if ([0, 19, 380, 399].includes(id + initPiece(rotation)[idPiece][i])) {
+                    if ([0, 19, 380, 399].includes(id + initPiece(rotation,flip)[idPiece][i])) {
                         coin = true;
                     }
                 }
@@ -73,7 +74,7 @@ export const Blokus = ({
 
                 //Attribution l'id du joueur sur les cases
                 for (let i = 0; i < 5; i++) {
-                    G.cells[id + initPiece(rotation)[idPiece][i]] = currentPlayer;
+                    G.cells[id + initPiece(rotation,flip)[idPiece][i]] = currentPlayer;
                 }
 
                 let somme = ((currentPlayer + 1) * 1000 + idPiece);
@@ -85,7 +86,7 @@ export const Blokus = ({
 
                 //Changement de couleur des cases
                 for (let i = 0; i < 5; i++) {
-                    const bloc = id + initPiece(rotation)[idPiece][i];
+                    const bloc = id + initPiece(rotation,flip)[idPiece][i];
                     document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color' + currentPlayer);
                 }
                 diagonale = false;
@@ -128,6 +129,8 @@ export const Blokus = ({
             document.getElementById("button").style.removeProperty('background');
             document.querySelector(`[data-id=\"500\"]`).classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]);
             document.querySelector(`[data-id=\"500\"]`).classList.remove('color' + currentPlayer);
+            document.querySelector('.player').classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]);
+            document.querySelector('.player').classList.remove('color' + currentPlayer);
         }
 
         if (currentPlayers.length !== 0) {
@@ -159,7 +162,7 @@ export const Blokus = ({
 });
 
 //Liste des pièces
-export function initPiece(rotation) {
+export function initPiece(rotation,flip) {
     //pos de base
     const tab1 = [
         [0, 0, 0, 0, 0],
@@ -200,8 +203,50 @@ export function initPiece(rotation) {
         [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39], [-1, -20, -21, -22, -41]
     ]
 
+    //pos de base mirroir
+    const tab5 = [
+        [0, 0, 0, 0, 0],
+        [0, 20, 0, 0, 0],
+        [0, 20, 40, 0, 0], [0, 20, 21, 0, 0],
+        [0, 20, 40, 60, 0], [0, 20, 40, 39, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, -19, -18, 0],
+        [0, 20, 40, 60, 80], [0, 20, 40, 60, 59], [0, 20, 40, 39, 59], [0, 20, 19, 40, 39], [0, 1, 20, 40, 41], [0, 20, 19, 40, 60], [0, 1, 2, 21, 41],
+        [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 19, 18, 38], [0, 20, 19, 18, 39], [1, 20, 21, 22, 41]
+    ]
+
+    //90° anti horaire mirroir
+    const tab6 = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0],
+        [0, 1, 2, 0, 0], [0, 1, -19, 0, 0],
+        [0, 1, 2, 3, 0], [0, 1, 2, -20, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, 20, 21, 41, 0],
+        [0, 1, 2, 3, 4], [0, 1, 2, 3, 23], [0, 1, 2, 22, 23], [0, 1, 21, 2, 22], [0, -20, 1, 2, -18], [0, 1, 21, 2, 3], [0, -20, -40, -19, -18],
+        [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, -1, -21, -41, -42], [0, 1, 21, 41, 22], [1, 20, 21, 22, 41]
+    ]
+
+    //180° mirroir
+    const tab7 = [
+        [0, 0, 0, 0, 0],
+        [0, 20, 0, 0, 0],
+        [0, 20, 40, 0, 0], [0, -20, -21, 0, 0],
+        [0, 20, 40, 60, 0], [0, -20, -40, -39, 0], [0, -20, -21, -40, -0], [0, 1, 20, 21, 0], [0, -1, 19, 18, 0],
+        [0, 20, 40, 60, 80], [0, -20, -40, -60, -59], [0, -20, -40, -39, -59], [0, -20, -19, -40, -39], [0, -1, -20, -40, -41], [0, -20, -19, -40, -60], [0, -1, -2, -21, -41],
+        [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -19, -18, -38], [0, -20, -19, -18, -39], [1, 20, 21, 22, 41]
+    ]
+
+    //270° mirroir
+    const tab8 = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0],
+        [0, 1, 2, 0, 0], [0, -1, 19, 0, 0],
+        [0, 1, 2, 3, 0], [0, -1, -2, 20, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, -20, -21, -41, 0],
+        [0, 1, 2, 3, 4], [0, -1, -2, -3, -23], [0, -1, -2, -22, -23], [0, -1, -21, -2, -22], [0, 20, -1, -2, 18], [0, -1, -21, -2, -3], [0, 20, 40, 19, 18],
+        [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, 1, 21, 41, 42], [0, -1, -21, -41, -22], [-1, -20, -21, -22, -41]
+    ]
+
     const tab = [tab1, tab2, tab3, tab4]
-    return tab[rotation];
+    const tab_flip = [tab5, tab6, tab7, tab8]
+    const tabs = [tab, tab_flip]
+    return tabs[flip][rotation];
 }
 
 function getAllIndexes(arr, val) {
@@ -237,6 +282,14 @@ document.addEventListener('keydown', function (event) {
         });
         document.dispatchEvent(event);
     }
+    if (!isEnded && event.keyCode === 69) {
+        setFlip((flip + 1) % 2)
+        //hoverPreview(MouseEvent.prototype.)
+        var event = new CustomEvent("mouseover", function (event) {
+            hoverPreview(event);
+        });
+        document.dispatchEvent(event);
+    }
     if (!isEnded && event.keyCode === 81) {
         Blokus.moves.clickCell(0,0,500,PieceId)
         Move();
@@ -255,7 +308,7 @@ function hoverPreview(event) {
     let selected = element.getAttribute("data-id");
 
     if (typeof pieceSelected !== 'undefined' && selected >= 0 && selected < 500 && !isEnded) {
-        let piece = initPiece(rotation)[pieceSelected - ((currentPlayer + 1) * 1000)];
+        let piece = initPiece(rotation,flip)[pieceSelected - ((currentPlayer + 1) * 1000)];
 
         for (let p in piece) {
             let htmlElement = document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`)
