@@ -29,7 +29,7 @@ class BlokusClient {
             rows.push(`<tr>${cells.join('')}</tr>`);
         }
         this.rootElement.innerHTML = `
-      <table style="margin-top: 50px;">${rows.join('')}</table>
+      <table style="margin-top: 5vh;">${rows.join('')}</table>
       <table class="wrapper"><td class="cell color0" data-id="500" id="button" style="width: 150px;">Give Up</td></table>
       <p class="winner"></p>
     `;
