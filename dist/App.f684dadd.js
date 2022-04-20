@@ -20596,6 +20596,8 @@ const Blokus = {
     cells: Array(400).fill(null)
   }),
   turn: {
+    first: (G, ctx) => 0,
+    next: (G, ctx) => (ctx.playOrderPos + 1) % ctx.numPlayers,
     order: _core.TurnOrder.ONCE,
     minMoves: 1,
     maxMoves: 1
@@ -20622,12 +20624,12 @@ const Blokus = {
           if ((id + initPiece(_const.rotation)[idPiece][i]) % 20 === 19 && (id + initPiece(_const.rotation)[idPiece][i + 1]) % 20 === 0) {
             return _core.INVALID_MOVE;
           }
-        } //Les mêmes pièces ne se touchent pas
+        } //Les pièces du currentPlayer ne se touchent pas
 
 
         if (G.cells[id + initPiece(_const.rotation)[idPiece][i] + 1] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] - 1] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] + 20] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] - 20] === _const.currentPlayer) {
           return _core.INVALID_MOVE;
-        } //Les pièces se touchent au moins une fois en diagonale
+        } //Les pièces currentPlayer se touchent au moins une fois en diagonale
 
 
         if (G.cells[id + initPiece(_const.rotation)[idPiece][i] + 21] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] - 21] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] + 19] === _const.currentPlayer || G.cells[id + initPiece(_const.rotation)[idPiece][i] - 19] === _const.currentPlayer) {
@@ -20672,7 +20674,14 @@ const Blokus = {
 
         exports.diagonale = diagonale = false;
         document.querySelector("[data-id=\"500\"]").style.removeProperty('background');
-        return Blokus.switchPlayer(G, ctx);
+        const flag = _const.currentPlayer;
+        Blokus.switchPlayer(G, ctx);
+
+        if (_const.nbPieces[_const.currentPlayer] === 21) {
+          (0, _const.rmPlayer)(flag);
+        }
+
+        return;
       }
     }
   },
@@ -20680,14 +20689,27 @@ const Blokus = {
     if (_const.currentPlayers.length === 0) {
       let max = Math.max.apply(null, _const.nbPieces);
       let GGPlayers = getAllIndexes(_const.nbPieces, max);
+      let playersColor = ['Red', 'Blue', 'Yellow', 'Green'];
+
+      for (let i = 4; i--; i >= 0) {
+        if (!GGPlayers.includes(i)) {
+          playersColor.splice(i, 1);
+        }
+      }
+
+      console.log(playersColor[GGPlayers[0]]);
+      console.log(playersColor);
+      console.log(GGPlayers);
+      console.log(GGPlayers[0]);
 
       if (GGPlayers.length > 1) {
         return {
-          draw: GGPlayers
+          draw: playersColor
         };
       } else {
+        document.querySelector(".winner").classList.add(playersColor);
         return {
-          winner: GGPlayers[0]
+          winner: playersColor
         };
       }
     }
@@ -20780,26 +20802,53 @@ document.addEventListener('click', function (event) {
 });
 document.addEventListener('keydown', function (event) {
   if (!_const.isEnded && event.keyCode === 82) {
-    (0, _const.setRotation)((_const.rotation + 1) % 4);
-    console.log(_const.rotation);
+    (0, _const.setRotation)((_const.rotation + 1) % 4); //hoverPreview(MouseEvent.prototype.)
+
+    var event = new CustomEvent("mouseover", function (event) {
+      hoverPreview(event);
+    });
+    document.dispatchEvent(event);
+  }
+
+  if (!_const.isEnded && event.keyCode === 81) {
+    Blokus.moves.clickCell(0, 0, 500, _const.PieceId);
+    Move();
   }
 });
 document.getElementById("app").addEventListener("mouseover", function (event) {
+  hoverPreview(event);
+});
+
+function hoverPreview(event) {
   let oldPieces = document.getElementById('app').querySelectorAll(".color" + _const.currentPlayer + "pale");
   oldPieces.forEach(e => e.classList.remove("color" + _const.currentPlayer + "pale"));
+  console.log(event);
   let element = document.elementFromPoint(event.x, event.y);
   let selected = element.getAttribute("data-id");
 
-  if (typeof _const.pieceSelected !== 'undefined' && selected >= 0 && selected < 500) {
-    if (typeof _const.pieceSelected !== 'undefined' && selected >= 0 && selected < 500) {
-      let piece = initPiece(_const.rotation)[_const.pieceSelected - (_const.currentPlayer + 1) * 1000];
+  if (typeof _const.pieceSelected !== 'undefined' && selected >= 0 && selected < 500 && !_const.isEnded) {
+    let piece = initPiece(_const.rotation)[_const.pieceSelected - (_const.currentPlayer + 1) * 1000];
 
-      for (let p in piece) {
-        document.querySelector("[data-id=".concat(CSS.escape(parseInt(piece[p]) + parseInt(selected)), "]")).classList.add('color' + _const.currentPlayer + 'pale');
+    for (let p in piece) {
+      let htmlElement = document.querySelector("[data-id=".concat(CSS.escape(parseInt(piece[p]) + parseInt(selected)), "]"));
+
+      if (Math.abs((parseInt(selected) + piece[0]) % 20 - (parseInt(selected) + piece[p]) % 20) < 10 && !htmlElement.className.toString().includes('color')) {
+        htmlElement.classList.add('color' + _const.currentPlayer + 'pale');
       }
     }
   }
-});
+}
+
+function Move(G, ctx) {
+  (0, _const.nextPlayer)();
+  ctx.events.moves.clickCell({
+    id: 500,
+    idPiece: _const.PieceId
+  });
+  ctx.events.endTurn({
+    next: _const.currentPlayer
+  });
+}
 },{"boardgame.io/core":"node_modules/boardgame.io/dist/esm/core.js","./const":"src/const.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -20871,7 +20920,7 @@ class BlokusClient {
       let thisPlayer = state.ctx.gameover;
       (0, _const.theEnd)();
       this.rootElement.innerHTML = "<div class=\"pyro\">\n            <div class=\"before\"></div>\n            <div class=\"after\"></div>\n        </div>";
-      messageEl.textContent = thisPlayer.winner !== undefined ? 'Winner: Player ' + (thisPlayer.winner + 1) : 'Draw between players ' + thisPlayer.draw;
+      messageEl.textContent = state.ctx.gameover.winner !== undefined ? 'Winner: ' + state.ctx.gameover.winner + ' Player' : 'Draw between players ' + state.ctx.gameover.draw;
     } else {
       messageEl.textContent = '';
     }
@@ -20962,7 +21011,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58471" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60486" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
