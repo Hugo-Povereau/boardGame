@@ -1,17 +1,9 @@
 import {INVALID_MOVE, TurnOrder} from 'boardgame.io/core';
 import {
-    currentPlayers,
-    currentPlayer,
-    nbPieces,
-    rotation,
-    flip,
-    nextPlayer,
-    rmPlayer,
-    setPieceId,
-    pieceSelected, setPieceSelected, setRotation, setFlip, isEnded, PieceId
+    currentPlayers, currentPlayer, nbPieces, rotation, flip, pieceSelected, isEnded, PieceId,
+    nextPlayer, rmPlayer, setPieceId, setPieceSelected, setRotation, setFlip
 } from "./const";
 
-export let diagonale = true;
 export let tour = 0;
 
 export const Blokus = ({
@@ -26,7 +18,7 @@ export const Blokus = ({
     },
     moves: {
         clickCell: (G, ctx, id, idPiece) => {
-            diagonale = false;
+            let diagonale = false;
             if (id === 500) {
                 const flag = currentPlayer
                 Blokus.switchPlayer(G, ctx);
@@ -36,23 +28,21 @@ export const Blokus = ({
             for (let i = 0; i < 5; i++) {
 
                 //Les cases sont vides
-                if (G.cells[id + initPiece(rotation,flip)[idPiece][i]] !== null) {
+                if (G.cells[id + initPiece(rotation, flip)[idPiece][i]] !== null) {
                     return INVALID_MOVE;
                 }
                 //Les cases sont côtes à côtes
                 if (i < 4) {
-                    if (((id + initPiece(rotation,flip)[idPiece][i]) % 20) === 19 && ((id + initPiece(rotation,flip)[idPiece][i + 1]) % 20) === 0) {
+                    if (((id + initPiece(rotation, flip)[idPiece][i]) % 20) === 19 && ((id + initPiece(rotation, flip)[idPiece][i + 1]) % 20) === 0) {
                         return INVALID_MOVE;
                     }
                 }
-
                 //Les pièces du currentPlayer ne se touchent pas
-                if (G.cells[id + initPiece(rotation,flip)[idPiece][i] + 1] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] - 1] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] + 20] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] - 20] === currentPlayer) {
+                if (G.cells[id + initPiece(rotation, flip)[idPiece][i] + 1] === currentPlayer || G.cells[id + initPiece(rotation, flip)[idPiece][i] - 1] === currentPlayer || G.cells[id + initPiece(rotation, flip)[idPiece][i] + 20] === currentPlayer || G.cells[id + initPiece(rotation, flip)[idPiece][i] - 20] === currentPlayer) {
                     return INVALID_MOVE;
                 }
-
                 //Les pièces currentPlayer se touchent au moins une fois en diagonale
-                if (G.cells[id + initPiece(rotation,flip)[idPiece][i] + 21] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] - 21] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] + 19] === currentPlayer || G.cells[id + initPiece(rotation,flip)[idPiece][i] - 19] === currentPlayer) {
+                if (G.cells[id + initPiece(rotation, flip)[idPiece][i] + 21] === currentPlayer || G.cells[id + initPiece(rotation, flip)[idPiece][i] - 21] === currentPlayer || G.cells[id + initPiece(rotation, flip)[idPiece][i] + 19] === currentPlayer || G.cells[id + initPiece(rotation, flip)[idPiece][i] - 19] === currentPlayer) {
                     diagonale = true;
                 }
             }
@@ -62,7 +52,7 @@ export const Blokus = ({
             if (tour === 0) {
                 let coin = false;
                 for (let i = 0; i < 5; i++) {
-                    if ([0, 19, 380, 399].includes(id + initPiece(rotation,flip)[idPiece][i])) {
+                    if ([0, 19, 380, 399].includes(id + initPiece(rotation, flip)[idPiece][i])) {
                         coin = true;
                     }
                 }
@@ -74,7 +64,7 @@ export const Blokus = ({
 
                 //Attribution l'id du joueur sur les cases
                 for (let i = 0; i < 5; i++) {
-                    G.cells[id + initPiece(rotation,flip)[idPiece][i]] = currentPlayer;
+                    G.cells[id + initPiece(rotation, flip)[idPiece][i]] = currentPlayer;
                 }
 
                 let somme = ((currentPlayer + 1) * 1000 + idPiece);
@@ -86,10 +76,9 @@ export const Blokus = ({
 
                 //Changement de couleur des cases
                 for (let i = 0; i < 5; i++) {
-                    const bloc = id + initPiece(rotation,flip)[idPiece][i];
+                    const bloc = id + initPiece(rotation, flip)[idPiece][i];
                     document.querySelector(`[data-id=${CSS.escape(bloc)}]`).classList.add('color' + currentPlayer);
                 }
-                diagonale = false;
                 document.querySelector(`[data-id=\"500\"]`).style.removeProperty('background');
 
                 const flag = currentPlayer
@@ -130,7 +119,7 @@ export const Blokus = ({
             document.querySelector(`[data-id=\"500\"]`).classList.remove('color' + currentPlayer);
             document.querySelector('#player').classList.add('color' + currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]);
             document.querySelector('#player').classList.remove('color' + currentPlayer);
-            document.getElementById('player').textContent = "Player "+ (currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length]+1);
+            document.getElementById('player').textContent = "Player " + (currentPlayers[(currentPlayers.indexOf(currentPlayer) + 1) % currentPlayers.length] + 1);
         }
 
         if (currentPlayers.length !== 0) {
@@ -162,15 +151,16 @@ export const Blokus = ({
 });
 
 //Liste des pièces
-export function initPiece(rotation,flip) {
+export function initPiece(rotation, flip) {
     //pos de base
     const tab1 = [
         [0, 0, 0, 0, 0],
         [0, 20, 0, 0, 0],
         [0, 20, 40, 0, 0], [0, 20, 21, 0, 0],
         [0, 20, 40, 60, 0], [0, 20, 40, 41, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, 21, 22, 0],
-        [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41], [0, 20, 21, 40, 60], [0, 1, 2, 21, 41],
-        [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]
+        [0, 20, 40, 60, 80], [0, 20, 40, 60, 61], [0, 20, 40, 41, 61], [0, 20, 21, 40, 41], [0, 1, 20, 40, 41],
+        [0, 20, 21, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42],
+        [0, 20, 21, 22, 42], [0, 20, 21, 22, 41], [1, 20, 21, 22, 41]
     ]
 
     //90° anti horaire
@@ -179,8 +169,9 @@ export function initPiece(rotation,flip) {
         [0, 1, 0, 0, 0],
         [0, 1, 2, 0, 0], [0, 1, -19, 0, 0],
         [0, 1, 2, 3, 0], [0, 1, 2, -18, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, -20, -19, -39, 0],
-        [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18], [0, 1, -19, 2, 3], [0, -20, -40, -19, -18],
-        [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, 1, -19, -39, -38], [0, 1, -19, -18, -39], [1, 20, 21, 22, 41]
+        [0, 1, 2, 3, 4], [0, 1, 2, 3, -17], [0, 1, 2, -18, -17], [0, 1, -19, 2, -18], [0, -20, 1, 2, -18],
+        [0, 1, -19, 2, 3], [0, -20, -40, -19, -18], [0, 1, 2, -18, -38], [0, -20, -19, -39, -38],
+        [0, 1, -19, -39, -38], [0, 1, -19, -18, -39], [1, 20, 21, 22, 41]
     ]
 
     //180°
@@ -189,8 +180,9 @@ export function initPiece(rotation,flip) {
         [0, 20, 0, 0, 0],
         [0, 20, 40, 0, 0], [0, -20, -21, 0, 0],
         [0, 20, 40, 60, 0], [0, -20, -40, -41, 0], [0, -20, -21, -40, -0], [0, 1, 20, 21, 0], [0, -1, -21, -22, 0],
-        [0, 20, 40, 60, 80], [0, -20, -40, -60, -61], [0, -20, -40, -41, -61], [0, -20, -21, -40, -41], [0, -1, -20, -40, -41], [0, -20, -21, -40, -60], [0, -1, -2, -21, -41],
-        [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -21, -22, -42], [0, -20, -21, -22, -41], [1, 20, 21, 22, 41]
+        [0, 20, 40, 60, 80], [0, -20, -40, -60, -61], [0, -20, -40, -41, -61], [0, -20, -21, -40, -41], [0, -1, -20, -40, -41],
+        [0, -20, -21, -40, -60], [0, -1, -2, -21, -41], [0, -20, -40, -41, -42], [0, -1, -21, -22, -42],
+        [0, -20, -21, -22, -42], [0, -20, -21, -22, -41], [1, 20, 21, 22, 41]
     ]
 
     //270°
@@ -199,8 +191,9 @@ export function initPiece(rotation,flip) {
         [0, 1, 0, 0, 0],
         [0, 1, 2, 0, 0], [0, -1, 19, 0, 0],
         [0, 1, 2, 3, 0], [0, -1, -2, 18, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, 20, 19, 39, 0],
-        [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18], [0, -1, 19, -2, -3], [0, 20, 40, 19, 18],
-        [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, -1, 19, 39, 38], [0, -1, 19, 18, 39], [-1, -20, -21, -22, -41]
+        [0, 1, 2, 3, 4], [0, -1, -2, -3, 17], [0, -1, -2, 18, 17], [0, -1, 19, -2, 18], [0, 20, -1, -2, 18],
+        [0, -1, 19, -2, -3], [0, 20, 40, 19, 18], [0, -1, -2, 18, 38], [0, 20, 19, 39, 38],
+        [0, -1, 19, 39, 38], [0, -1, 19, 18, 39], [-1, -20, -21, -22, -41]
     ]
 
     //pos de base mirroir
@@ -209,8 +202,9 @@ export function initPiece(rotation,flip) {
         [0, 20, 0, 0, 0],
         [0, 20, 40, 0, 0], [0, 20, 21, 0, 0],
         [0, 20, 40, 60, 0], [0, 20, 40, 39, 0], [0, 20, 21, 40, 0], [0, 1, 20, 21, 0], [0, 1, -19, -18, 0],
-        [0, 20, 40, 60, 80], [0, 20, 40, 60, 59], [0, 20, 40, 39, 59], [0, 20, 19, 40, 39], [0, 1, 20, 40, 41], [0, 20, 19, 40, 60], [0, 1, 2, 21, 41],
-        [0, 20, 40, 41, 42], [0, 1, 21, 22, 42], [0, 20, 19, 18, 38], [0, 20, 19, 18, 39], [1, 20, 21, 22, 41]
+        [0, 20, 40, 60, 80], [0, 20, 40, 60, 59], [0, 20, 40, 39, 59], [0, 20, 19, 40, 39], [0, 1, 20, 40, 41],
+        [0, 20, 19, 40, 60], [0, 1, 2, 21, 41], [0, 20, 40, 41, 42], [0, 1, 21, 22, 42],
+        [0, 20, 19, 18, 38], [0, 20, 19, 18, 39], [1, 20, 21, 22, 41]
     ]
 
     //90° anti horaire mirroir
@@ -219,8 +213,9 @@ export function initPiece(rotation,flip) {
         [0, 1, 0, 0, 0],
         [0, 1, 2, 0, 0], [0, 1, -19, 0, 0],
         [0, 1, 2, 3, 0], [0, 1, 2, -20, 0], [0, 1, -19, 2, 0], [0, 1, 20, 21, 0], [0, 20, 21, 41, 0],
-        [0, 1, 2, 3, 4], [0, 1, 2, 3, 23], [0, 1, 2, 22, 23], [0, 1, 21, 2, 22], [0, -20, 1, 2, -18], [0, 1, 21, 2, 3], [0, -20, -40, -19, -18],
-        [0, 1, 2, -18, -38], [0, -20, -19, -39, -38], [0, -1, -21, -41, -42], [0, 1, 21, 41, 22], [1, 20, 21, 22, 41]
+        [0, 1, 2, 3, 4], [0, 1, 2, 3, 23], [0, 1, 2, 22, 23], [0, 1, 21, 2, 22], [0, -20, 1, 2, -18],
+        [0, 1, 21, 2, 3], [0, -20, -40, -19, -18], [0, 1, 2, -18, -38], [0, -20, -19, -39, -38],
+        [0, -1, -21, -41, -42], [0, 1, 21, 41, 22], [1, 20, 21, 22, 41]
     ]
 
     //180° mirroir
@@ -229,8 +224,9 @@ export function initPiece(rotation,flip) {
         [0, 20, 0, 0, 0],
         [0, 20, 40, 0, 0], [0, -20, -21, 0, 0],
         [0, 20, 40, 60, 0], [0, -20, -40, -39, 0], [0, -20, -21, -40, -0], [0, 1, 20, 21, 0], [0, -1, 19, 18, 0],
-        [0, 20, 40, 60, 80], [0, -20, -40, -60, -59], [0, -20, -40, -39, -59], [0, -20, -19, -40, -39], [0, -1, -20, -40, -41], [0, -20, -19, -40, -60], [0, -1, -2, -21, -41],
-        [0, -20, -40, -41, -42], [0, -1, -21, -22, -42], [0, -20, -19, -18, -38], [0, -20, -19, -18, -39], [1, 20, 21, 22, 41]
+        [0, 20, 40, 60, 80], [0, -20, -40, -60, -59], [0, -20, -40, -39, -59], [0, -20, -19, -40, -39], [0, -1, -20, -40, -41],
+        [0, -20, -19, -40, -60], [0, -1, -2, -21, -41], [0, -20, -40, -41, -42], [0, -1, -21, -22, -42],
+        [0, -20, -19, -18, -38], [0, -20, -19, -18, -39], [1, 20, 21, 22, 41]
     ]
 
     //270° mirroir
@@ -239,8 +235,9 @@ export function initPiece(rotation,flip) {
         [0, 1, 0, 0, 0],
         [0, 1, 2, 0, 0], [0, -1, 19, 0, 0],
         [0, 1, 2, 3, 0], [0, -1, -2, 20, 0], [0, -1, 19, -2, 0], [0, 1, 20, 21, 0], [0, -20, -21, -41, 0],
-        [0, 1, 2, 3, 4], [0, -1, -2, -3, -23], [0, -1, -2, -22, -23], [0, -1, -21, -2, -22], [0, 20, -1, -2, 18], [0, -1, -21, -2, -3], [0, 20, 40, 19, 18],
-        [0, -1, -2, 18, 38], [0, 20, 19, 39, 38], [0, 1, 21, 41, 42], [0, -1, -21, -41, -22], [-1, -20, -21, -22, -41]
+        [0, 1, 2, 3, 4], [0, -1, -2, -3, -23], [0, -1, -2, -22, -23], [0, -1, -21, -2, -22], [0, 20, -1, -2, 18],
+        [0, -1, -21, -2, -3], [0, 20, 40, 19, 18], [0, -1, -2, 18, 38], [0, 20, 19, 39, 38],
+        [0, 1, 21, 41, 42], [0, -1, -21, -41, -22], [-1, -20, -21, -22, -41]
     ]
 
     const tab = [tab1, tab2, tab3, tab4]
@@ -286,29 +283,22 @@ document.addEventListener('keydown', function (event) {
         setFlip((flip + 1) % 2)
     }
     if (!isEnded && event.keyCode === 81) {
-        Blokus.moves.clickCell(0,0,500,PieceId)
+        Blokus.moves.clickCell(0, 0, 500, PieceId)
         Move();
     }
 });
 
-document.addEventListener('contextmenu', function(ev) {
+document.addEventListener('contextmenu', function (ev) {
     setFlip((flip + 1) % 2)
 }, false);
-
-document.addEventListener("scroll",(event) => {
-    alert("ok")
-    setRotation((rotation + 1) % 4);
-});
 
 document.getElementById("app").addEventListener("mouseover", function (event) {
     hoverPreview(event);
 });
 
-document.onclick = function(e)
-{
-    if(e.which == 2 && e.target.tagName == 'TR')
-    {
-        var loc = e.target.getAttribute('onclick').replace('window.location.href=','');
+document.onclick = function (e) {
+    if (e.which == 2 && e.target.tagName == 'TR') {
+        var loc = e.target.getAttribute('onclick').replace('window.location.href=', '');
         window.location = loc;
         alert("ok");
     }
@@ -321,12 +311,10 @@ function hoverPreview(event) {
     let selected = element.getAttribute("data-id");
 
     if (typeof pieceSelected !== 'undefined' && selected >= 0 && selected < 500 && !isEnded) {
-        let piece = initPiece(rotation,flip)[pieceSelected - ((currentPlayer + 1) * 1000)];
+        let piece = initPiece(rotation, flip)[pieceSelected - ((currentPlayer + 1) * 1000)];
 
         for (let p in piece) {
             let htmlElement = document.querySelector(`[data-id=${CSS.escape(parseInt(piece[p]) + parseInt(selected))}]`)
-            console.log("1 "+piece[p])
-            console.log("2 "+selected)
 
             if (Math.abs(((parseInt(selected) + piece[0]) % 20) - ((parseInt(selected) + piece[p]) % 20)) < 10 && !htmlElement.className.toString().includes('color')) {
                 htmlElement.classList.add('color' + currentPlayer + 'pale');
@@ -337,6 +325,6 @@ function hoverPreview(event) {
 
 function Move(G, ctx) {
     nextPlayer()
-    ctx.events.moves.clickCell({id: 500,idPiece: PieceId});
-    ctx.events.endTurn({ next: currentPlayer});
+    ctx.events.moves.clickCell({id: 500, idPiece: PieceId});
+    ctx.events.endTurn({next: currentPlayer});
 }
